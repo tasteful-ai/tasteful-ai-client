@@ -17,12 +17,12 @@ function App() {
         message: input
       }, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VydGVzdDFAZ21haWwuY29tIiwiaWF0IjoxNzM3NjEyMDUwLCJleHAiOjE3Mzc2MTU2NTB9.8Eor8RB02mE9QxZFXWQwuMl1TNXbu9SOFCd_BMhiMA4`
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VydGVzdDFAZ21haWwuY29tIiwiaWF0IjoxNzM3NjUxNzEzLCJleHAiOjE3Mzc2NTUzMTN9.WW1nLxyTzXYqeTP6_fSCYNba6mdw5YOR9eT4hhMqEJM`
         }
       });
 
       // 기존 AI 호출 시에 응답 받아오는 로직
-      // const botMessage = { sender: 'bot', text: response.data.completion };
+      // const botMessage = { sender: 'bot', text: response.data.recommendation };
 
       // 서버의 recommendation 필드 사용하여 메시지 설정
       const botMessage = { sender: 'bot', text: response.data.data.recommendation };
