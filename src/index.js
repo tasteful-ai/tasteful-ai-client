@@ -4,10 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Redux 관련 import 추가
+import { Provider } from 'react-redux';
+import store from './store/store'; // Redux Store import
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}> {/* Redux Store를 Provider로 감싸기 */}
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
