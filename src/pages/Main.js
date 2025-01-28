@@ -10,8 +10,9 @@ const Main = () => {
       </div>
       <h1 className="main-title">오늘 뭐 먹지?</h1>
       <p className="main-description">
-        Make personalized menu decisions with an AI agent specializing in menu recommendations. <br />
-        Enter the food keyword you want to eat and check the list of popular restaurants around you.
+        Elevate your dining experience with our AI-powered menu recommendations. <br />
+        Discover personalized suggestions tailored to your unique tastes, <br />
+        explore the map, and uncover the perfect spot to indulge in unforgettable flavors.
       </p>
       <div className="menu-buttons">
         <button>오늘 점심메뉴 추천해줘</button>
