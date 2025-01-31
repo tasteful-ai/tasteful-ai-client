@@ -1,0 +1,70 @@
+/* 전체 컨테이너 */
+.login-container {
+  max-width: 500px; /* 회원가입과 동일한 너비 */
+  margin: 50px auto; /* 회원가입과 동일한 위치 */
+  padding: 30px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 스타일 */
+.login-title {
+  font-size: 24px; /* 회원가입과 동일한 제목 크기 */
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* 입력 필드 스타일 */
+.login-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* 버튼 스타일 */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #444;
+}
+
+/* 에러 메시지 */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* 하단 링크 스타일 */
+.login-footer {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-footer a {
+  color: #6c63ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
