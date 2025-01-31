@@ -5,6 +5,7 @@ import { Sidebar } from "./components/Sidebar";
 import Main from "./pages/Main";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
+import Location from "./pages/Location"; // ✅ 변경: Location 사용
 import { connectWebSocket, disconnectWebSocket } from "./store/slices/chattingSlice";
 import ChattingRoomList from "./pages/ChattingRoomList";
 import ChattingRoom from "./pages/ChattingRoom";
@@ -16,12 +17,13 @@ function Layout() {
 
   return (
     <div style={{ display: "flex" }}>
-      {showSidebar && <Sidebar />}
+      {showSidebar && <Sidebar />} {/* 사이드바 유지 */}
       <div style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/location" element={<Location />} /> {/* Location 사용 */}
           <Route path="/chatting/rooms" element={<ChattingRoomList />} />
           <Route path="/chatting/create" element={<ChattingRoomCreate />} />
           <Route path="/chatting/room/:roomId" element={<ChattingRoom />} />
@@ -43,7 +45,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Router> {/* ❌ 중복되는 경우 index.js 확인 후 제거 */}
+    <Router>
       <Layout />
     </Router>
   );
