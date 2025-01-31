@@ -1,4 +1,4 @@
-.chat-container {
+.chatting-room {
   padding: 20px;
   max-width: 600px;
   margin: 0 auto;
@@ -11,16 +11,97 @@
   padding: 10px;
 }
 
+.message {
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+}
+
 .input-container {
+  display: flex;
   margin-top: 10px;
 }
 
 .input-container input {
-  width: 80%;
-  padding: 8px;
+  flex: 1;
+  padding: 10px;
 }
 
 .input-container button {
-  margin-left: 10px;
-  padding: 8px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
+
+.chatting-room-list,
+.chatting-room-create,
+.chatting-room {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.create-room-button,
+.send-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.create-room-button:hover,
+.send-button:hover {
+  background-color: #45a049;
+}
+
+.room-input,
+.message-input {
+  width: 80%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.message-list {
+  border: 1px solid #ccc;
+  height: 300px;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.message {
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.message.user {
+  background-color: #d3d3d3;
+  color: #000;
+  align-self: flex-end;
+}
+
+.message.bot {
+  background-color: #f0f0f0;
+  color: #000;
+  align-self: flex-start;
+}
+
+.input-container {
+  display: flex;
+  margin-top: 10px;
+}
+
+.message-input {
+  flex: 1;
+  padding: 10px;
+}
+
+.send-button {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
