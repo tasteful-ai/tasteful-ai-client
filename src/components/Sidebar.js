@@ -31,6 +31,7 @@ export const Sidebar = () => {
   return (
     <>
       <button className={`menu-icon ${isOpen ? "open" : "closed"}`} onClick={toggleSidebar}>☰</button>
+
       <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
         <div className="sidebar-header">
         </div>
@@ -39,11 +40,12 @@ export const Sidebar = () => {
           <button className="nav-item" onClick={() => navigate("/location")}>주변 맛집 검색</button>
           <button className="nav-item" onClick={() => navigate("/chatting/rooms")}>오먹 채팅</button>
         </nav>
+
         <div className="sidebar-footer">
           {isLoggedIn ? (
             <button className="logout-btn" onClick={handleLogout}>로그아웃</button>
           ) : (
-            <a href="/signup">회원가입 / 로그인</a>
+            <a href="/login">회원가입 / 로그인</a>
           )}
           <button className="settings-icon" onClick={() => navigate("/mypage")}>⚙</button>
         </div>
