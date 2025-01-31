@@ -1,54 +1,58 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { io } from "socket.io-client";
+import { Client } from "@stomp/stompjs";
+import axios from "../../api/api";
 
-// 웹소켓 연결 설정
-const socket = io("http://localhost:8080/ws-chat",{extraHeaders: {Authorization: 'Bearer '}});
+const initialState = {
+  client: null,
+  connected: false,
+  messages: [],
+  rooms: [],
+  loading: false,
+  error: null,
+};
 
-// 비동기 액션: 채팅방 목록 가져오기
+// 채팅방 목록 가져오기 (백엔드 `/api/chatting/rooms`)
 export const fetchChattingRooms = createAsyncThunk(
   "chatting/fetchChattingRooms",
-  async (_,{ rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/chatting/room/1`,{headers: {Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VydGVzdDEyM0BnbWFpbC5jb20iLCJpYXQiOjE3Mzc5NjAxMDAsImV4cCI6MTczNzk2MzcwMH0.VhW9YNZRdT39K83GRI9nHYutQ7A--koyew1H2UDhkLE'}});
-      return response.data.data; // 서버에서 받은 채팅방 목록
+      const response = await axios.get("/api/chatting/rooms");
+      return response.data.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || "채팅방 목록을 불러오는 중 에러 발생");
+      return rejectWithValue(error.response?.data?.message || "채팅방 목록 불러오기 실패");
     }
   }
 );
 
-// 비동기 액션: 특정 채팅방 메시지 가져오기
+// 특정 채팅방 메시지 가져오기 (백엔드 `/api/chatting/room/{roomId}/messages`)
 export const fetchRoomMessages = createAsyncThunk(
   "chatting/fetchRoomMessages",
   async (roomId, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/api/chatting/room/${roomId}/messages`);
-      return response.data.data; // 서버에서 받은 메시지 목록
+      return response.data.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || "메시지를 불러오는 중 에러 발생");
+      return rejectWithValue(error.response?.data?.message || "메시지 불러오기 실패");
     }
   }
 );
 
-// 채팅 슬라이스 정의
 const chattingSlice = createSlice({
   name: "chatting",
-  initialState: {
-    rooms: [], // 채팅방 목록
-    messages: [], // 특정 채팅방 메시지
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
-    // 메시지 추가
+    setClient: (state, action) => {
+      state.client = action.payload;
+    },
+    setConnected: (state, action) => {
+      state.connected = action.payload;
+    },
     addMessage: (state, action) => {
       state.messages.push(action.payload);
     },
   },
   extraReducers: (builder) => {
     builder
-      // 채팅방 목록 가져오기
       .addCase(fetchChattingRooms.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -61,7 +65,6 @@ const chattingSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // 특정 채팅방 메시지 가져오기
       .addCase(fetchRoomMessages.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -77,33 +80,50 @@ const chattingSlice = createSlice({
   },
 });
 
-// 액션 생성 함수
-export const { addMessage } = chattingSlice.actions;
+// WebSocket 연결
+export const connectWebSocket = (roomId) => (dispatch, getState) => {
+  const { client, connected } = getState().chatting;
+  if (connected) return;
 
-// 웹소켓 연결 액션
-export const connectWebSocket = () => (dispatch) => {
-  socket.on("connect", () => {
-    console.log("WebSocket 연결됨");
+  const stompClient = new Client({
+    brokerURL: "ws://localhost:8080/ws-chat",
+    connectHeaders: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+    onConnect: () => {
+      dispatch(setConnected(true));
+      stompClient.subscribe(`/topic/chatting/room/${roomId}`, (message) => {
+        dispatch(addMessage(JSON.parse(message.body)));
+      });
+    },
+    onDisconnect: () => {
+      dispatch(setConnected(false));
+    },
   });
 
-  // 서버로부터 메시지를 받을 때
-  socket.on("message", (message) => {
-    dispatch(addMessage(message)); // 메시지를 상태에 추가
-  });
+  stompClient.activate();
+  dispatch(setClient(stompClient));
 };
 
-// 웹소켓 연결 해제 액션
-export const disconnectWebSocket = () => () => {
-  if (socket.connected) {
-    socket.disconnect();
-    console.log("WebSocket 연결 해제됨");
+// WebSocket 연결 해제
+export const disconnectWebSocket = () => (dispatch, getState) => {
+  const { client } = getState().chatting;
+  if (client) {
+    client.deactivate();
+    dispatch(setConnected(false));
   }
 };
 
-// 메시지 전송 액션
-export const sendMessage = (message) => () => {
-  socket.emit("message", message);
+// 메시지 전송
+export const sendMessage = (roomId, message) => (dispatch, getState) => {
+  const { client, connected } = getState().chatting;
+  if (client && connected) {
+    client.publish({
+      destination: `/app/chatting/room/${roomId}/message`,
+      body: JSON.stringify({ roomId, sender: localStorage.getItem("username"), message }),
+    });
+  }
 };
 
-// 채팅 슬라이스 리듀서
+export const { setClient, setConnected, addMessage } = chattingSlice.actions;
 export default chattingSlice.reducer;
