@@ -1,31 +1,22 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setTokens } from "../store/slices/authSlice";
+import React from "react";
+import "./../styles/Main.css"; // CSS 경로 확인
+import logo from "./../assets/9kcalTeamlogo.png"; // 올바른 로고 이미지 경로
 
-const AdminMain = () => {
-  const dispatch = useDispatch();
-  const memberRole = useSelector((state) => state.auth.memberRole) || localStorage.getItem("memberRole");
-
-  useEffect(() => {
-    // ✅ localStorage에서 Redux로 memberRole 업데이트
-    const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
-    const memberRole = localStorage.getItem("memberRole");
-    const memberId = localStorage.getItem("memberId");
-
-
-    if (accessToken && memberRole) {
-      dispatch(setTokens({ accessToken, refreshToken, memberRole, memberId }));
-    }
-  }, [dispatch]);
-
-  console.log("🔍 AdminMain Redux memberRole:", memberRole);
-
+const Main = () => {
   return (
-    <div>
-      {memberRole === "ADMIN" ? <h1>관리자 페이지</h1> : <h1>접근 권한이 없습니다.</h1>}
+    <div className="main-container">
+      <div className="main-logo">
+        <img src={logo} alt="logo" className="logo-image" /> {/* 로고 이미지 */}
+      </div>
+      <h1 className="main-title">오늘 뭐 먹지?</h1>
+      <p className="main-description">
+        Elevate your dining experience with our AI-powered menu recommendations. <br />
+        Discover personalized suggestions tailored to your unique tastes, <br />
+        explore the map, and uncover the perfect spot to indulge in unforgettable flavors.
+      </p>
+      {/* ✅ 입력창 삭제됨 */}
     </div>
   );
 };
 
-export default AdminMain;
+export default Main;
