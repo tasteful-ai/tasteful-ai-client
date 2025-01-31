@@ -8,11 +8,18 @@ export const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   // 로그인 상태 변경 감지
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     setIsLoggedIn(!!token); // 토큰이 있으면 로그인 상태로 설정
   }, []);
+
   // 로그아웃 처리
   const handleLogout = () => {
     localStorage.removeItem("accessToken"); // 토큰 삭제
@@ -20,24 +27,29 @@ export const Sidebar = () => {
     setIsLoggedIn(false); // 로컬 상태 업데이트
     navigate("/"); // 홈으로 이동
   };
+  
   return (
-    <aside className="sidebar">
-      <div className="sidebar-header">
-        <button className="menu-icon">☰</button>
-      </div>
-      <nav className="sidebar-nav">
-        <button className="nav-item">Begin a New AI Chat <span className="add-icon">+</span></button>
-        <button className="nav-item" onClick={() => navigate("/location")}>주변 맛집 검색</button>
-        <button className="nav-item" onClick={() => navigate("/chatting/rooms")}>오먹 채팅</button>
-      </nav>
-      <div className="sidebar-footer">
-        {isLoggedIn ? (
-          <button className="logout-btn" onClick={handleLogout}>로그아웃</button>
-        ) : (
-          <a href="/signup">회원가입 / 로그인</a>
-        )}
-        <button className="settings-icon" onClick={() => navigate("/mypage")}>⚙</button>
-      </div>
-    </aside>
+    <>
+      <button className={`menu-icon ${isOpen ? "open" : "closed"}`} onClick={toggleSidebar}>☰</button>
+      <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
+        <div className="sidebar-header">
+        </div>
+        <nav className="sidebar-nav">
+          <button className="nav-item">Begin a New AI Chat <span className="add-icon">+</span></button>
+          <button className="nav-item" onClick={() => navigate("/location")}>주변 맛집 검색</button>
+          <button className="nav-item" onClick={() => navigate("/chatting/rooms")}>오먹 채팅</button>
+        </nav>
+        <div className="sidebar-footer">
+          {isLoggedIn ? (
+            <button className="logout-btn" onClick={handleLogout}>로그아웃</button>
+          ) : (
+            <a href="/signup">회원가입 / 로그인</a>
+          )}
+          <button className="settings-icon" onClick={() => navigate("/mypage")}>⚙</button>
+        </div>
+      </aside>
+    </>
   );
 };
+
+export default Sidebar;

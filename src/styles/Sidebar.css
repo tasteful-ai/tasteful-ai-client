@@ -7,6 +7,18 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.sidebar.closed {
+  transform: translateX(-100%); 
+  width: 0; 
+  padding: 0;
+  overflow: hidden;
 }
 
 /* 메뉴 아이콘 (햄버거 버튼) */
@@ -16,7 +28,19 @@
   background: none;
   border: none;
   cursor: pointer;
-  margin-bottom: 20px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 2000;
+  transition: color 0.3 ease-in-out;
+}
+
+.menu-icon.closed {
+  color: black;
+}
+
+.menu-icon.open {
+  color: white;
 }
 
 /* 네비게이션 버튼 */
@@ -24,6 +48,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-top: 50px;
 }
 
 .nav-item {
@@ -48,6 +73,10 @@
 .add-icon {
   font-size: 18px;
   color: white;
+}
+
+.sidebar-header {
+  margin-top: 20px;
 }
 
 /* Footer를 아래로 밀어주는 스타일 */
