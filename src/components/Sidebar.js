@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux"; // Redux 상태 사용
-import { logout } from "../store/slices/authSlice"; // 로그아웃 액션
 import "./../styles/Sidebar.css";
+import { clearTokens } from "../store/slices/authSlice";
 
 export const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   // 로그인 상태 변경 감지
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
     setIsLoggedIn(!!token); // 토큰이 있으면 로그인 상태로 설정
   }, []);
-
   // 로그아웃 처리
   const handleLogout = () => {
-    localStorage.removeItem("token"); // 토큰 삭제
-    dispatch(logout()); // Redux 상태 업데이트
+    localStorage.removeItem("accessToken"); // 토큰 삭제
+    dispatch(clearTokens()); // Redux 상태 업데이트
     setIsLoggedIn(false); // 로컬 상태 업데이트
     navigate("/"); // 홈으로 이동
   };
-
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -39,7 +36,7 @@ export const Sidebar = () => {
         ) : (
           <a href="/signup">회원가입 / 로그인</a>
         )}
-        <button className="settings-icon" onClick={() => navigate("/mypage")}>⚙</button>
+        <button className="settings-icon" onClick={() => navigate("/mypage")}>:톱니바퀴:</button>
       </div>
     </aside>
   );
