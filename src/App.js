@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Sidebar } from "./components/Sidebar";
+import { AdminSidebar } from "./components/AdminSidebar"; // ✅ 관리자 사이드바 추가
 import Main from "./pages/Main";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
@@ -14,17 +15,18 @@ import AdminMain from "./pages/AdminMain";
 
 function Layout() {
   const location = useLocation();
-  const showSidebar = location.pathname !== "/signup" && location.pathname !== "/login"; // 회원가입/로그인 페이지에서는 사이드바 숨김
+  const isAuthPage = location.pathname === "/signup" || location.pathname === "/login";
+  const isAdminPage = location.pathname.startsWith("/admin"); // ✅ 관리자 페이지 여부 확인
 
   return (
     <div style={{ display: "flex" }}>
-      {showSidebar && <Sidebar />} {/* 사이드바 유지 */}
+      {!isAuthPage && (isAdminPage ? <AdminSidebar /> : <Sidebar />)} {/* ✅ 경로에 따라 사이드바 변경 */}
       <div style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/location" element={<Location />} /> {/* Location 사용 */}
+          <Route path="/location" element={<Location />} />
           <Route path="/chatting/rooms" element={<ChattingRoomList />} />
           <Route path="/chatting/create" element={<ChattingRoomCreate />} />
           <Route path="/chatting/room/:roomId" element={<ChattingRoom />} />

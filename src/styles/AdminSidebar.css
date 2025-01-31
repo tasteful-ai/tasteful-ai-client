@@ -22,21 +22,21 @@
   }
   
   .admin-sidebar .nav-item {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
     color: white;
-    padding: 14px 18px;
+    padding: 10px 15px;
     border: none;
+    border-radius: 5px;
     font-size: 16px;
     text-align: left;
     cursor: pointer;
-    margin-bottom: 10px;
-    display: block;
-    border-radius: 10px;
-    transition: background-color 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .admin-sidebar .nav-item:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.2);
   }
   
   .admin-sidebar .sidebar-footer {
