@@ -10,6 +10,7 @@ import { connectWebSocket, disconnectWebSocket } from "./store/slices/chattingSl
 import ChattingRoomList from "./pages/ChattingRoomList";
 import ChattingRoom from "./pages/ChattingRoom";
 import ChattingRoomCreate from "./pages/ChattingRoomCreate";
+import AdminMain from "./pages/AdminMain";
 
 function Layout() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function Layout() {
           <Route path="/chatting/rooms" element={<ChattingRoomList />} />
           <Route path="/chatting/create" element={<ChattingRoomCreate />} />
           <Route path="/chatting/room/:roomId" element={<ChattingRoom />} />
+          <Route path="/admin" element={<AdminMain />} />
         </Routes>
       </div>
     </div>

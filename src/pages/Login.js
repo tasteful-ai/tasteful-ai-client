@@ -21,6 +21,9 @@ export const Login = () => {
       const response = await axios.post("/api/auth/login", formData);
       localStorage.setItem("accessToken", response.data.data.accessToken); // 로그인 성공 시 토큰 저장
       localStorage.setItem("refreshToken", response.data.data.refreshToken);
+      localStorage.setItem("memberRole", response.data.data.memberRole);
+      localStorage.setItem("memberId", response.data.data.memberId);
+
       alert("로그인 성공!");
       // :흰색_확인_표시: localStorage 변경 이벤트 발생 → Sidebar에서 즉시 로그인 상태 반영됨
       window.dispatchEvent(new Event("storage"));

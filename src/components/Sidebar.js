@@ -36,7 +36,7 @@ export const Sidebar = () => {
         ) : (
           <a href="/signup">회원가입 / 로그인</a>
         )}
-        <button className="settings-icon" onClick={() => navigate("/mypage")}>:톱니바퀴:</button>
+        <button className="settings-icon" onClick={() => navigate("/mypage")}>⚙</button>
       </div>
     </aside>
   );
