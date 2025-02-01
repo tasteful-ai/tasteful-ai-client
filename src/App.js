@@ -12,6 +12,7 @@ import ChattingRoomList from "./pages/ChattingRoomList";
 import ChattingRoom from "./pages/ChattingRoom";
 import ChattingRoomCreate from "./pages/ChattingRoomCreate";
 import AdminMain from "./pages/AdminMain";
+import TasteSelection from "./pages/TasteSelection";
 
 function Layout() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function Layout() {
           <Route path="/chatting/create" element={<ChattingRoomCreate />} />
           <Route path="/chatting/room/:roomId" element={<ChattingRoom />} />
           <Route path="/admin" element={<AdminMain />} />
+          <Route path="/taste" element={<TasteSelection />} />
         </Routes>
       </div>
     </div>
