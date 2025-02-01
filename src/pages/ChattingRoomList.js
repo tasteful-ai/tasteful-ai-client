@@ -33,7 +33,7 @@ const ChattingRoomList = () => {
           <div 
             key={room.id} 
             className="chat-room-item"
-            onClick={() => navigate(`/chatting/rooms/${room.id}`)}          
+            onClick={() => navigate(`/chatting/room/${room.id}`)}          
           >
             <img src={chatIcon} alt="Chat Icon" className="chat-room-icon" />
             <span className="chat-room-name">{room.roomName || room.name}</span>
