@@ -42,23 +42,23 @@
 .signup-form input,
 .signup-form select {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
+  padding: 14px; /* ✅ 내부 여백 증가 */
+  margin-bottom: 16px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 8px; /* ✅ 모서리 둥글게 */
+  font-size: 16px; /* ✅ 글씨 크기 증가 */
   box-sizing: border-box;
 }
 
 /* 버튼 스타일 */
 .signup-button {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   font-size: 16px;
   color: white;
   background-color: black;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
