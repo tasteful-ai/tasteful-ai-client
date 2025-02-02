@@ -13,6 +13,7 @@ import ChattingRoomList from "./pages/ChattingRoomList";
 import ChattingRoom from "./pages/ChattingRoom";
 import ChattingRoomCreate from "./pages/ChattingRoomCreate";
 import Mypage from "./pages/Mypage";
+import UpdateProfile from "./pages/UpdateProfile";
 import AdminMain from "./pages/AdminMain";
 import MembersList from "./pages/MembersList";
 import ChangePassword from "./pages/ChangePassword";
@@ -46,6 +47,7 @@ function Layout() {
           <Route path="/chatting/create" element={<ChattingRoomCreate />} />
           <Route path="/chatting/room/:roomId" element={<ChattingRoom />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/admin" element={<AdminMain />} />
           <Route path="/members" element={<MembersList />} />
           <Route path="/change-password" element={<ChangePassword />} />
