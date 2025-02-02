@@ -1,0 +1,114 @@
+.h-screen overflow-hidden {
+    display: flex;
+}
+
+.profile-container {
+    height: 300px;
+    /* background-color: gray; */
+    display: flex;
+    margin: auto;
+    padding-top: 60px;
+}
+
+.taste-container {
+    height: 350px;
+    /* background-color: green; */
+    padding: 0px 70px 0px 100px;
+    display: flex;
+}
+
+.profile-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 10%;
+    margin: 0px 70px 50px 100px;
+}
+
+.profile-info {
+    height: 200px;
+    width: 700px;
+    /* background-color: aliceblue; */
+    padding-top: 30px;
+}
+
+.nickname {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.created-at {
+    font-size: 18px;
+    color: gray;
+    margin: 20px auto 15px auto
+}
+
+.profile-buttons {
+    display: flex;
+}
+
+.profile-update-button {
+    width: 130px;
+}
+
+.taste-update-button {
+    width: 130px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.taste-box {
+    width: 400px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.spicyness-box {
+    width: 200px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.taste-title {
+    font-size: 25px;
+    font-weight: bolder;
+    display: flex;
+}
+
+.likethumb {
+    height: 27px;
+    width: 30px;
+    margin-left: 10px;
+    margin-top: 2px;
+}
+
+.dislikethumb {
+    height: 27px;
+    width: 30px;
+    margin-left: 10px;
+    margin-top: 6px;
+}
+
+.taste-tag {
+    background-color: gainsboro;
+    height: 25px;
+    display: inline-block;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.container {
+    display: flex;
+    width: 120vw;
+    height: 100vh;
+    overflow: hidden;
+    margin-left: 20px;
+}
+
+/* 메인 컨텐츠 */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
