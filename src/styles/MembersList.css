@@ -1,20 +1,32 @@
-/* ✅ 메인 컨테이너 (회원 목록) */
+/* ✅ 메인 컨테이너 중앙 정렬 */
+.admin-main-container {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+/* ✅ 회원 목록 중앙 정렬 */
 .admin-content {
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px; /* ✅ 여백 줄이기 */
+    width: 80%;
+    max-width: 900px; /* ✅ 가로 크기 조정 */
+    margin: 0 auto; /* ✅ 중앙 정렬 */
+    padding: 20px;
     transition: all 0.3s ease-in-out;
-    margin-left: 30px; /* ✅ 사이드바 고려 */
-    width: 100%;
-    max-width: 900px; /* ✅ 가로 크기 줄이기 */
+}
+
+/* ✅ 사이드바 닫혔을 때도 중앙 유지 */
+.sidebar-closed .admin-main-container {
+    justify-content: center;
 }
 
 /* ✅ 회원 목록 제목 */
 .admin-title {
-    font-size: 22px; /* ✅ 폰트 크기 조정 */
+    font-size: 22px;
     font-weight: bold;
     margin-bottom: 15px;
     text-align: center;
@@ -24,9 +36,9 @@
 /* ✅ 카드형 테이블 */
 .admin-table {
     width: 100%;
-    max-width: 850px; /* ✅ 가로 크기 줄이기 */
+    max-width: 850px;
     border-collapse: separate;
-    border-spacing: 0 10px; /* ✅ 카드형 느낌 유지 */
+    border-spacing: 0 10px;
     text-align: center;
 }
 
@@ -34,11 +46,11 @@
 .admin-table th {
     background-color: #f8f9fa;
     font-weight: bold;
-    padding: 10px; /* ✅ 패딩 줄이기 */
+    padding: 10px;
     border-radius: 8px;
     color: #333;
     text-transform: uppercase;
-    font-size: 14px; /* ✅ 글씨 크기 조정 */
+    font-size: 14px;
 }
 
 /* ✅ 테이블 행 스타일 (카드형 디자인) */
@@ -55,22 +67,22 @@
 
 /* ✅ 테이블 데이터 */
 .admin-table td {
-    padding: 10px; /* ✅ 패딩 줄이기 */
+    padding: 10px;
     text-align: center;
     vertical-align: middle;
     border-radius: 8px;
-    font-size: 14px; /* ✅ 글씨 크기 조정 */
+    font-size: 14px;
 }
 
 /* ✅ 상태(활성화/비활성화) 스타일 */
 .status-text {
     font-weight: bold;
-    padding: 6px 10px; /* ✅ 크기 줄이기 */
+    padding: 6px 10px;
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px; /* ✅ 글씨 크기 줄이기 */
+    font-size: 13px;
 }
 
 /* ✅ 활성화 (녹색) */
@@ -90,8 +102,8 @@
     background-color: black;
     color: white;
     border: none;
-    padding: 8px 15px; /* ✅ 버튼 크기 줄이기 */
-    font-size: 13px; /* ✅ 폰트 크기 조정 */
+    padding: 8px 15px;
+    font-size: 13px;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -108,14 +120,15 @@
 /* ✅ 반응형 - 모바일 최적화 */
 @media screen and (max-width: 768px) {
     .admin-content {
-        max-width: 95%;
+        width: 90%;
+        max-width: 100%;
     }
     .admin-table {
         width: 100%;
         max-width: 100%;
     }
     .admin-table th, .admin-table td {
-        font-size: 12px; /* 모바일에서 글씨 줄이기 */
+        font-size: 12px;
         padding: 8px;
     }
 }
