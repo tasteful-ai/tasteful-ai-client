@@ -28,17 +28,25 @@ const ChattingRoomList = () => {
         </button>
       )}
 
+      {loading && <p>채팅방을 불러오는 중...</p>}
+
+      {error && <p className="error-text">❌ 오류 발생: {error}</p>}
+
       <div className="room-list">
-        {rooms.map((room) => (
-          <div 
-            key={room.id} 
-            className="chat-room-item"
-            onClick={() => navigate(`/chatting/room/${room.id}`)}          
-          >
-            <img src={chatIcon} alt="Chat Icon" className="chat-room-icon" />
-            <span className="chat-room-name">{room.roomName || room.name}</span>
-          </div>
-        ))}
+        {rooms.length > 0 ? (
+          rooms.map((room) => (
+            <div 
+              key={room.id} 
+              className="chat-room-item"
+              onClick={() => navigate(`/chatting/room/${room.id}`)}          
+            >
+              <img src={chatIcon} alt="Chat Icon" className="chat-room-icon" />
+              <span className="chat-room-name">{room.roomName || room.name}</span>
+            </div>
+          ))
+        ) : (
+          <p className="empty-message">아직 생성된 채팅방이 없습니다.</p>
+        )}
       </div>
     </div>
   );
