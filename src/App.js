@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Sidebar } from "./components/Sidebar";
@@ -19,10 +19,18 @@ function Layout() {
   const isAuthPage = location.pathname === "/signup" || location.pathname === "/login";
   const isAdminPage = location.pathname.startsWith("/admin"); // ✅ 관리자 페이지 여부 확인
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div style={{ display: "flex" }}>
-      {!isAuthPage && (isAdminPage ? <AdminSidebar /> : <Sidebar />)} {/* ✅ 경로에 따라 사이드바 변경 */}
-      <div style={{ flex: 1 }}>
+    <div className={`layout ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+      {!isAuthPage && (isAdminPage ? <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /> : 
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      )}
+      <main className="content">
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signup" element={<Signup />} />
@@ -34,7 +42,7 @@ function Layout() {
           <Route path="/admin" element={<AdminMain />} />
           <Route path="/taste" element={<TasteSelection />} />
         </Routes>
-      </div>
+      </main>
     </div>
   );
 }
