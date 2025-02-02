@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -13,16 +13,11 @@ const MembersList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetchMembers();
-  }, [location.pathname]);
-
-  // ✅ 회원 목록 불러오기 (memberId 포함)
-  const fetchMembers = async () => {
+  // ✅ 회원 목록 불러오기
+  const fetchMembers = useCallback(async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      console.log("🔹 현재 토큰:", accessToken);
       if (!accessToken) {
         alert("로그인이 필요합니다.");
         navigate("/login");
@@ -34,78 +29,59 @@ const MembersList = () => {
         withCredentials: true,
       });
 
-      console.log("🔹 응답 데이터:", response.data.data);
-
-      // ✅ 백엔드에서 `id` 또는 `memberId` 필드를 정확하게 설정
-      setMembers(response.data.data.map(member => ({
-        id: member.id ?? member.memberId,  // `id`가 없으면 `memberId` 사용
-        memberId: member.memberId,         // ✅ 삭제 시 사용할 memberId
-        nickname: member.nickname,
-        email: member.email,
-        gender: member.gender,
-        role: member.role,
-        deletedAt: member.deletedAt,
-        createdAt: member.createdAt
-      })));
-
+      setMembers(
+        response.data.data.map((member) => ({
+          memberId: member.id ?? member.memberId,
+          nickname: member.nickname,
+          email: member.email,
+          gender: member.gender,
+          role: member.role,
+          deletedAt: member.deletedAt,
+          createdAt: member.createdAt,
+        }))
+      );
     } catch (err) {
       console.error("❌ 회원 목록 불러오기 실패:", err.response || err);
       setError("회원 목록을 불러오는 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
-  const refreshTokenAndRetry = async () => {
-    const refreshToken = localStorage.getItem("refreshToken");
-    if (!refreshToken) throw new Error("❌ 리프레시 토큰 없음 - 재로그인 필요");
+  useEffect(() => {
+    fetchMembers();
+  }, [fetchMembers, location.pathname]);
 
-    const refreshResponse = await axios.post("http://localhost:8080/api/auth/refresh", {
-      refreshToken,
-    });
-
-    const newAccessToken = refreshResponse.data.accessToken;
-    localStorage.setItem("accessToken", newAccessToken);
-
-    return fetchMembers();
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    dispatch(clearTokens());
-    navigate("/login");
-  };
-
-  // ✅ 회원 삭제 기능 (ID 확인 및 API URL 수정)
-  const handleDeleteMember = async (memberId) => {
-    console.log("🔹 삭제 요청 대상 멤버 ID:", memberId); // ✅ 삭제 요청 전에 ID 확인
-
-    if (!memberId) {
-      alert("삭제할 회원의 ID가 없습니다.");
+  // ✅ 회원 삭제 기능
+  const handleDeleteMember = async (memberId, role, isDeleted) => {
+    if (role === "ADMIN") {
+      alert("🚫 관리자 계정은 보호되어 있습니다.");
       return;
     }
 
-    const confirmDelete = window.confirm("정말 이 회원을 삭제하시겠습니까?");
+    if (isDeleted) {
+      alert("⛔ 이미 접근 제한된 회원입니다.");
+      return;
+    }
+
+    const confirmDelete = window.confirm("정말 이 회원을 접근 제한하시겠습니까?");
     if (!confirmDelete) return;
 
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      console.log("🔹 현재 토큰: ", accessToken);
       if (!accessToken) {
         alert("로그인이 필요합니다.");
         navigate("/login");
         return;
       }
 
-      const response = await axios.delete(`http://localhost:8080/api/admins/members/${memberId}`, {
+      await axios.delete(`http://localhost:8080/api/admins/members/${memberId}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
       });
 
-      console.log("✅ 삭제 성공: ", response);
-      alert("회원이 성공적으로 삭제되었습니다.");
+      alert("회원이 성공적으로 접근 제한되었습니다.");
       fetchMembers();
     } catch (err) {
       console.error("❌ 삭제 실패:", err.response || err);
@@ -114,6 +90,7 @@ const MembersList = () => {
         alert("세션이 만료되었습니다. 다시 로그인해주세요.");
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        dispatch(clearTokens());
         navigate("/login");
       } else {
         alert(`회원 삭제 중 오류가 발생했습니다. (${err.response?.status})`);
@@ -131,6 +108,7 @@ const MembersList = () => {
         <table className="admin-table">
           <thead>
             <tr>
+              <th>회원 ID</th>
               <th>가입일</th>
               <th>닉네임</th>
               <th>이메일</th>
@@ -144,6 +122,7 @@ const MembersList = () => {
             {members.length > 0 ? (
               members.map((member) => (
                 <tr key={member.memberId}>
+                  <td>{member.memberId}</td>
                   <td>{member.createdAt}</td>
                   <td>{member.nickname}</td>
                   <td>{member.email}</td>
@@ -151,25 +130,27 @@ const MembersList = () => {
                   <td>{member.role}</td>
                   <td>
                     <div className={`status-text ${member.deletedAt ? "inactive" : "active"}`}>
-                      {member.deletedAt ? "비활성화" : "활성화"}
+                      {member.deletedAt ? "⛔ 비활성화" : "✅ 활성화"}
                     </div>
                   </td>
                   <td>
                     <button
                       className="action-button"
-                      onClick={() => {
-                        console.log("🛠 버튼 클릭 - 삭제할 ID:", member.memberId); // ✅ 로그 추가
-                        handleDeleteMember(member.memberId);
+                      onClick={() => handleDeleteMember(member.memberId, member.role, member.deletedAt)}
+                      disabled={member.role === "ADMIN" || member.deletedAt}
+                      style={{
+                        backgroundColor: member.role === "ADMIN" ? "#3498db" : member.deletedAt ? "#aaa" : "black",
+                        cursor: member.role === "ADMIN" || member.deletedAt ? "not-allowed" : "pointer",
                       }}
                     >
-                      회원 추방
+                      {member.role === "ADMIN" ? "🔒 보호됨" : member.deletedAt ? "⛔ 접근 제한됨" : "🚫 접근 제한"}
                     </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="no-members">회원이 없습니다.</td>
+                <td colSpan="8" className="no-members">회원이 없습니다.</td>
               </tr>
             )}
           </tbody>
