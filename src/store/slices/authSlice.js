@@ -4,7 +4,7 @@ import axios from "../../api/api";
 const initialState = {
   accessToken: localStorage.getItem("accessToken") || null,
   refreshToken: localStorage.getItem("refreshToken") || null,
-  memberRole: localStorage.getItem("memberRole") || "", // ✅ userRole → memberRole로 변경
+  memberRole: localStorage.getItem("memberRole") || null, // ✅ userRole → memberRole로 변경
   memberId: localStorage.getItem("memberId") || null,
   status: "idle",
   error: null,
