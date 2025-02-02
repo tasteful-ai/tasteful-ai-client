@@ -93,9 +93,12 @@
 .taste-tag {
     background-color: gainsboro;
     height: 25px;
-    display: inline-block;
     width: fit-content;
     margin-bottom: 10px;
+}
+
+.taste-tag-lists {
+    display: inline-block;
 }
 
 .container {
