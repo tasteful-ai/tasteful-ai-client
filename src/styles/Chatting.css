@@ -4,6 +4,46 @@
   margin: 0 auto;
 }
 
+.chatting-room-list {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.chat-room-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.chat-room-item:hover {
+  background-color: #f9f9f9;
+}
+
+.chat-room-item:last-child {
+  border-bottom: none;
+}
+
+.chat-room-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: contain; 
+  margin-right: 9px;
+  vertical-align: middle;
+}
+
+.chatting-title {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  font-size: 24px;
+  font-weight: bold;
+  padding: 20px;
+}
 .message-list {
   border: 1px solid #ccc;
   height: 300px;

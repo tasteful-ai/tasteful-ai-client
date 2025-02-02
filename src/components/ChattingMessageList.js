@@ -6,7 +6,7 @@ const ChattingMessageList = ({ messages }) => {
     <div className="message-list">
       {messages.map((msg, index) => (
         <div key={index} className={`message ${msg.sender === localStorage.getItem("username") ? "user" : "bot"}`}>
-          <strong>{msg.sender}:</strong> {msg.message}
+          <strong>{msg.sender || msg.senderNickname}:</strong> {msg.message}
         </div>
       ))}
     </div>

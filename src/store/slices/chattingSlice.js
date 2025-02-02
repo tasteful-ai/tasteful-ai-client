@@ -1,17 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Client } from "@stomp/stompjs";
+import SockJs from "sockjs-client";
 import axios from "../../api/api";
 
+let stompClient = null;  
+
 const initialState = {
-  client: null,
-  connected: false,
+  connected: false, 
   messages: [],
   rooms: [],
   loading: false,
   error: null,
 };
 
-// 채팅방 목록 가져오기 (백엔드 `/api/chatting/rooms`)
 export const fetchChattingRooms = createAsyncThunk(
   "chatting/fetchChattingRooms",
   async (_, { rejectWithValue }) => {
@@ -24,12 +25,11 @@ export const fetchChattingRooms = createAsyncThunk(
   }
 );
 
-// 특정 채팅방 메시지 가져오기 (백엔드 `/api/chatting/room/{roomId}/messages`)
 export const fetchRoomMessages = createAsyncThunk(
   "chatting/fetchRoomMessages",
   async (roomId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/chatting/room/${roomId}/messages`);
+      const response = await axios.get(`/api/chatting/rooms/${roomId}/messages`);
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "메시지 불러오기 실패");
@@ -41,9 +41,6 @@ const chattingSlice = createSlice({
   name: "chatting",
   initialState,
   reducers: {
-    setClient: (state, action) => {
-      state.client = action.payload;
-    },
     setConnected: (state, action) => {
       state.connected = action.payload;
     },
@@ -80,50 +77,73 @@ const chattingSlice = createSlice({
   },
 });
 
-// WebSocket 연결
-export const connectWebSocket = (roomId) => (dispatch, getState) => {
-  const { client, connected } = getState().chatting;
-  if (connected) return;
+export const connectWebSocket = (roomId) => (dispatch) => {
+  if (stompClient) return; 
 
-  const stompClient = new Client({
-    brokerURL: "ws://localhost:8080/ws-chat",
+  const token = localStorage.getItem("accessToken");
+  const sender = localStorage.getItem("nickname");
+
+  stompClient = new Client({
+    webSocketFactory: () => new SockJs("http://localhost:8080/ws-chat"),
     connectHeaders: {
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      Authorization: token,
     },
     onConnect: () => {
-      dispatch(setConnected(true));
-      stompClient.subscribe(`/topic/chatting/room/${roomId}`, (message) => {
-        dispatch(addMessage(JSON.parse(message.body)));
+      console.log("✅ WebSocket Connected!");
+
+      stompClient.subscribe(`/sub/chat/room/${roomId}`, (message) => {
+        const data = JSON.parse(message.body);
+        dispatch(addMessage({ sender: data.senderNickname || sender, message: data.message }));
       });
+
+      dispatch(setConnected(true));
+    },
+    onStompError: (frame) => {
+      console.error("🚨 WebSocket Error: ", frame);
     },
     onDisconnect: () => {
+      console.log("❌ WebSocket Disconnected");
       dispatch(setConnected(false));
+      stompClient = null;
     },
   });
 
   stompClient.activate();
-  dispatch(setClient(stompClient));
 };
 
-// WebSocket 연결 해제
-export const disconnectWebSocket = () => (dispatch, getState) => {
-  const { client } = getState().chatting;
-  if (client) {
-    client.deactivate();
+export const disconnectWebSocket = () => (dispatch) => {
+  if (stompClient) {
+    stompClient.deactivate();
     dispatch(setConnected(false));
+    stompClient = null;
   }
 };
 
-// 메시지 전송
-export const sendMessage = (roomId, message) => (dispatch, getState) => {
-  const { client, connected } = getState().chatting;
-  if (client && connected) {
-    client.publish({
-      destination: `/app/chatting/room/${roomId}/message`,
-      body: JSON.stringify({ roomId, sender: localStorage.getItem("username"), message }),
-    });
+export const sendMessage = (roomId, message) => (dispatch) => {
+  const token = localStorage.getItem("accessToken");
+  const sender = localStorage.getItem("nickname");
+
+  if (!stompClient || !stompClient.connected) {
+    console.error("🚨 WebSocket이 연결되지 않았습니다.");
+    return;
   }
+
+  console.log("📩 메시지 전송:", { roomId, sender, message });
+
+  stompClient.publish({
+    destination: `/pub/chat`,
+    body: JSON.stringify({
+      chattingroomId: roomId,
+      sender: sender,
+      message: message,
+      token: token,
+      type: "TALK",
+    }),
+  });
+
+  // ✅ 전송한 메시지를 Redux 상태에 추가
+  dispatch(addMessage({ sender: sender, message: message }));
 };
 
-export const { setClient, setConnected, addMessage } = chattingSlice.actions;
+export const { setConnected, addMessage } = chattingSlice.actions;
 export default chattingSlice.reducer;

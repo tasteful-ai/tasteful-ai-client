@@ -26,6 +26,7 @@ export const Login = () => {
       localStorage.setItem("refreshToken", response.data.data.refreshToken);
       localStorage.setItem("memberRole", response.data.data.memberRole);
       localStorage.setItem("memberId", response.data.data.memberId);
+      localStorage.setItem("nickname", response.data.data.nickname);
   
       alert("로그인 성공!");
       window.dispatchEvent(new Event("storage"));
