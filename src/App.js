@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Sidebar } from "./components/Sidebar";
@@ -11,6 +12,7 @@ import { connectWebSocket, disconnectWebSocket } from "./store/slices/chattingSl
 import ChattingRoomList from "./pages/ChattingRoomList";
 import ChattingRoom from "./pages/ChattingRoom";
 import ChattingRoomCreate from "./pages/ChattingRoomCreate";
+import Mypage from "./pages/Mypage";
 import AdminMain from "./pages/AdminMain";
 import MembersList from "./pages/MembersList";
 
@@ -39,6 +41,7 @@ function Layout() {
           <Route path="/chatting/rooms" element={<ChattingRoomList />} />
           <Route path="/chatting/create" element={<ChattingRoomCreate />} />
           <Route path="/chatting/room/:roomId" element={<ChattingRoom />} />
+          <Route path="/mypage" element={<Mypage />} />
           <Route path="/admin" element={<AdminMain />} />
           <Route path="/members" element={<MembersList />} />
         </Routes>
