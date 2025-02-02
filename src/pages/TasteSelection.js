@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateTastePreferences } from "../store/slices/tasteSlice";
+import { updateTasteCategory } from "../store/slices/tasteSlice";
 import "../styles/TasteSelection.css";
 
 const TasteSelection = () => {
@@ -13,7 +13,7 @@ const TasteSelection = () => {
   const [selectedLikeFoods, setSelectedLikeFoods] = useState([]);
   const [selectedDislikeFoods, setSelectedDislikeFoods] = useState([]);
   const [selectedDietaryPreferences, setSelectedDietaryPreferences] = useState([]);
-  const [selectedSpicyLevel, setSelectedSpicyLevel] = useState(null);
+  const [selectedSpicyLevels, setSelectedSpicyLevels] = useState(null);
 
   const maxSelections = 5;
 
@@ -27,27 +27,54 @@ const TasteSelection = () => {
     }
   };
 
-  const handleNext = async () => {
-    if (step < 5) {
-      setStep(step + 1);
+  const handleNext = () => {
+    let category = "";
+    let requestData = {};
+  
+    switch (step) {
+      case 1:
+        category = "genres";
+        requestData = { genres: selectedGenres };
+        break;
+      case 2:
+        category = "likeFoods";
+        requestData = { likeFoods: selectedLikeFoods };
+        break;
+      case 3:
+        category = "dislikeFoods";
+        requestData = { dislikeFoods: selectedDislikeFoods };
+        break;
+      case 4:
+        category = "dietaryPreferences";
+        requestData = { dietaryPreferences: selectedDietaryPreferences };
+        break;
+      case 5:
+        category = "spicyLevels";
+        requestData = { spicyLevels: selectedSpicyLevels };
+        break;
+      default:
+        break;
+    }
+  
+    if (category) {
+      dispatch(updateTasteCategory({ category, data : requestData }))
+        .then((result) => {
+          if (result.error) {
+            alert("저장 중 오류가 발생했습니다: " + result.error.message);
+          } else {
+            if (step < 5) {
+              setStep(step + 1);
+            } else {
+              alert("취향이 저장되었습니다!");
+              navigate("/");
+            }
+          }
+        });
     } else {
-      try {
-        const tasteData = {
-          genres: selectedGenres,
-          likeFoods: selectedLikeFoods,
-          dislikeFoods: selectedDislikeFoods,
-          dietaryPreferences: selectedDietaryPreferences,
-          spicyLevel: selectedSpicyLevel,
-        };
-  
-        console.log("📌 저장할 취향 데이터:", tasteData);
-  
-        await dispatch(updateTastePreferences(tasteData)).unwrap();
-        alert("취향이 성공적으로 저장되었습니다!");
+      if (step < 5) {
+        setStep(step + 1);
+      } else {
         navigate("/");
-      } catch (error) {
-        console.error("❌ 취향 저장 실패:", error);
-        alert("취향을 저장하는 데 실패했습니다.");
       }
     }
   };
@@ -134,11 +161,11 @@ const TasteSelection = () => {
         <>
           <h2>매운 정도를 선택하세요!</h2>
           <div className="spicy-container">
-            {["1단계 : 맵지 않은 순한 맛", "2단계 : 진라면 순한 맛", "3단계 : 신라면 정도", "4단계 : 불닭볶음면 정도", "5단계 : 핵불닭볶음면 이상!"].map((level) => (
+            {["1단계 : 맵지 않은 순한 맛", "2단계 : 진라면 순한 맛", "3단계 : 신라면 정도", "4단계 : 불닭볶음면 정도", "5단계 : 핵불닭볶음면 이상!"].map((level, index) => (
               <button
                 key={level}
-                className={`spicy-button ${selectedSpicyLevel === level ? "selected" : ""}`}
-                onClick={() => setSelectedSpicyLevel(level)}
+                className={`spicy-button ${selectedSpicyLevels === index + 1 ? "selected" : ""}`}
+                onClick={() => setSelectedSpicyLevels(index + 1)}
               >
                 {level}
               </button>

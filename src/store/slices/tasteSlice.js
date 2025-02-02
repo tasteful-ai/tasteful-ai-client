@@ -20,13 +20,36 @@ export const fetchTasteCategories = createAsyncThunk(
     }
   );
 
-  export const updateTastePreferences = createAsyncThunk(
-    "taste/updateTastePreferences",
-    async (tasteData, { rejectWithValue }) => {
+  export const updateTasteCategory = createAsyncThunk(
+    "taste/updateTasteCategory",
+    async ({ category, data }, { rejectWithValue }) => {
       try {
         const memberId = localStorage.getItem("memberId");
-        const response = await axios.put(`/api/users/members/${memberId}/tastes`, tasteData);
-        return response.data.data;
+        if (!memberId) throw new Error("사용자 ID를 찾을 수 없습니다.");
+  
+        let endpoint = "";
+        switch (category) {
+          case "genres":
+            endpoint = `/api/users/members/${memberId}/tastes/genres`;
+            break;
+          case "likeFoods":
+            endpoint = `/api/users/members/${memberId}/tastes/likeFoods`;
+            break;
+          case "dislikeFoods":
+            endpoint = `/api/users/members/${memberId}/tastes/dislikeFoods`;
+            break;
+          case "dietaryPreferences":
+            endpoint = `/api/users/members/${memberId}/tastes/dietaryPreferences`;
+            break;
+          case "spicyLevels":
+            endpoint = `/api/users/members/${memberId}/tastes/spicyLevels`;
+            break;
+          default:
+            throw new Error("잘못된 카테고리 요청입니다.");
+        }
+  
+        const response = await axios.patch(endpoint, data);
+        return { category, data: response.data.data };
       } catch (error) {
         return rejectWithValue(error.response?.data?.message || "취향 데이터를 저장할 수 없습니다.");
       }
@@ -89,21 +112,28 @@ const tasteSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
     })
-    .addCase(updateTastePreferences.pending, (state) => {
-      state.loading = true;
-    })
-    .addCase(updateTastePreferences.fulfilled, (state, action) => {
-      state.loading = false;
-      state.genres = action.payload.genres || [];
-      state.likeFoods = action.payload.likeFoods || [];
-      state.dislikeFoods = action.payload.dislikeFoods || [];
-      state.dietaryPreferences = action.payload.dietaryPreferences || [];
-      state.spicyLevel = action.payload.spicyLevel || null;
-    })
-    .addCase(updateTastePreferences.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
+    .addCase(updateTasteCategory.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateTasteCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        if (action.payload.category === "genres") {
+          state.genres = action.payload.data;
+        } else if (action.payload.category === "likeFoods") {
+          state.likeFoods = action.payload.data;
+        } else if (action.payload.category === "dislikeFoods") {
+          state.dislikeFoods = action.payload.data;
+        } else if (action.payload.category === "dietaryPreferences") {
+          state.dietaryPreferences = action.payload.data;
+        } else if (action.payload.category === "spicyLevel") {
+          state.spicyLevel = action.payload.data;
+        }
+      })
+      .addCase(updateTasteCategory.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
