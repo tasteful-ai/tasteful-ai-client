@@ -4,15 +4,10 @@ import { useDispatch } from "react-redux"; // Redux 상태 사용
 import "./../styles/Sidebar.css";
 import { clearTokens } from "../store/slices/authSlice";
 
-export const Sidebar = () => {
+export const Sidebar = ({isOpen, toggleSidebar}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
 
   // 로그인 상태 변경 감지
   useEffect(() => {
