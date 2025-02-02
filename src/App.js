@@ -17,8 +17,6 @@ import ChangePassword from "./pages/ChangePassword";
 
 function Layout() {
   const location = useLocation();
-
-  // ✅ 회원가입과 로그인 페이지에서도 사이드바를 유지하고, 비밀번호 변경에서만 숨김
   const isAuthPage = location.pathname === "/change-password"; 
   const isAdminPage = location.pathname.startsWith("/admin");
 
@@ -39,15 +37,15 @@ function Layout() {
       <main className="content">
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/signup" element={<Signup />} />  {/* ✅ 회원가입에서도 사이드바 유지 */}
-          <Route path="/login" element={<Login />} />  {/* ✅ 로그인에서도 사이드바 유지 */}
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/location" element={<Location />} />
           <Route path="/chatting/rooms" element={<ChattingRoomList />} />
           <Route path="/chatting/create" element={<ChattingRoomCreate />} />
           <Route path="/chatting/room/:roomId" element={<ChattingRoom />} />
           <Route path="/admin" element={<AdminMain />} />
           <Route path="/members" element={<MembersList />} />
-          <Route path="/change-password" element={<ChangePassword />} />  {/* ✅ 비밀번호 변경 페이지만 예외 */}
+          <Route path="/change-password" element={<ChangePassword />} />
         </Routes>
       </main>
     </div>
