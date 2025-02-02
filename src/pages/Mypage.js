@@ -95,7 +95,7 @@ export default function Mypage() {
                             <div className="taste-title">
                                 <p>맵기🔥</p>
                             </div>
-                            <div className="taste-tag">#1단계</div>
+                            <div className="taste-tag">{spicyLevels.map((spicyLevels, index) => (<span key={index}>#{spicyLevels}단계</span>))}</div>
                         </div>
                     </div>
                 </div>
