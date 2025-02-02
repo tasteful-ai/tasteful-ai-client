@@ -3,11 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Sidebar } from "./components/Sidebar";
-import { AdminSidebar } from "./components/AdminSidebar"; // ✅ 관리자 사이드바 추가
+import { AdminSidebar } from "./components/AdminSidebar";
 import Main from "./pages/Main";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
-import Location from "./pages/Location"; // ✅ 변경: Location 사용
+import Location from "./pages/Location";
 import { connectWebSocket, disconnectWebSocket } from "./store/slices/chattingSlice";
 import ChattingRoomList from "./pages/ChattingRoomList";
 import ChattingRoom from "./pages/ChattingRoom";
@@ -15,11 +15,12 @@ import ChattingRoomCreate from "./pages/ChattingRoomCreate";
 import Mypage from "./pages/Mypage";
 import AdminMain from "./pages/AdminMain";
 import MembersList from "./pages/MembersList";
+import ChangePassword from "./pages/ChangePassword";
 
 function Layout() {
   const location = useLocation();
-  const isAuthPage = location.pathname === "/signup" || location.pathname === "/login";
-  const isAdminPage = location.pathname.startsWith("/admin"); // ✅ 관리자 페이지 여부 확인
+  const isAuthPage = location.pathname === "/change-password"; 
+  const isAdminPage = location.pathname.startsWith("/admin");
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -29,9 +30,12 @@ function Layout() {
 
   return (
     <div className={`layout ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
-      {!isAuthPage && (isAdminPage ? <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /> : 
+      {!isAuthPage && (isAdminPage ? (
+        <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      ) : (
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      )}
+      ))}
+
       <main className="content">
         <Routes>
           <Route path="/" element={<Main />} />
@@ -44,6 +48,7 @@ function Layout() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/admin" element={<AdminMain />} />
           <Route path="/members" element={<MembersList />} />
+          <Route path="/change-password" element={<ChangePassword />} />
         </Routes>
       </main>
     </div>
