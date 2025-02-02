@@ -51,7 +51,22 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(connectWebSocket()); // 앱 시작 시 WebSocket 연결
+    const checkRoomsAndConnect = async () => {
+      try {
+        const response = await fetch("/api/chatting/rooms"); // 채팅방 목록 조회
+        const data = await response.json();
+
+        if (data.length > 0) {
+          dispatch(connectWebSocket()); // 채팅방이 있으면 WebSocket 연결
+        } else {
+          console.warn("채팅방이 없어 WebSocket을 연결하지 않습니다.");
+        }
+      } catch (error) {
+        console.error("채팅방 조회 실패:", error);
+      }
+    };
+
+    checkRoomsAndConnect();
 
     return () => {
       dispatch(disconnectWebSocket()); // 앱 종료 시 WebSocket 연결 해제
