@@ -1,41 +1,19 @@
+/* ✅ 채팅방 전체 컨테이너 */
 .chatting-room {
   padding: 20px;
   max-width: 600px;
   margin: 0 auto;
 }
 
+/* ✅ 채팅방 목록 */
 .chatting-room-list {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
+  text-align: center;
+  padding: 20px;
 }
 
-.chat-room-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 15px 20px;
-  border-bottom: 1px solid #ddd;
-  transition: background-color 0.2s;
-  cursor: pointer;
-}
-
-.chat-room-item:hover {
-  background-color: #f9f9f9;
-}
-
-.chat-room-item:last-child {
-  border-bottom: none;
-}
-
-.chat-room-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: contain; 
-  margin-right: 9px;
-  vertical-align: middle;
-}
-
+/* ✅ 채팅방 제목 */
 .chatting-title {
   display: flex;
   justify-content: center;
@@ -43,93 +21,148 @@
   font-size: 24px;
   font-weight: bold;
   padding: 20px;
-}
-.message-list {
-  border: 1px solid #ccc;
-  height: 300px;
-  overflow-y: scroll;
-  padding: 10px;
+  color: #333;
 }
 
-.message {
-  margin-bottom: 12px;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #f0f0f0;
+/* ✅ 채팅방 목록 테이블 */
+.chatting-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
-.input-container {
+/* ✅ 채팅방 테이블 헤더 */
+.chatting-table th {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+/* ✅ 테이블 셀 */
+.chatting-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+/* ✅ 채팅방 목록 hover 효과 */
+.chatting-table tbody tr:hover {
+  background-color: #f9f9f9;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* ✅ 클릭 가능한 채팅방 이름 */
+.clickable-room-name {
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
   display: flex;
-  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
-.input-container input {
-  flex: 1;
-  padding: 10px;
+.clickable-room-name:hover {
+  text-decoration: underline;
+  color: #2e7d32;
 }
 
-.input-container button {
-  padding: 10px;
+/* ✅ 채팅방 아이콘 */
+.chat-room-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+/* ✅ 버튼 정렬 */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ✅ 버튼 공통 스타일 */
+.create-room-button, .send-button, .update-room-button, .delete-room-button {
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  border: none;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+/* ✅ 버튼 색상 */
+.create-room-button {
   background-color: #4CAF50;
   color: white;
-  border: none;
-  cursor: pointer;
 }
 
-.chatting-room-list,
-.chatting-room-create,
-.chatting-room {
-  padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.create-room-button,
-.send-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
+.update-room-button {
+  background-color: #4285F4;
   color: white;
-  border: none;
-  cursor: pointer;
 }
 
-.create-room-button:hover,
-.send-button:hover {
-  background-color: #45a049;
+.delete-room-button {
+  background-color: #D93025;
+  color: white;
 }
 
-.room-input,
-.message-input {
-  width: 80%;
-  padding: 8px;
-  margin-bottom: 10px;
+/* ✅ 버튼 hover 효과 */
+.create-room-button:hover {
+  background-color: #388E3C;
+  transform: scale(1.05);
 }
 
+.update-room-button:hover {
+  background-color: #357AE8;
+  transform: scale(1.05);
+}
+
+.delete-room-button:hover {
+  background-color: #C62828;
+  transform: scale(1.05);
+}
+
+/* ✅ 메시지 리스트 */
 .message-list {
   border: 1px solid #ccc;
   height: 300px;
   overflow-y: scroll;
   padding: 10px;
+  background: #f9f9f9;
+  border-radius: 8px;
 }
 
+/* ✅ 메시지 스타일 */
 .message {
   margin-bottom: 12px;
   padding: 10px;
   border-radius: 8px;
+  max-width: 70%;
+  word-wrap: break-word;
+  font-size: 14px;
 }
 
+/* ✅ 사용자 메시지 */
 .message.user {
-  background-color: #d3d3d3;
-  color: #000;
+  background-color: #4CAF50;
+  color: white;
   align-self: flex-end;
 }
 
+/* ✅ 상대방 메시지 */
 .message.bot {
   background-color: #f0f0f0;
   color: #000;
   align-self: flex-start;
 }
 
+/* ✅ 메시지 입력창 */
 .input-container {
   display: flex;
   margin-top: 10px;
@@ -138,10 +171,98 @@
 .message-input {
   flex: 1;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .send-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  margin-left: 5px;
 }
 
+/* ✅ 채팅방 생성 모달 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ✅ 모달 내부 */
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(0.8);
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-overlay.active .modal-content {
+  transform: scale(1);
+}
+
+/* ✅ 모달 내 버튼 정렬 */
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* ✅ 입력 필드 */
+.room-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.create-room-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.create-room-button:hover {
+  background-color: #388E3C;
+}
+
+.delete-room-button {
+  background-color: #D93025;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-room-button:hover {
+  background-color: #C62828;
+}
