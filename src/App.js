@@ -21,17 +21,22 @@ import ChangePassword from "./pages/ChangePassword";
 function Layout() {
   const location = useLocation();
   const isAuthPage = location.pathname === "/change-password"; 
-  const isAdminPage = location.pathname.startsWith("/admin");
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
+  useEffect(() => {
+    const role = localStorage.getItem("memberRole");
+    setIsAdmin(role === "ADMIN");
+  }, []);
+  
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
     <div className={`layout ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
-      {!isAuthPage && (isAdminPage ? (
+      {!isAuthPage && (isAdmin ? (
         <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       ) : (
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
