@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setTokens } from "./store/slices/authSlice";
 import { Sidebar } from "./components/Sidebar";
 import { AdminSidebar } from "./components/AdminSidebar";
+import MypageSidebar from "./components/MypageSidebar"
 import Main from "./pages/Main";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
@@ -27,21 +28,31 @@ function Layout() {
   const authPages = ["/change-password", "/forgot-password"]; // ✅ 인증 관련 페이지 배열화
   const isAuthPage = authPages.includes(location.pathname);
   const isAdminPage = location.pathname.startsWith("/admin");
+  const isMypage = location.pathname.startsWith("/mypage");
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  useEffect(() => {
+    const role = localStorage.getItem("memberRole");
+    setIsAdmin(role === "ADMIN");
+  }, []);
+
   return (
     <div className={`layout ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
-      {!isAuthPage &&
-        (isAdminPage ? (
+      {!isAuthPage && (
+        isMypage ? (
+          <MypageSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        ) : isAdmin ? (
           <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         ) : (
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        ))}
+        )
+      )}
 
       <main className="content">
         <Routes>
