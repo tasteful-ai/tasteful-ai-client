@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8080', //백엔드 엔드포인트 기본 url
+    baseURL: 'https://tasteful-ai-1520107369.ap-northeast-2.elb.amazonaws.com', //백엔드 엔드포인트 기본 url
     headers: {
         "Content-Type": "application/json",
     },

@@ -84,7 +84,7 @@ export const connectWebSocket = (roomId) => (dispatch) => {
   const sender = localStorage.getItem("nickname");
 
   stompClient = new Client({
-    webSocketFactory: () => new SockJs("http://localhost:8080/ws-chat"),
+    webSocketFactory: () => new SockJs("https://tasteful-ai-1520107369.ap-northeast-2.elb.amazonaws.com/ws-chat"),
     connectHeaders: {
       Authorization: token,
     },

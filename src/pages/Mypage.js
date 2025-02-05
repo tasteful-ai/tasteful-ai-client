@@ -30,7 +30,7 @@ export default function Mypage() {
         if (!accessToken) {
             throw new Error("액세스 토큰 없음 - 로그인 필요");
         }
-        const response = await axios.get("http://localhost:8080/api/members/profiles", {
+        const response = await axios.get("https://tasteful-ai-1520107369.ap-northeast-2.elb.amazonaws.com/api/members/profiles", {
             headers: { Authorization: `Bearer ${accessToken}` },
             withCredentials: true,
         });
