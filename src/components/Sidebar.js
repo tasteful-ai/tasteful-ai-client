@@ -4,34 +4,34 @@ import { useDispatch } from "react-redux"; // Redux 상태 사용
 import "./../styles/Sidebar.css";
 import { clearTokens } from "../store/slices/authSlice";
 
-export const Sidebar = ({isOpen, toggleSidebar}) => {
+export const Sidebar = ({ isOpen, toggleSidebar }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // 로그인 상태 변경 감지
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    setIsLoggedIn(!!token); // 토큰이 있으면 로그인 상태로 설정
+    setIsLoggedIn(!!token);
   }, []);
 
-  // 로그아웃 처리
   const handleLogout = () => {
-    localStorage.removeItem("accessToken"); // 토큰 삭제
-    dispatch(clearTokens()); // Redux 상태 업데이트
-    setIsLoggedIn(false); // 로컬 상태 업데이트
-    navigate("/"); // 홈으로 이동
+    localStorage.removeItem("accessToken");
+    dispatch(clearTokens());
+    setIsLoggedIn(false);
+    navigate("/");
   };
-  
+
   return (
     <>
       <button className={`menu-icon ${isOpen ? "open" : "closed"}`} onClick={toggleSidebar}>☰</button>
 
       <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        <div className="sidebar-header">
-        </div>
+        <div className="sidebar-header"></div>
         <nav className="sidebar-nav">
-          <button className="nav-item">Begin a New AI Chat <span className="add-icon">+</span></button>
+          {/* ✅ "Begin a New AI Chat" 버튼 클릭 시 AI 채팅방으로 이동 */}
+          <button className="nav-item" onClick={() => navigate("/chatting/room/ai")}>
+            Begin a New AI Chat <span className="add-icon">+</span>
+          </button>
           <button className="nav-item" onClick={() => navigate("/location")}>주변 맛집 검색</button>
           <button className="nav-item" onClick={() => navigate("/chatting/rooms")}>오먹 채팅</button>
         </nav>
