@@ -22,6 +22,7 @@ import MembersList from "./pages/MembersList";
 import ChangePassword from "./pages/ChangePassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ChatBot from "./components/ChatBot"; // ✅ AI 챗봇 추가
+import TasteSelection from "./pages/TasteSelection";
 
 function Layout() {
   const location = useLocation();
