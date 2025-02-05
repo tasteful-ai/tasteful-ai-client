@@ -1,0 +1,31 @@
+.profile-pic-container {
+    margin-top: 30px;
+}
+
+.profile-update-title {
+    color: gray;
+    margin-left: 100px;
+    margin-bottom: 20px;
+}
+
+.profile-pic-update {
+    display: flex;
+}
+
+.profile-pic-update-option {
+    margin-top: 30px;
+}
+
+.nickname-input {
+    width: 300px;
+    margin-left: 100px;
+}
+
+.update-button {
+    margin-top: 60px;
+    display: flex;
+}
+
+.profile-update-button {
+    margin-left: 900px;
+}

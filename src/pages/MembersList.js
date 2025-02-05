@@ -24,7 +24,7 @@ const MembersList = () => {
         return;
       }
 
-      const response = await axios.get("http://localhost:8080/api/auth/members", {
+      const response = await axios.get("http://localhost:8080/api/admins/members", {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
       });

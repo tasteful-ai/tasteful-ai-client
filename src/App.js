@@ -13,6 +13,7 @@ import ChattingRoomList from "./pages/ChattingRoomList";
 import ChattingRoom from "./pages/ChattingRoom";
 import ChattingRoomCreate from "./pages/ChattingRoomCreate";
 import Mypage from "./pages/Mypage";
+import UpdateProfile from "./pages/UpdateProfile";
 import AdminMain from "./pages/AdminMain";
 import MembersList from "./pages/MembersList";
 import ChangePassword from "./pages/ChangePassword";
@@ -20,17 +21,22 @@ import ChangePassword from "./pages/ChangePassword";
 function Layout() {
   const location = useLocation();
   const isAuthPage = location.pathname === "/change-password"; 
-  const isAdminPage = location.pathname.startsWith("/admin");
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
+  useEffect(() => {
+    const role = localStorage.getItem("memberRole");
+    setIsAdmin(role === "ADMIN");
+  }, []);
+  
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
     <div className={`layout ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
-      {!isAuthPage && (isAdminPage ? (
+      {!isAuthPage && (isAdmin ? (
         <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       ) : (
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
@@ -46,6 +52,7 @@ function Layout() {
           <Route path="/chatting/create" element={<ChattingRoomCreate />} />
           <Route path="/chatting/room/:roomId" element={<ChattingRoom />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/admin" element={<AdminMain />} />
           <Route path="/members" element={<MembersList />} />
           <Route path="/change-password" element={<ChangePassword />} />
