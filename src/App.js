@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setTokens } from "./store/slices/authSlice";
 import { Sidebar } from "./components/Sidebar";
 import { AdminSidebar } from "./components/AdminSidebar";
 import Main from "./pages/Main";
@@ -20,7 +21,7 @@ import ChangePassword from "./pages/ChangePassword";
 
 function Layout() {
   const location = useLocation();
-  const isAuthPage = location.pathname === "/change-password"; 
+  const isAuthPage = location.pathname === "/change-password";
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -29,7 +30,7 @@ function Layout() {
     const role = localStorage.getItem("memberRole");
     setIsAdmin(role === "ADMIN");
   }, []);
-  
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -37,7 +38,7 @@ function Layout() {
   return (
     <div className={`layout ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
       {!isAuthPage && (isAdmin ? (
-        <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={(toggleSidebar)} />
       ) : (
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       ))}
@@ -64,6 +65,16 @@ function Layout() {
 
 function App() {
   const dispatch = useDispatch();
+  const memberRole = useSelector((state) => state.auth.memberRole);
+
+  useEffect(() => {
+    const role = localStorage.getItem("memberRole");
+    const token = localStorage.getItem("accessToken");
+
+    if (role && token) {
+      dispatch(setTokens({ accessToken: token, memberRole: role })); // Redux 상태에 저장
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     const checkRoomsAndConnect = async () => {
