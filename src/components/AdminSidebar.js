@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import "./../styles/AdminSidebar.css"; // 관리자용 CSS
 import { clearTokens } from "../store/slices/authSlice";
 
-export const AdminSidebar = () => {
+export const AdminSidebar = ({isOpen, toggleSidebar}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,24 +24,30 @@ export const AdminSidebar = () => {
   };
 
   return (
-    <aside className="admin-sidebar">
-      <div className="sidebar-header">
-        <button className="menu-icon">☰</button>
-        <h2 className="admin-mode-title">관리자 모드</h2>
-      </div>
-      <nav className="sidebar-nav">
-        <button className="nav-item" onClick={() => navigate("/user/list")}>사용자 목록</button>
-        <button className="nav-item" onClick={() => navigate("/chatting/rooms")}>채팅방 관리</button>
-      </nav>
-      <div className="sidebar-footer">
-        {isLoggedIn ? (
-          <button className="logout-btn" onClick={handleLogout}>로그아웃</button>
-        ) : (
-          <a href="/signup">회원가입 / 로그인</a>
-        )}
-        <button className="settings-icon" onClick={() => navigate("/admin/settings")}>⚙</button>
-      </div>
-    </aside>
+    <>
+      <button className={`menu-icon ${isOpen ? "open" : "closed"}`} onClick={toggleSidebar}>
+        ☰
+      </button>
+
+      <aside className={`admin-sidebar ${isOpen ? "open" : "closed"}`}>
+        <div className="sidebar-header">
+          <h2 className="admin-mode-title">관리자 모드</h2>
+        </div>
+        <nav className="sidebar-nav">
+          <button className="nav-item" onClick={() => navigate("/members")}>사용자 목록</button>
+          <button className="nav-item" onClick={() => navigate("/chatting/rooms")}>채팅방 관리</button>
+        </nav>
+        <div className="sidebar-footer">
+          {isLoggedIn ? (
+            <button className="logout-btn" onClick={handleLogout}>로그아웃</button>
+          ) : (
+            <a href="/signup">회원가입 / 로그인</a>
+          )}
+          <button className="settings-icon" onClick={() => navigate("/mypage")}>⚙</button>
+        </div>
+      </aside>
+    </>
   );
 };
 
+export default AdminSidebar;

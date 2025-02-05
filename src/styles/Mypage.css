@@ -1,0 +1,165 @@
+/* 🌟 프로필 컨테이너 */
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 🟢 호버 & 클릭 효과 */
+.profile-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.profile-container:active {
+    transform: scale(0.98);
+}
+
+/* 🌟 프로필 이미지 */
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 🟢 프로필 이미지 클릭 시 애니메이션 */
+.profile-image:active {
+    transform: rotate(10deg) scale(1.05);
+}
+
+/* 🌟 닉네임 & 가입일 */
+.nickname {
+    font-size: 1.6rem;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #222;
+}
+
+.created-at {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* 🌟 버튼 컨테이너 */
+.profile-buttons {
+    white-space: nowrap;
+    display: flex;
+    justify-content: left;
+    gap: 25px;  /* 너비 조정*/
+    margin-top: 1px; /* 칸 높이 조정*/
+}
+
+/* 🟢 버튼 반응형 효과 */
+.save-button {
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.save-button:hover {
+    transform: scale(1.05);
+}
+
+.save-button:active {
+    transform: scale(0.95);
+}
+
+/* 🌟 취향 정보 컨테이너 */
+.taste-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+/* 🌟 취향 카드 */
+.taste-box, .spicyness-box {
+    text-align: left;
+    padding: 20px;
+    flex: 1;
+    padding: 90px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 10px; /* 칸 높이 조정*/
+}
+
+/* 🟢 취향 제목 정렬 */
+.taste-title {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 아이콘과 글씨 사이 간격 */
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* 🌟 태그 리스트 정렬 */
+.taste-tag-lists {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    margin-top: 10px;
+}
+
+/* 🌟 태그 스타일 */
+.taste-tag {
+    font-size: 0.9rem;
+    background: #f1f1f1;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* 🟢 취향 카드 클릭/호버 효과 */
+.taste-box:hover, .spicyness-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.taste-box:active, .spicyness-box:active {
+    transform: scale(0.98);
+}
+
+/* 🌟 좋아요/싫어요 아이콘 크기 조정 */
+.likethumb, .dislikethumb {
+    width: 24px;
+    height: 24px;
+    margin-left: 5px;
+    transition: transform 0.2s ease;
+}
+
+/* 🟢 아이콘 클릭 시 애니메이션 */
+.likethumb:active, .dislikethumb:active {
+    transform: scale(1.2);
+}
+
+/* 🌟 반응형 스타일 추가 */
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .profile-buttons {
+        justify-content: center;
+    }
+
+    .taste-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .taste-box, .spicyness-box {
+        width: 90%;
+    }
+}

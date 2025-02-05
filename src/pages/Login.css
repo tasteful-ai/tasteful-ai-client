@@ -1,7 +1,7 @@
 /* 전체 컨테이너 */
 .login-container {
-  max-width: 500px; /* 회원가입과 동일한 너비 */
-  margin: 50px auto; /* 회원가입과 동일한 위치 */
+  max-width: 500px;
+  margin: 50px auto;
   padding: 30px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
@@ -13,7 +13,7 @@
 
 /* 제목 스타일 */
 .login-title {
-  font-size: 24px; /* 회원가입과 동일한 제목 크기 */
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -21,23 +21,23 @@
 /* 입력 필드 스타일 */
 .login-form input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
+  padding: 14px; /* ✅ 내부 여백 증가 */
+  margin-bottom: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 8px; /* ✅ 모서리 둥글게 */
+  font-size: 16px; /* ✅ 글씨 크기 증가 */
   box-sizing: border-box;
 }
 
 /* 버튼 스타일 */
 .login-button {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   font-size: 16px;
   color: white;
   background-color: black;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

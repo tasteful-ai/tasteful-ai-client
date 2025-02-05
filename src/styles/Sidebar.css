@@ -1,17 +1,21 @@
-/* 전체 Sidebar 스타일 */
 .sidebar {
-  background: linear-gradient(90deg, #2b2b2b, #1b1b1b); /* 어두운 배경 그라데이션 */
+  background: linear-gradient(90deg, #2b2b2b, #1b1b1b); 
   color: white;
-  width: 250px;
+  width: 300px; 
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 25px; 
   position: fixed;
   left: 0;
   top: 0;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
   z-index: 1000;
+}
+
+.sidebar.closed {
+  transform: translateX(-100%);
+  overflow: hidden;
 }
 
 .layout {
@@ -27,18 +31,12 @@
 }
 
 .sidebar-open .content {
-  margin-left: 250px;
-  width: calc(100% - 250px);
+  margin-left: 300px; 
+  width: calc(100% - 300px);
 }
 
-.sidebar.closed {
-  transform: translateX(-100%); 
-  overflow: hidden;
-}
-
-/* 메뉴 아이콘 (햄버거 버튼) */
 .menu-icon {
-  font-size: 24px;
+  font-size: 26px; 
   color: white;
   background: none;
   border: none;
@@ -47,7 +45,7 @@
   top: 20px;
   left: 20px;
   z-index: 2000;
-  transition: color 0.3 ease-in-out;
+  transition: color 0.3s ease-in-out;
 }
 
 .menu-icon.closed {
@@ -58,11 +56,10 @@
   color: white;
 }
 
-/* 네비게이션 버튼 */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px; 
   flex-grow: 1;
   margin-top: 30px;
 }
@@ -70,22 +67,22 @@
 .nav-item {
   background-color: rgba(255, 255, 255, 0.1);
   color: white;
-  padding: 10px 15px;
+  padding: 12px 18px; 
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 6px; 
+  font-size: 17px; 
   text-align: left;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.25); 
 }
 
-/* 추가 아이콘 */
 .add-icon {
   font-size: 18px;
   color: white;
@@ -95,10 +92,9 @@
   margin-top: 20px;
 }
 
-/* Footer를 아래로 밀어주는 스타일 */
 .sidebar-footer {
   margin-top: auto;
-  padding: 30px 15px;
+  padding: 35px 18px; 
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -107,27 +103,27 @@
 .logout-btn {
   color: white;
   background-color: rgba(255, 255, 255, 0.1);
-  padding: 8px 12px;
+  padding: 10px 15px; 
   text-decoration: none;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 6px; 
+  font-size: 15px;
 }
 
 .logout-btn:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.sidebar-footer a{
+.sidebar-footer a {
   color: white;
   background-color: rgba(255, 255, 255, 0.1);
-  padding: 12px 15px;
+  padding: 12px 18px;
   text-decoration: none;
-  border-radius: 5px;
-  width: 80%;
+  border-radius: 6px;
+  width: 85%; 
   text-align: center;
 }
 
-.sidebar-footer a:hover{
+.sidebar-footer a:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -135,7 +131,7 @@
   background: none;
   color: white;
   border: none;
-  font-size: 20px;
+  font-size: 22px; 
   cursor: pointer;
   margin-top: 5px;
 }
