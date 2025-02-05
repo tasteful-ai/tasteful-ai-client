@@ -34,8 +34,8 @@ const MembersList = () => {
           memberId: member.id ?? member.memberId,
           nickname: member.nickname,
           email: member.email,
-          gender: member.gender,
-          role: member.role,
+          genderRole: member.genderRole,
+          memberRole: member.memberRole,
           deletedAt: member.deletedAt,
           createdAt: member.createdAt,
         }))
@@ -53,8 +53,8 @@ const MembersList = () => {
   }, [fetchMembers, location.pathname]);
 
   // ✅ 회원 삭제 기능
-  const handleDeleteMember = async (memberId, role, isDeleted) => {
-    if (role === "ADMIN") {
+  const handleDeleteMember = async (memberId, memberRole, isDeleted) => {
+    if (memberRole === "ADMIN") {
       alert("🚫 관리자 계정은 보호되어 있습니다.");
       return;
     }
@@ -126,8 +126,8 @@ const MembersList = () => {
                   <td>{member.createdAt}</td>
                   <td>{member.nickname}</td>
                   <td>{member.email}</td>
-                  <td>{member.gender}</td>
-                  <td>{member.role}</td>
+                  <td>{member.genderRole}</td>
+                  <td>{member.memberRole}</td>
                   <td>
                     <div className={`status-text ${member.deletedAt ? "inactive" : "active"}`}>
                       {member.deletedAt ? "⛔ 비활성화" : "✅ 활성화"}
@@ -136,14 +136,15 @@ const MembersList = () => {
                   <td>
                     <button
                       className="action-button"
-                      onClick={() => handleDeleteMember(member.memberId, member.role, member.deletedAt)}
-                      disabled={member.role === "ADMIN" || member.deletedAt}
+                      onClick={() => handleDeleteMember(member.memberId, member.memberRole, member.deletedAt)}
+                      disabled={member.memberRole === "ADMIN" || member.deletedAt}
                       style={{
-                        backgroundColor: member.role === "ADMIN" ? "#3498db" : member.deletedAt ? "#aaa" : "black",
-                        cursor: member.role === "ADMIN" || member.deletedAt ? "not-allowed" : "pointer",
+                        backgroundColor: member.memberRole === "ADMIN" ? "#3498db" : member.deletedAt ? "#aaa" : "black",
+                        cursor: member.memberRole === "ADMIN" || member.deletedAt ? "not-allowed" : "pointer",
+                        opacity: member.memberRole === "ADMIN" ? 0.6 : 1,
                       }}
                     >
-                      {member.role === "ADMIN" ? "🔒 보호됨" : member.deletedAt ? "⛔ 접근 제한됨" : "🚫 접근 제한"}
+                      {member.memberRole === "ADMIN" ? "🔒 보호됨" : member.deletedAt ? "⛔ 접근 제한됨" : "🚫 접근 제한"}
                     </button>
                   </td>
                 </tr>
