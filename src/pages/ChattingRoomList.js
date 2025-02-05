@@ -12,7 +12,6 @@ const ChattingRoomList = () => {
   const navigate = useNavigate();
   const { rooms, loading, error } = useSelector((state) => state.chatting);
 
-  const memberRole = localStorage.getItem("memberRole");
   const isAdmin = localStorage.getItem("memberRole") === "ADMIN";
   const [showModal, setShowModal] = useState(false);
 
