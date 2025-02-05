@@ -24,7 +24,7 @@ const MembersList = () => {
         return;
       }
 
-      const response = await axios.get("http://localhost:8080/api/admins/members", {
+      const response = await axios.get("https://tasteful-ai-1520107369.ap-northeast-2.elb.amazonaws.com/api/admins/members", {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
       });
@@ -76,7 +76,7 @@ const MembersList = () => {
         return;
       }
 
-      await axios.delete(`http://localhost:8080/api/admins/members/${memberId}`, {
+      await axios.delete(`https://tasteful-ai-1520107369.ap-northeast-2.elb.amazonaws.com/api/admins/members/${memberId}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
       });
