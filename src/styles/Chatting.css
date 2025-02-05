@@ -47,6 +47,7 @@
   padding: 12px;
   text-align: center;
   border-bottom: 1px solid #ddd;
+  vertical-align: middle;
 }
 
 /* ✅ 채팅방 목록 hover 효과 */
@@ -71,11 +72,12 @@
 
 /* ✅ 채팅방 아이콘 */
 .chat-room-icon {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
+  vertical-align: middle;
 }
 
 /* ✅ 버튼 정렬 */
@@ -286,4 +288,32 @@
 
 .add-room-button:hover {
   background-color: #262626;
+}
+
+.clickable-room-name {
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  width: 100%;
+  height: 100%;
+}
+
+.chatting-table td:first-child {
+  text-align: left;
+  padding-left: 15px; /* 왼쪽 여백 추가 */
+  white-space: nowrap;
+}
+
+.clickable-room-name:hover {
+  text-decoration: underline;
+  color: #2e7d32;
+}
+
+/* ✅ 관리자용 버튼 컨트롤 */
+.action-buttons {
+  display: flex;
+  gap: 10px;
 }
