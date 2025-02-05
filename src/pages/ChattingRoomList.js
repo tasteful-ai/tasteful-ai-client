@@ -12,6 +12,7 @@ const ChattingRoomList = () => {
   const navigate = useNavigate();
   const { rooms, loading, error } = useSelector((state) => state.chatting);
 
+  const memberRole = localStorage.getItem("memberRole");
   const isAdmin = localStorage.getItem("memberRole") === "ADMIN";
   const [showModal, setShowModal] = useState(false);
 
@@ -50,7 +51,7 @@ const ChattingRoomList = () => {
 
   return (
     <div className="chatting-room-list">
-      <h1 className="chatting-title">채팅방 관리</h1>
+      <h1 className="chatting-title">오늘 뭐 먹지? 채팅</h1>
 
       {isAdmin && (
         <button className="add-room-button" onClick={() => setShowModal(true)}>
@@ -64,17 +65,18 @@ const ChattingRoomList = () => {
       <table className="chatting-table">
         <thead>
           <tr>
-            <th>생성일</th>
             <th>채팅방 이름</th>
-            <th>관리자 닉네임</th>
-            <th>관리</th>
+            {isAdmin && <th>생성일</th>}
+            {isAdmin && <th>관리자 닉네임</th>}
+            {isAdmin && <th>관리</th>}
           </tr>
         </thead>
         <tbody>
           {rooms.length > 0 ? (
             rooms.map((room) => (
               <tr key={room.id}>
-                <td>{room.createdAt}</td>
+                
+                {/* ✅ 사용자와 관리자 공통 - 채팅방 이름 */}
                 <td
                   className="clickable-room-name"
                   onClick={() => navigate(`/chatting/room/${room.id}`)}
@@ -82,20 +84,37 @@ const ChattingRoomList = () => {
                   <img src={chatIcon} alt="Chat Icon" className="chat-room-icon" />
                   {room.roomName || room.name}
                 </td>
-                <td>관리자</td>
-                <td className="action-buttons">
-                  <button className="update-room-button" onClick={() => handleUpdateRoomName(room.id, room.roomName)}>
-                    ✏️ 수정
-                  </button>
-                  <button className="delete-room-button" onClick={() => handleDeleteRoom(room.id)}>
-                    🗑️ 삭제
-                  </button>
-                </td>
+
+                {/* ✅ 관리자만 생성일 표시 */}
+                {isAdmin && <td>{new Date(room.createdAt).toLocaleDateString()}</td>}
+
+                {/* ✅ 관리자만 "관리자 닉네임" 표시 */}
+                {isAdmin && <td>{room.creatorNickname}</td>}
+
+                {/* ✅ 관리자만 수정, 삭제 가능 */}
+                {isAdmin && (
+                  <td className="action-buttons">
+                    <button
+                      className="update-room-button"
+                      onClick={() => handleUpdateRoomName(room.id, room.roomName)}
+                    >
+                      ✏️ 수정
+                    </button>
+                    <button
+                      className="delete-room-button"
+                      onClick={() => handleDeleteRoom(room.id)}
+                    >
+                      🗑️ 삭제
+                    </button>
+                  </td>
+                )}
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="4" className="empty-message">아직 생성된 채팅방이 없습니다.</td>
+              <td colSpan={isAdmin ? "4" : "2"} className="empty-message">
+                아직 생성된 채팅방이 없습니다.
+              </td>
             </tr>
           )}
         </tbody>
