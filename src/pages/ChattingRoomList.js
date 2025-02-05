@@ -53,7 +53,7 @@ const ChattingRoomList = () => {
       <h1 className="chatting-title">채팅방 관리</h1>
 
       {isAdmin && (
-        <button className="create-room-button" onClick={() => setShowModal(true)}>
+        <button className="add-room-button" onClick={() => setShowModal(true)}>
           + 채팅방 추가
         </button>
       )}
