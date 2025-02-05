@@ -32,8 +32,7 @@ export default function Mypage() {
                 navigate("/login");
                 return;
             }
-
-            const response = await axios.get("http://localhost:8080/api/members/profiles", {
+            const response = await axios.get(process.env.REACT_APP_SERVER_URL+"/api/members/profiles", {
                 headers: { Authorization: `Bearer ${accessToken}` },
                 withCredentials: true,
             });

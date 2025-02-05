@@ -84,7 +84,7 @@ export const connectWebSocket = (roomId) => (dispatch) => {
   const sender = localStorage.getItem("nickname");
 
   stompClient = new Client({
-    webSocketFactory: () => new SockJs("http://localhost:8080/ws-chat"),
+    webSocketFactory: () => new SockJs(process.env.REACT_APP_SERVER_URL+"/ws-chat"),
     connectHeaders: {
       Authorization: token,
     },
