@@ -36,6 +36,7 @@
 /* 🌟 닉네임 & 가입일 */
 .nickname {
     font-size: 1.6rem;
+    margin-top: 10px;
     font-weight: bold;
     color: #222;
 }
@@ -51,7 +52,7 @@
     display: flex;
     justify-content: left;
     gap: 25px;  /* 너비 조정*/
-    margin-top: 5px; /* 칸 높이 조정*/
+    margin-top: 1px; /* 칸 높이 조정*/
 }
 
 /* 🟢 버튼 반응형 효과 */
