@@ -14,22 +14,21 @@ import ChattingRoomList from "./pages/ChattingRoomList";
 import ChattingRoom from "./pages/ChattingRoom";
 import ChattingRoomCreate from "./pages/ChattingRoomCreate";
 import Mypage from "./pages/Mypage";
+import ProfileSettings from "./pages/ProfileSettings";
 import UpdateProfile from "./pages/UpdateProfile";
 import AdminMain from "./pages/AdminMain";
 import MembersList from "./pages/MembersList";
 import ChangePassword from "./pages/ChangePassword";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ChatBot from "./components/ChatBot"; // ✅ AI 챗봇 추가
 
 function Layout() {
   const location = useLocation();
-  const isAuthPage = location.pathname === "/change-password";
+  const authPages = ["/change-password", "/forgot-password"]; // ✅ 인증 관련 페이지 배열화
+  const isAuthPage = authPages.includes(location.pathname);
+  const isAdminPage = location.pathname.startsWith("/admin");
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    const role = localStorage.getItem("memberRole");
-    setIsAdmin(role === "ADMIN");
-  }, []);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -37,11 +36,12 @@ function Layout() {
 
   return (
     <div className={`layout ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
-      {!isAuthPage && (isAdmin ? (
-        <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={(toggleSidebar)} />
-      ) : (
-        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      ))}
+      {!isAuthPage &&
+        (isAdminPage ? (
+          <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        ) : (
+          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        ))}
 
       <main className="content">
         <Routes>
@@ -53,10 +53,30 @@ function Layout() {
           <Route path="/chatting/create" element={<ChattingRoomCreate />} />
           <Route path="/chatting/room/:roomId" element={<ChattingRoom />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/profile-settings" element={<ProfileSettings />} />
           <Route path="/update-profile" element={<UpdateProfile />} />
-          <Route path="/admin" element={<AdminMain />} />
-          <Route path="/members" element={<MembersList />} />
           <Route path="/change-password" element={<ChangePassword />} />
+
+          {/* ✅ AI 채팅방 추가 */}
+          <Route path="/chatting/room/ai" element={<ChatBot />} />
+
+          {/* ADMIN 전용 페이지 보호 */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminMain />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/members"
+            element={
+              <ProtectedRoute>
+                <MembersList />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
     </div>
@@ -66,6 +86,7 @@ function Layout() {
 function App() {
   const dispatch = useDispatch();
   const memberRole = useSelector((state) => state.auth.memberRole);
+  const isConnected = useSelector((state) => state.chatting.isConnected); // ✅ WebSocket 연결 상태 확인
 
   useEffect(() => {
     const role = localStorage.getItem("memberRole");
@@ -82,10 +103,8 @@ function App() {
         const response = await fetch("/api/chatting/rooms"); // 채팅방 목록 조회
         const data = await response.json();
 
-        if (data.length > 0) {
-          dispatch(connectWebSocket()); // 채팅방이 있으면 WebSocket 연결
-        } else {
-          console.warn("채팅방이 없어 WebSocket을 연결하지 않습니다.");
+        if (data.length > 0 && !isConnected) {
+          dispatch(connectWebSocket()); // ✅ 이미 연결되지 않았다면 WebSocket 연결
         }
       } catch (error) {
         console.error("채팅방 조회 실패:", error);
@@ -95,9 +114,11 @@ function App() {
     checkRoomsAndConnect();
 
     return () => {
-      dispatch(disconnectWebSocket()); // 앱 종료 시 WebSocket 연결 해제
+      if (isConnected) {
+        dispatch(disconnectWebSocket()); // ✅ 연결된 경우에만 해제
+      }
     };
-  }, [dispatch]);
+  }, [dispatch, isConnected]);
 
   return (
     <Router>

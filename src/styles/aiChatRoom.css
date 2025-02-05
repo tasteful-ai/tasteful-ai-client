@@ -1,0 +1,151 @@
+/* 🌟 전체 챗봇 컨테이너 */
+.chatbot-container {
+  width: 100%;
+  max-width: 1000px; /* ✅ 더 넓게 설정 */
+  margin: auto;
+  background: #f5f5f5;
+  border-radius: 11px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 30px;
+}
+
+/* 🌟 채팅 헤더 */
+.chatbot-header {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  color: #222;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* 🌟 채팅 메시지 창 */
+.chatbot-messages {
+  height: 500px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 20px;
+  background: #ebebeb;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ✅ AI 메시지 왼쪽 정렬 */
+  gap: 15px;
+}
+
+/* ✅ 메시지 박스 공통 스타일 */
+.message-box {
+  display: block; /* ✅ block으로 변경하여 크기 조정 */
+  width: fit-content; /* ✅ 내용에 맞게 자동 크기 조정 */
+  max-width: 75%;
+  min-width: 150px; /* ✅ 최소 메시지 크기 설정 */
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 1rem;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* ✅ 사용자 메시지 (오른쪽 정렬) */
+.user-msg {
+  align-self: flex-end;
+  background: rgb(123, 123, 123);
+  color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+  text-align: left;
+  border-radius: 15px;
+}
+
+/* ✅ AI 메시지 (왼쪽 정렬) */
+.ai-msg {
+  align-self: flex-start;
+  background: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  text-align: left;
+  border-radius: 15px;
+}
+
+/* ✅ 닉네임 스타일 */
+.message-box .nickname {
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+/* 🌟 채팅 입력창 */
+.chatbot-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* ✅ 버튼과 입력창 사이 여백 조정 */
+  margin-top: 15px;
+  background: #f1f1f1;
+  padding: 15px;
+  border-radius: 30px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ 입력 필드 */
+.chatbot-input input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 20px;
+  outline: none;
+}
+
+/* ✅ 전송 버튼 */
+.chatbot-input button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+}
+
+/* 🟢 버튼 호버 효과 */
+.chatbot-input button:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+
+/* 🌟 반응형 조정 */
+@media (max-width: 768px) {
+  .chatbot-container {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .chatbot-messages {
+    height: 400px;
+  }
+
+  .message-box {
+    max-width: 95%; /* ✅ 모바일에서도 충분히 넓게 */
+  }
+
+  .chatbot-input {
+    flex-direction: column;
+  }
+
+  .chatbot-input input {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .chatbot-input button {
+    width: 100%;
+  }
+}
