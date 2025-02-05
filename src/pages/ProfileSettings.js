@@ -32,11 +32,10 @@ export default function ProfileSettings() {
                 navigate("/login");
                 return;
             }
-
+            
             // ✅ 닉네임 변경 요청
             if (nickname) {
-                await axios.patch(
-                    "http://localhost:8080/api/members/profile/nickname",
+                await axios.patch(process.env.REACT_APP_SERVER_URL+"/api/members/profile/nickname",
                     { nickname },
                     {
                         headers: { Authorization: `Bearer ${accessToken}` },
@@ -90,19 +89,6 @@ export default function ProfileSettings() {
                             checked={profileOption === "current"}
                             onChange={() => {
                                 setProfileOption("current");
-                                setPreviewImage(profileImage);
-                                setSelectedFile(null);
-                            }}
-                        />
-                        현재 프로필 이미지
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="default"
-                            checked={profileOption === "default"}
-                            onChange={() => {
-                                setProfileOption("default");
                                 setPreviewImage(profileImage);
                                 setSelectedFile(null);
                             }}
