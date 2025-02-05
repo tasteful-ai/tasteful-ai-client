@@ -25,9 +25,10 @@
   
   /* 제목 스타일 */
   .main-title {
-    font-size: 36px;
+    font-size: 40px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    margin-left: 26px; /* 오른쪽으로*/
   }
   
   /* 설명 텍스트 */
@@ -35,7 +36,7 @@
     font-size: 16px;
     color: #666;
     margin-bottom: 40px;
-    line-height: 1.6;
+    line-height: 1.8; /* 설명 간격 */
   }
   
   /* 메뉴 버튼 스타일 */
@@ -79,6 +80,7 @@
   
   .prompt-input input {
     flex: 10;
+    width: 800px;
     border: none;
     outline: none;
     padding: 15px 20px;
