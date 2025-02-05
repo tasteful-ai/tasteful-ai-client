@@ -20,7 +20,7 @@ const ChangePassword = () => {
       const accessToken = localStorage.getItem("accessToken");
 
       await axios.patch(
-        "https://tasteful-ai-1520107369.ap-northeast-2.elb.amazonaws.com/api/auth/passwords", // ✅ PATCH 메서드 확인
+        "https://tastefulai.net/api/auth/passwords", // ✅ PATCH 메서드 확인
         { currentPassword, newPassword },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
