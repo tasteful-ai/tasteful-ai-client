@@ -43,7 +43,7 @@ export const AdminSidebar = ({isOpen, toggleSidebar}) => {
           ) : (
             <a href="/signup">회원가입 / 로그인</a>
           )}
-          <button className="settings-icon" onClick={() => navigate("/admin/settings")}>⚙</button>
+          <button className="settings-icon" onClick={() => navigate("/mypage")}>⚙</button>
         </div>
       </aside>
     </>
