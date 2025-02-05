@@ -1,0 +1,130 @@
+/* 🌟 전체 컨테이너 */
+.settings-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 🌟 제목 */
+.settings-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 🌟 프로필 이미지 섹션 */
+.profile-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+/* 🌟 라디오 버튼 스타일 */
+.profile-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-options label {
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-input {
+    display: block;
+    margin-top: 5px;
+}
+
+/* 🌟 닉네임 설정 */
+.nickname-section {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.nickname-section label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.nickname-section input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+/* 🌟 저장 버튼 */
+.save-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: black;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.save-button:hover {
+    background: #444;
+}
+
+/* 🌟 성공 모달 */
+.success-modal {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.success-modal h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.success-modal p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.confirm-button {
+    background: #3B82F6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.confirm-button:hover {
+    background: #2563EB;
+}

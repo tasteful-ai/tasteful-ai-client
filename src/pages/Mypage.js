@@ -1,107 +1,132 @@
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import profileImage from "./../assets/default_image.png";
 import likethumb from "./../assets/likethumb.png";
 import dislikethumb from "./../assets/dislikethumb.png";
 import "./../styles/Mypage.css";
-import Button from 'react-bootstrap/Button';
-import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 
 export default function Mypage() {
-    // const [profile, setProfile] = useState();
-    const [nickname, setNickname] = useState();
-    const [profilepic, setProfilepic] = useState();
-    const [createdAt, setCreatedAt] = useState();
-    const [genres, setGenres] = useState(["-"]);
-    const [likeFoods, setLikeFoods] = useState(["-"]);
-    const [dislikeFoods, setDislikeFoods] = useState(["-"]);
-    const [dietaryPreferences, setDietaryPreferences] = useState(["-"]);
-    const [spicyLevels, setSpicyLevels] = useState(["-"]);
+    const [profileData, setProfileData] = useState({
+        nickname: "익명",
+        profilepic: profileImage,
+        createdAt: "가입일 정보 없음",
+        genres: [],
+        likeFoods: [],
+        dislikeFoods: [],
+        dietaryPreferences: [],
+        spicyLevels: [],
+    });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+    // ✅ API 요청 최적화
+    const fetchProfile = useCallback(async () => {
+        setLoading(true);
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            if (!accessToken) {
+                alert("로그인이 필요합니다.");
+                navigate("/login");
+                return;
+            }
+
+            const response = await axios.get("http://localhost:8080/api/members/profiles", {
+                headers: { Authorization: `Bearer ${accessToken}` },
+                withCredentials: true,
+            });
+
+            const data = response?.data?.data || {};
+            setProfileData({
+                nickname: data.nickname || "익명",
+                profilepic: data.imageUrl || profileImage,
+                createdAt: data.createdAt || "가입일 정보 없음",
+                genres: data.genres || [],
+                likeFoods: data.likeFoods || [],
+                dislikeFoods: data.dislikeFoods || [],
+                dietaryPreferences: data.dietaryPreferences || [],
+                spicyLevels: data.spicyLevels || [],
+            });
+        } catch (error) {
+            console.error("프로필 불러오기 실패:", error);
+            setError("프로필 정보를 불러오는 중 오류가 발생했습니다.");
+        } finally {
+            setLoading(false);
+        }
+    }, [navigate]);
 
     useEffect(() => {
-        //함수
         fetchProfile();
-    }, [])
-
-    const fetchProfile = async () => {
-
-
-        const accessToken = localStorage.getItem("accessToken");
-        if (!accessToken) {
-            throw new Error("액세스 토큰 없음 - 로그인 필요");
-        }
-        const response = await axios.get("http://localhost:8080/api/members/profiles", {
-            headers: { Authorization: `Bearer ${accessToken}` },
-            withCredentials: true,
-        });
-        // setProfile(response.data.data)
-        setNickname(response.data.data.nickname);
-        setProfilepic(response.data.data.imageUrl);
-        setCreatedAt(response.data.data.createdAt);
-        setGenres(response.data.data.genres);
-        setLikeFoods(response.data.data.likeFoods);
-        setDislikeFoods(response.data.data.dislikeFoods);
-        setDietaryPreferences(response.data.data.dietaryPreferences);
-        setSpicyLevels(response.data.data.spicyLevels);
-
-    }
+    }, [fetchProfile]);
 
     return (
-        <div className="container">
+        <div className="settings-container">
+            <h2 className="settings-title">마이페이지</h2>
 
-            {/* 메인 컨텐츠 */}
-            <div className="main-content">
-                <div>
-                    <div className="profile-container">
-                        <div className="profile-pic">
-                            <img src={profilepic ? profilepic : profileImage} alt="프로필 사진" className="profile-image"></img>
-                        </div>
+            {loading ? (
+                <p className="loading-message">불러오는 중...</p>
+            ) : error ? (
+                <p className="error-message">{error}</p>
+            ) : (
+                <>
+                    {/* ✅ 프로필 카드 */}
+                    <div className="profile-image-section">
+                        <img src={profileData.profilepic} alt="프로필 사진" className="profile-preview" />
                         <div className="profile-info">
-                            <h1 className="nickname">{nickname}</h1>
-                            <h4 className="created-at">가입일: {createdAt}</h4>
-                            <div className="profile-buttons">
-                                <Button variant="dark" className="profile-update-button">프로필 설정</Button>
-                                <Button variant="secondary" className="taste-update-button">취향 바꾸기</Button>
-                            </div>
+                            <h1 className="nickname">{profileData.nickname}</h1>
+                            <h4 className="created-at">가입일: {profileData.createdAt}</h4>
+                        </div>
+                        <div className="profile-buttons">
+                            <Button className="save-button" onClick={() => navigate("/profile-settings")}>
+                                프로필 설정
+                            </Button>
+                            <Button className="save-button" onClick={() => navigate("/taste-settings")}>
+                                취향 수정
+                            </Button>
                         </div>
                     </div>
-                    <div class="taste-container">
+
+                    {/* ✅ 취향 태그 섹션 */}
+                    <div className="taste-container">
                         <div className="taste-box">
                             <div className="taste-title">
-                                <p>선호취향</p>
-                                <img src={likethumb} alt="좋아요" className="likethumb"></img>
+                                <p>선호 취향</p>
+                                <img src={likethumb} alt="좋아요" className="likethumb" />
                             </div>
                             <div className="taste-tag-lists">
-                                <div className="taste-tag">
-                                    {dietaryPreferences.map((dietaryPreferences, index) => (<span key={index}>#{dietaryPreferences} </span>))}
-                                </div>
-                                <div className="taste-tag">
-                                    {genres.map((genre, index) => (<span key={index}>#{genre} </span>))}
-                                </div>
-                                <div className="taste-tag">
-                                    {likeFoods.map((likeFoods, index) => (<span key={index}>#{likeFoods} </span>))}
-                                </div>
+                                {[...profileData.dietaryPreferences, ...profileData.genres, ...profileData.likeFoods].map((item, index) => (
+                                    <span key={index} className="taste-tag">#{item}</span>
+                                ))}
                             </div>
-                            
                         </div>
+
                         <div className="taste-box">
                             <div className="taste-title">
-                                <p>불호취향</p>
-                                <img src={dislikethumb} alt="싫어요" className="dislikethumb"></img>
+                                <p>불호 취향</p>
+                                <img src={dislikethumb} alt="싫어요" className="dislikethumb" />
                             </div>
-                            <div className="taste-tag">{dislikeFoods.map((dislikeFoods, index) => (<span key={index}>#{dislikeFoods} </span>))}</div>
+                            <div className="taste-tag-lists">
+                                {profileData.dislikeFoods.map((food, index) => (
+                                    <span key={index} className="taste-tag">#{food}</span>
+                                ))}
+                            </div>
                         </div>
+
                         <div className="spicyness-box">
                             <div className="taste-title">
                                 <p>맵기🔥</p>
                             </div>
-                            <div className="taste-tag">{spicyLevels.map((spicyLevels, index) => (<span key={index}>#{spicyLevels}단계</span>))}</div>
+                            <div className="taste-tag-lists">
+                                {profileData.spicyLevels.map((level, index) => (
+                                    <span key={index} className="taste-tag">#{level}단계</span>
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </>
+            )}
         </div>
-
-
     );
 }
