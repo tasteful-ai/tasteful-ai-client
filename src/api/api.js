@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://tastefulai.net', //백엔드 엔드포인트 기본 url
+    baseURL: process.env.REACT_APP_SERVER_URL, //백엔드 엔드포인트 기본 url
     headers: {
         "Content-Type": "application/json",
     },

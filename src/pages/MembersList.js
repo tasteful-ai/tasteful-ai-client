@@ -24,7 +24,7 @@ const MembersList = () => {
         return;
       }
 
-      const response = await axios.get("https://tastefulai.net/api/admins/members", {
+      const response = await axios.get(process.env.REACT_APP_SERVER_URL+"/api/admins/members", {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
       });
@@ -76,7 +76,7 @@ const MembersList = () => {
         return;
       }
 
-      await axios.delete(`https://tastefulai.net/api/admins/members/${memberId}`, {
+      await axios.delete(process.env.REACT_APP_SERVER_URL+`/api/admins/members/${memberId}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
       });

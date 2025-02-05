@@ -26,7 +26,7 @@ export default function Mypage() {
             if (!accessToken) {
                 throw new Error("액세스 토큰 없음 - 로그인 필요");
             }
-            const response = await axios.get("https://tastefulai.net/api/members/profiles", {
+            const response = await axios.get(process.env.REACT_APP_SERVER_URL+"/api/members/profiles", {
                 headers: { Authorization: `Bearer ${accessToken}` },
                 withCredentials: true,
             });

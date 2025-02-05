@@ -13,7 +13,7 @@
 //     setMessages([...messages, userMessage]);
 
 //     try {
-//       const response = await axios.post(`https://tastefulai.net/api/users/aiChats`, {
+//       const response = await axios.post(process.env.REACT_APP_SERVER_URL+`/api/users/aiChats`, {
 //         message: input
 //       }, {
 //         headers: {
