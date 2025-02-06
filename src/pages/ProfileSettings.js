@@ -35,7 +35,7 @@ export default function ProfileSettings() {
             
             // ✅ 닉네임 변경 요청
             if (nickname) {
-                await axios.patch(process.env.REACT_APP_SERVER_URL+"/api/members/profile/nickname",
+                await axios.patch(process.env.REACT_APP_SERVER_URL+"/api/members/profiles/nickname",
                     { nickname },
                     {
                         headers: { Authorization: `Bearer ${accessToken}` },
@@ -85,10 +85,10 @@ export default function ProfileSettings() {
                     <label>
                         <input
                             type="radio"
-                            value="current"
-                            checked={profileOption === "current"}
+                            value="default"
+                            checked={profileOption === "default"}
                             onChange={() => {
-                                setProfileOption("current");
+                                setProfileOption("default");
                                 setPreviewImage(profileImage);
                                 setSelectedFile(null);
                             }}
