@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "../api/api"; // Axios 인스턴스
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import "./Signup.css";
 
 export const Signup = () => {
@@ -13,8 +15,15 @@ export const Signup = () => {
     genderRole: "MALE",
   });
 
-  const [error, setError] = useState("");
+  const [modalMessage, setModalMessage] = useState(""); // ✅ 모달 메시지
+  const [showModal, setShowModal] = useState(false); // ✅ 모달 상태
   const navigate = useNavigate();
+
+  const handleClose = () => setShowModal(false); // 모달 닫기
+  const handleShow = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,14 +32,18 @@ export const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
     try {
       await axios.post("/api/auth/signup", formData);
-      alert("회원가입이 완료되었습니다!");
-      navigate("/login");
+      
+      // ✅ 회원가입 성공 모달 표시 후 로그인 페이지로 이동
+      handleShow("✅ 회원가입이 완료되었습니다!");
+      setTimeout(() => {
+        setShowModal(false);
+        navigate("/login");
+      }, 2000); // 2초 후 로그인 페이지로 이동
     } catch (error) {
-      setError(error.response?.data?.message || "회원가입에 실패했습니다.");
+      handleShow(error.response?.data?.message || "❌ 회원가입에 실패했습니다.");
     }
   };
 
@@ -94,22 +107,14 @@ export const Signup = () => {
             </option>
           ))}
         </select>
-        <select
-          name="genderRole"
-          value={formData.genderRole}
-          onChange={handleChange}
-          required
-        >
+        <select name="genderRole" value={formData.genderRole} onChange={handleChange} required>
           <option value="MALE">남자</option>
           <option value="FEMALE">여자</option>
           <option value="OTHER">기타</option>
         </select>
 
         {/* 버튼 */}
-        <button type="submit" className="signup-button">
-          회원가입
-        </button>
-        {error && <p className="error-message">{error}</p>}
+        <button type="submit" className="signup-button">회원가입</button>
 
         {/* 하단 링크 */}
         <div className="signup-footer">
@@ -117,6 +122,20 @@ export const Signup = () => {
           <a href="/login">로그인</a>
         </div>
       </form>
+
+      {/* ✅ 모달 컴포넌트 */}
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Body>
+          <p>{modalMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            닫기
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
+
+export default Signup;
