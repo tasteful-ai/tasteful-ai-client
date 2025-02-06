@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import axios from "../api/api"; // Axios 인스턴스
 import { useNavigate, useLocation } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import "./Login.css";
 
 export const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [modalMessage, setModalMessage] = useState(""); // ✅ 모달 메시지
+  const [showModal, setShowModal] = useState(false); // ✅ 모달 상태
 
-  const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation(); // 로그인 전 방문하려던 페이지 정보 저장
+
+  const handleClose = () => setShowModal(false); // 모달 닫기
+  const handleShow = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -19,7 +26,6 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
     try {
       const response = await axios.post("/api/auth/login", formData);
       localStorage.setItem("accessToken", response.data.data.accessToken);
@@ -27,20 +33,21 @@ export const Login = () => {
       localStorage.setItem("memberRole", response.data.data.memberRole);
       localStorage.setItem("memberId", response.data.data.memberId);
       localStorage.setItem("nickname", response.data.data.nickname);
-  
-      alert("로그인 성공!");
+
       window.dispatchEvent(new Event("storage"));
-  
-      // ✅ ADMIN인 경우 관리자 페이지로 리디렉트
-      if (response.data.data.memberRole === "ADMIN") {
-        navigate("/admin");
-      } else {
-        // 일반 사용자는 원래 가려고 했던 페이지나 메인 페이지로 이동
-        const redirectTo = location.state?.redirectTo || "/";
-        navigate(redirectTo);
-      }
+
+      setTimeout(() => {
+        setShowModal(false);
+        if (response.data.data.memberRole === "ADMIN") {
+          navigate("/admin");
+        } else {
+          const redirectTo = location.state?.redirectTo || "/";
+          navigate(redirectTo);
+        }
+      },
+    );
     } catch (error) {
-      setError(error.response?.data?.message || "로그인에 실패했습니다.");
+      handleShow(error.response?.data?.message || "❌ 로그인에 실패했습니다.");
     }
   };
 
@@ -67,12 +74,25 @@ export const Login = () => {
         <button type="submit" className="login-button">
           로그인
         </button>
-        {error && <p className="error-message">{error}</p>}
       </form>
       <div className="login-footer">
         <span>계정이 없으신가요? </span>
         <a href="/signup">회원가입</a>
       </div>
+
+      {/* ✅ 모달 컴포넌트 */}
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Body>
+          <p>{modalMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            닫기
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
+
+export default Login;
