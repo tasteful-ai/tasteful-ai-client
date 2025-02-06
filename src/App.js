@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setTokens } from "./store/slices/authSlice";
 import { Sidebar } from "./components/Sidebar";
 import { AdminSidebar } from "./components/AdminSidebar";
-import MypageSidebar from "./components/MypageSidebar"
+import MypageSidebar from "./components/MypageSidebar";
 import Main from "./pages/Main";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
@@ -21,14 +21,14 @@ import AdminMain from "./pages/AdminMain";
 import MembersList from "./pages/MembersList";
 import ChangePassword from "./pages/ChangePassword";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ChatBot from "./components/ChatBot"; // ✅ AI 챗봇 추가
-import TasteSelection from "./pages/TasteSelection";
+import ChatBot from "./components/ChatBot";
+import PasswordVerifyPage from "./pages/PasswordVerifyPage"; // ✅ 추가
+import AccountDeletePage from "./pages/AccountDeletePage"; // ✅ 추가
 
 function Layout() {
   const location = useLocation();
-  const authPages = ["/change-password", "/forgot-password"]; // ✅ 인증 관련 페이지 배열화
+  const authPages = ["/change-password", "/forgot-password"];
   const isAuthPage = authPages.includes(location.pathname);
-  const isAdminPage = location.pathname.startsWith("/admin");
   const isMypage = location.pathname.startsWith("/mypage");
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -67,10 +67,14 @@ function Layout() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/profile-settings" element={<ProfileSettings />} />
           <Route path="/update-profile" element={<UpdateProfile />} />
-          <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/mypage/change-password" element={<ChangePassword />} />
 
           {/* ✅ AI 채팅방 추가 */}
           <Route path="/chatting/room/ai" element={<ChatBot />} />
+
+          {/* ✅ 비밀번호 검증 및 계정 삭제 추가 */}
+          <Route path="/password/verify" element={<PasswordVerifyPage />} />
+          <Route path="/account/delete" element={<AccountDeletePage />} />
 
           {/* ADMIN 전용 페이지 보호 */}
           <Route
@@ -97,26 +101,25 @@ function Layout() {
 
 function App() {
   const dispatch = useDispatch();
-  const memberRole = useSelector((state) => state.auth.memberRole);
-  const isConnected = useSelector((state) => state.chatting.isConnected); // ✅ WebSocket 연결 상태 확인
+  const isConnected = useSelector((state) => state.chatting.isConnected);
 
   useEffect(() => {
     const role = localStorage.getItem("memberRole");
     const token = localStorage.getItem("accessToken");
 
     if (role && token) {
-      dispatch(setTokens({ accessToken: token, memberRole: role })); // Redux 상태에 저장
+      dispatch(setTokens({ accessToken: token, memberRole: role }));
     }
   }, [dispatch]);
 
   useEffect(() => {
     const checkRoomsAndConnect = async () => {
       try {
-        const response = await fetch("/api/chatting/rooms"); // 채팅방 목록 조회
+        const response = await fetch("/api/chatting/rooms");
         const data = await response.json();
 
         if (data.length > 0 && !isConnected) {
-          dispatch(connectWebSocket()); // ✅ 이미 연결되지 않았다면 WebSocket 연결
+          dispatch(connectWebSocket());
         }
       } catch (error) {
         console.error("채팅방 조회 실패:", error);
@@ -127,7 +130,7 @@ function App() {
 
     return () => {
       if (isConnected) {
-        dispatch(disconnectWebSocket()); // ✅ 연결된 경우에만 해제
+        dispatch(disconnectWebSocket());
       }
     };
   }, [dispatch, isConnected]);
