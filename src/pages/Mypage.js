@@ -81,7 +81,7 @@ export default function Mypage() {
                             <Button className="save-button" onClick={() => navigate("/profile-settings")}>
                                 프로필 설정
                             </Button>
-                            <Button className="save-button" onClick={() => navigate("/taste-settings")}>
+                            <Button className="save-button" onClick={() => navigate("/taste-selection")}>
                                 취향 수정
                             </Button>
                         </div>

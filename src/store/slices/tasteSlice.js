@@ -12,7 +12,11 @@ export const fetchTasteCategories = createAsyncThunk(
           throw new Error("사용자 ID를 찾을 수 없습니다.");
         }
   
-        const response = await axios.get(`/api/users/members/${memberId}/tastes`);
+        const response = await axios.get(`/api/members/${memberId}/tastes`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 👈 JWT 토큰 추가
+          },
+        });
         return response.data.data;
       } catch (error) {
         return rejectWithValue(error.response?.data?.message || "취향 데이터를 불러오지 못했습니다.");
@@ -30,19 +34,19 @@ export const fetchTasteCategories = createAsyncThunk(
         let endpoint = "";
         switch (category) {
           case "genres":
-            endpoint = `/api/users/members/${memberId}/tastes/genres`;
+            endpoint = `/api/members/${memberId}/tastes/genres`;
             break;
           case "likeFoods":
-            endpoint = `/api/users/members/${memberId}/tastes/likeFoods`;
+            endpoint = `/api/members/${memberId}/tastes/likeFoods`;
             break;
           case "dislikeFoods":
-            endpoint = `/api/users/members/${memberId}/tastes/dislikeFoods`;
+            endpoint = `/api/members/${memberId}/tastes/dislikeFoods`;
             break;
           case "dietaryPreferences":
-            endpoint = `/api/users/members/${memberId}/tastes/dietaryPreferences`;
+            endpoint = `/api/members/${memberId}/tastes/dietaryPreferences`;
             break;
-          case "spicyLevels":
-            endpoint = `/api/users/members/${memberId}/tastes/spicyLevels`;
+          case "spicyLevel":
+            endpoint = `/api/members/${memberId}/tastes/spicyLevel`;
             break;
           default:
             throw new Error("잘못된 카테고리 요청입니다.");

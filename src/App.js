@@ -24,6 +24,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ChatBot from "./components/ChatBot";
 import PasswordVerifyPage from "./pages/PasswordVerifyPage"; // ✅ 추가
 import AccountDeletePage from "./pages/AccountDeletePage"; // ✅ 추가
+import TasteSelection from "./pages/TasteSelection";
 
 function Layout() {
   const location = useLocation();
@@ -68,6 +69,7 @@ function Layout() {
           <Route path="/profile-settings" element={<ProfileSettings />} />
           <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/mypage/change-password" element={<ChangePassword />} />
+          <Route path="/taste-selection" element={<TasteSelection />} /> 
 
           {/* ✅ AI 채팅방 추가 */}
           <Route path="/chatting/room/ai" element={<ChatBot />} />
