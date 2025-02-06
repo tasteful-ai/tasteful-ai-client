@@ -85,10 +85,10 @@ export default function ProfileSettings() {
                     <label>
                         <input
                             type="radio"
-                            value="current"
-                            checked={profileOption === "current"}
+                            value="default"
+                            checked={profileOption === "default"}
                             onChange={() => {
-                                setProfileOption("current");
+                                setProfileOption("default");
                                 setPreviewImage(profileImage);
                                 setSelectedFile(null);
                             }}
