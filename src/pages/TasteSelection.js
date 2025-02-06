@@ -1,21 +1,34 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateTasteCategory } from "../store/slices/tasteSlice";
+import { fetchTasteCategories, updateTasteCategory } from "../store/slices/tasteSlice";
 import "../styles/TasteSelection.css";
 
 const TasteSelection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, genres, likeFoods, dislikeFoods, dietaryPreferences, spicyLevel } = useSelector((state) => state.taste);
   const [step, setStep] = useState(1);
 
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedLikeFoods, setSelectedLikeFoods] = useState([]);
   const [selectedDislikeFoods, setSelectedDislikeFoods] = useState([]);
   const [selectedDietaryPreferences, setSelectedDietaryPreferences] = useState([]);
-  const [selectedSpicyLevels, setSelectedSpicyLevels] = useState(null);
+  const [selectedSpicyLevel, setSelectedSpicyLevel] = useState(null);
 
   const maxSelections = 5;
+
+  useEffect(() => {
+    dispatch(fetchTasteCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setSelectedGenres(genres);
+    setSelectedLikeFoods(likeFoods);
+    setSelectedDislikeFoods(dislikeFoods);
+    setSelectedDietaryPreferences(dietaryPreferences);
+    setSelectedSpicyLevel(spicyLevel);
+  }, [genres, likeFoods, dislikeFoods, dietaryPreferences, spicyLevel]);
 
   const toggleSelection = (selected, setSelected, item) => {
     if (selected.includes(item)) {
@@ -49,8 +62,8 @@ const TasteSelection = () => {
         requestData = { dietaryPreferences: selectedDietaryPreferences };
         break;
       case 5:
-        category = "spicyLevels";
-        requestData = { spicyLevels: selectedSpicyLevels };
+        category = "spicyLevel";
+        requestData = { spicyLevel: selectedSpicyLevel };
         break;
       default:
         break;
@@ -164,8 +177,8 @@ const TasteSelection = () => {
             {["1단계 : 맵지 않은 순한 맛", "2단계 : 진라면 순한 맛", "3단계 : 신라면 정도", "4단계 : 불닭볶음면 정도", "5단계 : 핵불닭볶음면 이상!"].map((level, index) => (
               <button
                 key={level}
-                className={`spicy-button ${selectedSpicyLevels === index + 1 ? "selected" : ""}`}
-                onClick={() => setSelectedSpicyLevels(index + 1)}
+                className={`spicy-button ${selectedSpicyLevel === index + 1 ? "selected" : ""}`}
+                onClick={() => setSelectedSpicyLevel(index + 1)}
               >
                 {level}
               </button>
