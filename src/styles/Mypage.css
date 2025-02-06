@@ -81,9 +81,8 @@
 /* 🌟 취향 카드 */
 .taste-box, .spicyness-box {
     text-align: left;
-    padding: 20px;
+    padding: 20px 100px 90px 10px;
     flex: 1;
-    padding: 90px;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
@@ -95,7 +94,7 @@
 .taste-title {
     display: flex;
     align-items: center;
-    gap: 8px; /* 아이콘과 글씨 사이 간격 */
+    gap: 10px; /* 아이콘과 글씨 사이 간격 */
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -106,7 +105,7 @@
     flex-wrap: wrap;
     gap: 10px;
     justify-content: flex-start; /* 왼쪽 정렬 */
-    margin-top: 10px;
+    margin-top: 200px;
 }
 
 /* 🌟 태그 스타일 */
