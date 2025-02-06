@@ -35,7 +35,7 @@ export default function ProfileSettings() {
             
             // ✅ 닉네임 변경 요청
             if (nickname) {
-                await axios.patch(process.env.REACT_APP_SERVER_URL+"/api/members/profile/nickname",
+                await axios.patch(process.env.REACT_APP_SERVER_URL+"/api/members/profiles/nickname",
                     { nickname },
                     {
                         headers: { Authorization: `Bearer ${accessToken}` },
