@@ -27,7 +27,7 @@ export const AdminSidebar = ({ isOpen, toggleSidebar }) => {
     sessionStorage.clear();
 
     console.log("✅ 로그아웃 완료, 메인 페이지로 이동");
-    navigate("/");
+    window.location.replace("/");
 
     // ✅ 상태 즉시 업데이트
     setIsLoggedIn(false);

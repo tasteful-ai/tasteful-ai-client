@@ -39,10 +39,10 @@ export const Login = () => {
       setTimeout(() => {
         setShowModal(false);
         if (response.data.data.memberRole === "ADMIN") {
-          navigate("/admin");
+          window.location.replace("/admin");
         } else {
           const redirectTo = location.state?.redirectTo || "/";
-          navigate(redirectTo);
+          window.location.replace(redirectTo);
         }
       },
     );
