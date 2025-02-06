@@ -4,13 +4,13 @@ import axios from "../../api/api";
 const initialState = {
   accessToken: localStorage.getItem("accessToken") || null,
   refreshToken: localStorage.getItem("refreshToken") || null,
-  memberRole: localStorage.getItem("memberRole") || null, // ✅ userRole → memberRole로 변경
+  memberRole: localStorage.getItem("memberRole") || null,
   memberId: localStorage.getItem("memberId") || null,
   status: "idle",
   error: null,
 };
 
-// ✅ 로그인 액션 (JWT 디코딩 추가)
+// ✅ 로그인 액션
 export const login = createAsyncThunk("auth/login", async (credentials, thunkAPI) => {
   try {
     const response = await axios.post("/api/auth/login", credentials);
@@ -18,18 +18,19 @@ export const login = createAsyncThunk("auth/login", async (credentials, thunkAPI
 
     const { accessToken, refreshToken, memberRole, memberId } = response.data.data;
 
-    // ✅ LocalStorage 저장
-    window.localStorage.setItem("accessToken", accessToken);
-    window.localStorage.setItem("refreshToken", refreshToken);
-    window.localStorage.setItem("memberRole", memberRole);
-    window.localStorage.setItem("memberId", memberId);
+    // ✅ Redux 상태 업데이트
+    thunkAPI.dispatch(setTokens({ accessToken, refreshToken, memberRole, memberId }));
 
-    console.log(localStorage.getItem("memberRole"));
+    // ✅ LocalStorage 저장
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("memberRole", memberRole);
+    localStorage.setItem("memberId", memberId);
 
     return { accessToken, refreshToken, memberRole, memberId };
   } catch (error) {
     console.error("❌ Login Error:", error.response?.data || error.message);
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue(error.response?.data || "로그인 실패");
   }
 });
 
@@ -45,46 +46,19 @@ const authSlice = createSlice({
       state.refreshToken = refreshToken;
       state.memberRole = memberRole;
       state.memberId = memberId;
-
-
-      // ✅ LocalStorage 저장
-      window.localStorage.setItem("accessToken", accessToken);
-      window.localStorage.setItem("refreshToken", refreshToken);
-      window.localStorage.setItem("memberRole", memberRole);
-      window.localStorage.setItem("memberId", memberId);
-
     },
 
     clearTokens(state) {
+      console.log("🚀 모든 인증 정보 삭제");
       state.accessToken = null;
       state.refreshToken = null;
-      state.memberRole = "";
+      state.memberRole = null;
       state.memberId = null;
-
-
-      // ✅ LocalStorage 삭제
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("memberRole");
-      localStorage.removeItem("memberId");
-
+      localStorage.clear();
+      sessionStorage.clear();
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(login.fulfilled, (state, action) => {
-        const { accessToken, refreshToken, memberRole, memberId } = action.payload;
-        state.accessToken = accessToken;
-        state.refreshToken = refreshToken;
-        state.memberRole = memberRole;
-        state.memberId = memberId;
-      })
-      .addCase(login.rejected, (state, action) => {
-        console.error("❌ Redux Login Rejected:", action.payload);
-      });
   },
 });
 
-// ✅ Export 추가
 export const { setTokens, clearTokens } = authSlice.actions;
 export default authSlice.reducer;
