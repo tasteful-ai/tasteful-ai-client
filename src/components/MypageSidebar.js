@@ -19,7 +19,7 @@ const MypageSidebar = ({ isOpen, toggleSidebar }) => {
     sessionStorage.clear();
 
     console.log("✅ 로그아웃 완료, 로그인 페이지로 이동");
-    navigate("/login");
+    window.location.replace("/login");
   };
 
   return (
