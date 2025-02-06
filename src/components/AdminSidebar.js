@@ -1,26 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; // ✅ Redux 상태 가져오기
 import "./../styles/AdminSidebar.css"; // 관리자용 CSS
 import { clearTokens } from "../store/slices/authSlice";
 
-export const AdminSidebar = ({isOpen, toggleSidebar}) => {
+export const AdminSidebar = ({ isOpen, toggleSidebar }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const accessToken = useSelector((state) => state.auth.accessToken); // ✅ Redux에서 accessToken 상태 가져오기
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
 
-  // 로그인 상태 확인
+  // ✅ Redux 상태 변경 감지하여 로그인 상태 업데이트
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    setIsLoggedIn(!!token);
-  }, []);
+    setIsLoggedIn(!!accessToken);
+  }, [accessToken]); // ✅ accessToken이 변경될 때마다 실행
 
   // 로그아웃 처리
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
+    console.log("✅ 로그아웃 처리 시작");
+
+    // ✅ Redux 상태 초기화
     dispatch(clearTokens());
+
+    // ✅ LocalStorage 및 SessionStorage 전체 삭제
+    localStorage.clear();
+    sessionStorage.clear();
+
+    console.log("✅ 로그아웃 완료, 메인 페이지로 이동");
+    navigate("/");
+
+    // ✅ 상태 즉시 업데이트
     setIsLoggedIn(false);
-    navigate("/"); // 로그아웃 후 홈으로 이동
   };
 
   return (
@@ -41,7 +51,7 @@ export const AdminSidebar = ({isOpen, toggleSidebar}) => {
           {isLoggedIn ? (
             <button className="logout-btn" onClick={handleLogout}>로그아웃</button>
           ) : (
-            <a href="/signup">회원가입 / 로그인</a>
+            <button className="login-btn" onClick={() => navigate("/login")}>회원가입 / 로그인</button>
           )}
           <button className="settings-icon" onClick={() => navigate("/mypage")}>⚙</button>
         </div>

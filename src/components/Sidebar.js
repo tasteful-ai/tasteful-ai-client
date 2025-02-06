@@ -1,24 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux"; // Redux 상태 사용
+import { useDispatch, useSelector } from "react-redux"; // Redux 상태 사용
 import "./../styles/Sidebar.css";
 import { clearTokens } from "../store/slices/authSlice";
 
 export const Sidebar = ({ isOpen, toggleSidebar }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const accessToken = useSelector((state) => state.auth.accessToken); // ✅ Redux에서 accessToken 상태 가져오기
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
 
+  // ✅ Redux 상태 변경 감지하여 로그인 상태 업데이트
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    setIsLoggedIn(!!token);
-  }, []);
+    setIsLoggedIn(!!accessToken); // Redux 상태 기반으로 업데이트
+  }, [accessToken]); // ✅ accessToken이 변경될 때마다 실행
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
+    console.log("✅ 로그아웃 처리 시작");
+
+    // ✅ Redux 상태 초기화
     dispatch(clearTokens());
-    setIsLoggedIn(false);
+
+    // ✅ LocalStorage 및 SessionStorage 초기화
+    localStorage.clear();
+    sessionStorage.clear();
+
+    console.log("✅ 로그아웃 완료, 메인 페이지로 이동");
     navigate("/");
+
+    // ✅ 상태 즉시 업데이트
+    setIsLoggedIn(false);
   };
 
   return (
@@ -28,7 +39,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
       <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
         <div className="sidebar-header"></div>
         <nav className="sidebar-nav">
-          {/* ✅ "Begin a New AI Chat" 버튼 클릭 시 AI 채팅방으로 이동 */}
+          {/* ✅ AI 채팅방 이동 버튼 */}
           <button className="nav-item" onClick={() => navigate("/chatting/room/ai")}>
             Begin a New AI Chat <span className="add-icon">+</span>
           </button>
