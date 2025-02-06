@@ -1,6 +1,6 @@
-const KAKAO_MAP_APP_KEY = "YOUR_KAKAO_JAVASCRIPT_API_수기입력"; // ✅ 한 곳에서만 설정
+const KAKAO_MAP_APP_KEY = process.env.REACT_APP_KAKAO_JAVASCRIPT_API; // 환경 변수로 변경
 
-let isKakaoLoading = false; // ✅ 중복 방지용 변수
+let isKakaoLoading = false;
 let kakaoPromise = null;
 
 export const loadKakaoMap = () => {
@@ -38,4 +38,3 @@ export const loadKakaoMap = () => {
 
   return kakaoPromise;
 };
-
