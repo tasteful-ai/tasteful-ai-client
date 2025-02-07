@@ -44,7 +44,7 @@ export const AdminSidebar = ({ isOpen, toggleSidebar }) => {
           <h2 className="admin-mode-title">관리자 모드</h2>
         </div>
         <nav className="sidebar-nav">
-          <button className="nav-item" onClick={() => navigate("/members")}>사용자 목록</button>
+          <button className="nav-item" onClick={() => navigate("/admins/members")}>사용자 목록</button>
           <button className="nav-item" onClick={() => navigate("/chatting/rooms")}>채팅방 관리</button>
         </nav>
         <div className="sidebar-footer">

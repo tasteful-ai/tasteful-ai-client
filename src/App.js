@@ -88,7 +88,7 @@ function Layout() {
             }
           />
           <Route
-            path="/admin/members"
+            path="/admins/members"
             element={
               <ProtectedRoute>
                 <MembersList />
