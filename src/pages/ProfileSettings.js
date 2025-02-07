@@ -35,11 +35,10 @@ export default function ProfileSettings() {
             
             // ✅ 닉네임 변경 요청
             if (nickname) {
-                await axios.patch(
-                    `${process.env.REACT_APP_SERVER_URL}/api/members/profiles/nickname`,
+                await axios.patch(process.env.REACT_APP_SERVER_URL+"/api/members/profiles/nickname",
                     { nickname },
                     {
-                        headers: { Authorization: `Bearer ${accessToken}` }, // 🔥 수정된 부분
+                        headers: { Authorization: `Bearer ${accessToken}` },
                         withCredentials: true,
                     }
                 );
@@ -48,29 +47,22 @@ export default function ProfileSettings() {
             // ✅ 프로필 이미지 변경 요청
             if (profileOption === "default") {
                 // 기본 이미지로 변경 요청 (DELETE)
-                await axios.delete(
-                    `${process.env.REACT_APP_SERVER_URL}/api/members/profiles/images`,
-                    {
-                        headers: { Authorization: `Bearer ${accessToken}` }, // 🔥 수정된 부분
-                        withCredentials: true,
-                    }
-                );
+                await axios.delete("http://localhost:8080/api/members/profiles/images", {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                    withCredentials: true,
+                });
             } else if (selectedFile) {
                 // 새 이미지 업로드 요청 (PUT)
                 const formData = new FormData();
                 formData.append("image", selectedFile);
 
-                await axios.put(
-                    `${process.env.REACT_APP_SERVER_URL}/api/members/profiles/images`,
-                    formData,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${accessToken}`, // 🔥 수정된 부분
-                            "Content-Type": "multipart/form-data",
-                        },
-                        withCredentials: true,
-                    }
-                );
+                await axios.put("http://localhost:8080/api/members/profiles/images", formData, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                    withCredentials: true,
+                });
             }
 
             alert("프로필 변경이 저장되었습니다!"); // ✅ 성공 메시지
@@ -93,10 +85,10 @@ export default function ProfileSettings() {
                     <label>
                         <input
                             type="radio"
-                            value="current"
-                            checked={profileOption === "current"}
+                            value="default"
+                            checked={profileOption === "default"}
                             onChange={() => {
-                                setProfileOption("current");
+                                setProfileOption("default");
                                 setPreviewImage(profileImage);
                                 setSelectedFile(null);
                             }}
