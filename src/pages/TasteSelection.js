@@ -79,7 +79,7 @@ const TasteSelection = () => {
               setStep(step + 1);
             } else {
               alert("취향이 저장되었습니다!");
-              navigate("/");
+              navigate("/mypage");
             }
           }
         });
@@ -87,7 +87,7 @@ const TasteSelection = () => {
       if (step < 5) {
         setStep(step + 1);
       } else {
-        navigate("/");
+        navigate("/mypage");
       }
     }
   };
@@ -96,7 +96,7 @@ const TasteSelection = () => {
     if (step < 5) {
       setStep(step + 1);
     } else {
-      navigate("/");
+      navigate("/mypage");
     }
   };
 
