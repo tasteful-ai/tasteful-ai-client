@@ -14,6 +14,15 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수평 중앙 정렬 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    width: 100%;
+    padding: 20px;
+}
+
 /* 🟢 호버 & 클릭 효과 */
 .profile-container:hover {
     transform: translateY(-5px);
@@ -72,14 +81,13 @@
     transform: scale(0.95);
 }
 
-/* 🌟 취향 정보 컨테이너 */
 .taste-container {
     display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    width: 100%;
-    text-align: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 80%;
+    max-width: 800px;
 }
 
 /* 🌟 취향 카드 */
@@ -110,7 +118,6 @@
     flex-wrap: wrap;
     gap: 10px;
     justify-content: flex-start; /* 왼쪽 정렬 */
-    margin-top: 15px;
 }
 
 /* 🌟 태그 스타일 */
@@ -145,6 +152,68 @@
 .likethumb:active, .dislikethumb:active {
     transform: scale(1.2);
 }
+
+/* 🌟 취향 전체 컨테이너 */
+.taste-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 80%;
+    max-width: 800px;
+}
+
+/* ✅ 맵기 취향 박스를 가로로 긴 박스로 설정 */
+.spicyness-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    width: 100%; /* 전체 너비 사용 */
+    height: 80px;
+    padding: 10px 20px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* ✅ 맵기 취향 내부 요소 가로 정렬 */
+.spicy-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 20%;
+}
+
+/* ✅ 맵기 수준 */
+.spicy-level {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+    margin-top: 10px;
+}
+
+/* ✅ 선호취향 & 불호취향을 2열로 정렬 */
+.taste-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2열 배치 */
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* ✅ 선호취향 & 불호취향 박스 크기 고정 */
+.taste-box {
+    text-align: center;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 400px; /* 고정 높이 */
+}
+
 
 /* 🌟 반응형 스타일 추가 */
 @media (max-width: 768px) {

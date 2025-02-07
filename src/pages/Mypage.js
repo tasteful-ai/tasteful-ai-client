@@ -32,7 +32,7 @@ export default function Mypage() {
                 navigate("/login");
                 return;
             }
-            const response = await axios.get(process.env.REACT_APP_SERVER_URL+"/api/members/profiles", {
+            const response = await axios.get(process.env.REACT_APP_SERVER_URL + "/api/members/profiles", {
                 headers: { Authorization: `Bearer ${accessToken}` },
                 withCredentials: true,
             });
@@ -89,33 +89,10 @@ export default function Mypage() {
 
                     {/* ✅ 취향 태그 섹션 */}
                     <div className="taste-container">
-                        <div className="taste-box">
-                            <div className="taste-title">
-                                <p>선호 취향</p>
-                                <img src={likethumb} alt="좋아요" className="likethumb" />
-                            </div>
-                            <div className="taste-tag-lists">
-                                {[...profileData.dietaryPreferences, ...profileData.genres, ...profileData.likeFoods].map((item, index) => (
-                                    <span key={index} className="taste-tag">#{item}</span>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="taste-box">
-                            <div className="taste-title">
-                                <p>불호 취향</p>
-                                <img src={dislikethumb} alt="싫어요" className="dislikethumb" />
-                            </div>
-                            <div className="taste-tag-lists">
-                                {profileData.dislikeFoods.map((food, index) => (
-                                    <span key={index} className="taste-tag">#{food}</span>
-                                ))}
-                            </div>
-                        </div>
-
+                        {/* ✅ 맵기 취향 (가로 긴 박스, 상단) */}
                         <div className="spicyness-box">
-                            <div className="taste-title">
-                                <p>맵기🔥</p>
+                            <div className="spicy-container">
+                                <p className="spicy-level">맵기 🔥</p>
                             </div>
                             <div className="taste-tag-lists">
                                 {profileData.spicyLevels.map((level, index) => (
@@ -123,7 +100,35 @@ export default function Mypage() {
                                 ))}
                             </div>
                         </div>
+
+                        {/* ✅ 선호취향 & 불호취향 (2열 배치) */}
+                        <div className="taste-grid">
+                            <div className="taste-box">
+                                <div className="taste-title">
+                                    <p>선호 취향 👍 </p>
+                                </div>
+                                <div className="taste-tag-lists">
+                                    {[...profileData.dietaryPreferences, ...profileData.genres, ...profileData.likeFoods].map((item, index) => (
+                                        <span key={index} className="taste-tag">#{item}</span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="taste-box">
+                                <div className="taste-title">
+                                    <p>불호 취향 👎 </p>
+                                </div>
+                                <div className="taste-tag-lists">
+                                    {profileData.dislikeFoods.map((food, index) => (
+                                        <span key={index} className="taste-tag">#{food}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+
+
                 </>
             )}
         </div>
