@@ -7,7 +7,7 @@ import "../styles/TasteSelection.css";
 const TasteSelection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, genres, likeFoods, dislikeFoods, dietaryPreferences, spicyLevel } = useSelector((state) => state.taste);
+  const { genres, likeFoods, dislikeFoods, dietaryPreferences, spicyLevel } = useSelector((state) => state.taste);
   const [step, setStep] = useState(1);
 
   const [selectedGenres, setSelectedGenres] = useState([]);

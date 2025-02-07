@@ -11,13 +11,21 @@ export const fetchTasteCategories = createAsyncThunk(
         if (!memberId) {
           throw new Error("사용자 ID를 찾을 수 없습니다.");
         }
+        const [genres, likeFoods, dislikeFoods, dietaryPreferences, spicyLevel] = await Promise.all([
+          axios.get(`/api/members/${memberId}/tastes/genres`),
+          axios.get(`/api/members/${memberId}/tastes/likeFoods`),
+          axios.get(`/api/members/${memberId}/tastes/dislikeFoods`),
+          axios.get(`/api/members/${memberId}/tastes/dietaryPreferences`),
+          axios.get(`/api/members/${memberId}/tastes/spicyLevel`),
+        ]);
   
-        const response = await axios.get(`/api/members/${memberId}/tastes`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // 👈 JWT 토큰 추가
-          },
-        });
-        return response.data.data;
+        return {
+          genres: genres.data.data,
+          likeFoods: likeFoods.data.data,
+          dislikeFoods: dislikeFoods.data.data,
+          dietaryPreferences: dietaryPreferences.data.data,
+          spicyLevel: spicyLevel.data.data,
+        };
       } catch (error) {
         return rejectWithValue(error.response?.data?.message || "취향 데이터를 불러오지 못했습니다.");
       }
@@ -100,21 +108,21 @@ const tasteSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTasteCategories.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchTasteCategories.fulfilled, (state, action) => {
-        state.loading = false;
-        state.genres = action.payload.genres || [];
-        state.likeFoods = action.payload.likeFoods || [];
-        state.dislikeFoods = action.payload.dislikeFoods || [];
-        state.dietaryPreferences = action.payload.dietaryPreferences || [];
-        state.spicyLevel = action.payload.spicyLevel || null;
-      })
-      .addCase(fetchTasteCategories.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+    .addCase(fetchTasteCategories.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(fetchTasteCategories.fulfilled, (state, action) => {
+      state.loading = false;
+      state.genres = action.payload.genres || [];
+      state.likeFoods = action.payload.likeFoods || [];
+      state.dislikeFoods = action.payload.dislikeFoods || [];
+      state.dietaryPreferences = action.payload.dietaryPreferences || [];
+      state.spicyLevel = action.payload.spicyLevel || null;
+    })
+    .addCase(fetchTasteCategories.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     })
     .addCase(updateTasteCategory.pending, (state) => {
         state.loading = true;
