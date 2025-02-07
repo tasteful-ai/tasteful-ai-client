@@ -2,11 +2,15 @@
 .profile-container {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
-    border-radius: 12px;
+    justify-content: center;
+    gap: 30px; /* 간격 조정 */
+    padding: 30px;
+    border-radius: 16px;
     background: white;
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+    max-width: 900px; /* 너비 확장 */
+    width: 90%;
+    margin: auto;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.15);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -72,7 +76,7 @@
 .taste-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 30px;
     width: 100%;
     text-align: center;
     flex-wrap: wrap;
@@ -80,14 +84,15 @@
 
 /* 🌟 취향 카드 */
 .taste-box, .spicyness-box {
-    text-align: left;
-    padding: 20px 100px 90px 10px;
-    flex: 1;
+    text-align: center;
+    padding: 20px;
+    flex: 1 1 calc(33% - 30px);
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.12);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    margin-top: 10px; /* 칸 높이 조정*/
+    margin-top: 10px;
+    min-width: 200px;
 }
 
 /* 🟢 취향 제목 정렬 */
@@ -105,7 +110,7 @@
     flex-wrap: wrap;
     gap: 10px;
     justify-content: flex-start; /* 왼쪽 정렬 */
-    margin-top: 200px;
+    margin-top: 15px;
 }
 
 /* 🌟 태그 스타일 */
