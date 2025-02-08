@@ -32,8 +32,11 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
         <div className="sidebar-header">
-          <img src={homeLogo} alt="Home" className="sidebar-logo" />
-        </div>
+          <img src={homeLogo} alt="Home" className="sidebar-logo"
+                    onClick={() => navigate("/")} /* 클릭 시 메인 페이지 이동 */
+                    style={{ cursor: "pointer" }} /* 마우스 커서 변경 */
+                  />
+                </div>
 
         <nav className="sidebar-nav">
           <button className="nav-item" onClick={() => navigate("/chatting/room/ai")}>
