@@ -20,3 +20,29 @@
 </aside>
 
 ---
+
+## 🍙 HOME
+
+---
+
+## 🍙 AUTH
+
+---
+
+## 🍙 MY PAGE
+
+---
+
+## 🍙 AI CHAT
+
+---
+
+## 🍙 TASTE
+
+---
+
+## 🍙 LOCATION
+
+---
+
+## 🍙 OPEN CHATTING
