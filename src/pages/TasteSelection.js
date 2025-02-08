@@ -43,56 +43,74 @@ const TasteSelection = () => {
   const handleNext = () => {
     let category = "";
     let requestData = {};
-  
+    let isValid = true;
+
     switch (step) {
       case 1:
         category = "genres";
         requestData = { genres: selectedGenres };
+        if (selectedGenres.length === 0) isValid = false;
         break;
       case 2:
         category = "likeFoods";
         requestData = { likeFoods: selectedLikeFoods };
+        if (selectedLikeFoods.length === 0) isValid = false;
         break;
       case 3:
         category = "dislikeFoods";
         requestData = { dislikeFoods: selectedDislikeFoods };
+        if (selectedDislikeFoods.length === 0) isValid = false;
         break;
       case 4:
         category = "dietaryPreferences";
         requestData = { dietaryPreferences: selectedDietaryPreferences };
+        if (selectedDietaryPreferences.length === 0) isValid = false;
         break;
       case 5:
         category = "spicyLevel";
         requestData = { spicyLevel: selectedSpicyLevel };
+        if (selectedSpicyLevel === 0) isValid = false;
         break;
       default:
         break;
     }
-  
-    if (category) {
-      dispatch(updateTasteCategory({ category, data : requestData }))
-        .then((result) => {
-          if (result.error) {
-            alert("저장 중 오류가 발생했습니다: " + result.error.message);
-          } else {
-            if (step < 5) {
-              setStep(step + 1);
-            } else {
-              alert("취향이 저장되었습니다!");
-              navigate("/mypage");
-            }
-          }
-        });
-    } else {
-      if (step < 5) {
-        setStep(step + 1);
-      } else {
-        navigate("/mypage");
-      }
+
+    if (!isValid) {
+      alert("취향을 1개 이상 선택해주세요.");
+      return;
     }
+
+    dispatch(updateTasteCategory({ category, data: requestData }))
+      .then((result) => {
+        if (result.error) {
+          alert("저장 중 오류가 발생했습니다: " + result.error.message);
+        } else {
+          if (step < 5) {
+            setStep(step + 1);
+          } else {
+            alert("취향이 저장되었습니다!");
+            navigate("/mypage");
+          }
+        }
+      });
   };
 
   const handleSkip = () => {
+    switch (step) {
+      case 1:
+        setSelectedGenres([]);
+        break;
+      case 2:
+        setSelectedLikeFoods([]);
+      case 3:
+        setSelectedDislikeFoods([]);
+        break;
+      case 4:
+        setSelectedDietaryPreferences([]);
+      default:
+        break;
+    }
+
     if (step < 5) {
       setStep(step + 1);
     } else {
@@ -188,9 +206,11 @@ const TasteSelection = () => {
       )}
 
       <div className="button-group">
-        <button onClick={handleSkip} className="skip-button">
-          건너뛰기
-        </button>
+        {step < 5 && (
+          <button onClick={handleSkip} className="skip-button">
+            건너뛰기
+          </button>
+        )}
         <button onClick={handleNext} className="next-button">
           {step === 5 ? "완료" : "다음"}
         </button>
