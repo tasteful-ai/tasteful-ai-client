@@ -17,11 +17,11 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
   }, [accessToken]);
 
   const handleLogout = () => {
-    console.log("✅ 로그아웃 처리 시작");
+    console.log("로그아웃 처리 시작");
     dispatch(clearTokens());
     localStorage.clear();
     sessionStorage.clear();
-    console.log("✅ 로그아웃 완료, 메인 페이지로 이동");
+    console.log("로그아웃 완료, 메인 페이지로 이동");
     window.location.replace("/");
     setIsLoggedIn(false);
   };
@@ -31,7 +31,6 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
       <button className={`menu-icon ${isOpen ? "open" : "closed"}`} onClick={toggleSidebar}>☰</button>
 
       <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        {/* 🔥 홈 로고를 사이드바 상단 오른쪽으로 배치 */}
         <div className="sidebar-header">
           <img src={homeLogo} alt="Home" className="sidebar-logo" />
         </div>

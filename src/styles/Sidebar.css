@@ -1,4 +1,4 @@
-/* 📌 사이드바 기본 설정 */
+/* 사이드바 기본 설정 */
 .sidebar {
   background: linear-gradient(90deg, #2b2b2b, #1b1b1b);
   color: white;
@@ -6,7 +6,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 20px; /* 🔥 패딩 최적화 */
+  padding: 20px;
   position: fixed;
   left: 0;
   top: 0;
@@ -14,7 +14,7 @@
   z-index: 1000;
 }
 
-/* 📌 사이드바 닫힐 때 */
+/* 사이드바 닫힐 때 */
 .sidebar.closed {
   transform: translateX(-100%);
   overflow: hidden;
@@ -39,25 +39,25 @@
 }
 
 
-/* 📌 사이드바 헤더 (로고 영역) */
+/* 사이드바 헤더 (로고 영역) */
 .sidebar-header {
   display: flex;
-  justify-content: flex-end; /* 🔥 오른쪽 정렬 */
+  justify-content: flex-end; /* 오른쪽 정렬 */
   align-items: center;
   padding: 10px 15px;
   height: 60px;
 }
 
-/* 🔥 홈 로고 스타일 */
+/* 홈 로고 스타일 */
 .sidebar-logo {
   width: 20px;
-  margin-top: -19px; /* 🔥 필요하면 조정해서 더 위로 */
+  margin-top: -19px;
   height: auto;
   max-width: 100%;
   cursor: pointer;
 }
 
-/* 📌 메뉴 아이콘 (햄버거 버튼) */
+/* 메뉴 아이콘 (햄버거 버튼) */
 .menu-icon {
   font-size: 26px;
   color: white;
@@ -71,7 +71,7 @@
   transition: color 0.3s ease-in-out;
 }
 
-/* 📌 네비게이션 */
+/* 네비게이션 */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -99,7 +99,7 @@
   background-color: rgba(255, 255, 255, 0.25);
 }
 
-/* 📌 사이드바 하단 (로그인/로그아웃 & 마이페이지 버튼) */
+/* 사이드바 하단 (로그인/로그아웃 & 마이페이지 버튼) */
 .sidebar-footer {
   margin-top: auto;
   padding: 15px;
@@ -108,7 +108,7 @@
   justify-content: space-between;
 }
 
-/* 📌 로그인/로그아웃 버튼 */
+/* 로그인/로그아웃 버튼 */
 .logout-btn,
 .sidebar-footer a {
   color: white;
@@ -127,7 +127,7 @@
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* 📌 마이페이지 아이콘 버튼 */
+/* 마이페이지 아이콘 버튼 */
 .settings-icon {
   background: none;
   border: none;
