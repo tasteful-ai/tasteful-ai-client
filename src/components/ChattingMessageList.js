@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import "../styles/Chatting.css";
+import defaultProfile from "../assets/default_image.png"; // 기본 프로필 이미지
 
 const ChattingMessageList = ({ messages }) => {
-  const scrollRef = useRef(null);
-  const messageListRef = useRef(null); // 채팅 목록 컨테이너 ref
+  const messageListRef = useRef(null);
 
   useEffect(() => {
     if (messageListRef.current) {
@@ -13,15 +13,27 @@ const ChattingMessageList = ({ messages }) => {
 
   return (
     <div className="message-list" ref={messageListRef}>
-      {messages.map((msg, index) => (
-        <div 
-          key={index} 
-          className={`message ${msg.sender === localStorage.getItem("username") ? "user" : "bot"}`}
-          ref={index === messages.length - 1 ? scrollRef : null} // 마지막 메시지에 ref 적용
-        >
-          <strong>{msg.sender || msg.senderNickname}:</strong> {msg.message}
-        </div>
-      ))}
+      {messages.map((msg, index) => {
+        const currentUser = localStorage.getItem("username");
+        const isUserMessage = msg.sender === currentUser;
+
+        return (
+          <div key={index} className={`message ${isUserMessage ? "user" : "bot"}`}>
+            <img
+              src={msg.profileImage || defaultProfile}
+              alt="프로필"
+              className="chat-profile-image"
+              onError={(e) => {
+                console.log("Image Load Failed, using default:", e.target.src);
+                e.target.src = defaultProfile;
+              }}
+            />
+            <div className="message-content">
+              <strong>{msg.sender || msg.senderNickname}:</strong> {msg.message}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
