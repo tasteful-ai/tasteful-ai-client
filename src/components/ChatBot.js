@@ -5,13 +5,14 @@ import "../styles/aiChatRoom.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const AiChatRoom = ({ onClose }) => {
+const AiChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [nickname, setNickname] = useState("닉네임");
   const navigate = useNavigate();
   const alertShown = useRef(false);
   const messageListRef = useRef(null);
+  const isSending = useRef(false); // ✅ 중복 요청 방지
 
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -23,7 +24,7 @@ const AiChatRoom = ({ onClose }) => {
     setShowModal(true);
   };
 
-  // ✅ 채팅 히스토리 불러오기 (한 번만 실행)
+  // ✅ 채팅 히스토리 불러오기 (최초 1회 실행)
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     const storedNickname = localStorage.getItem("nickname");
@@ -37,7 +38,6 @@ const AiChatRoom = ({ onClose }) => {
       setNickname(storedNickname);
     }
 
-    // ✅ 로컬 스토리지에서 채팅 내역 불러오기
     const storedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     setMessages(storedMessages);
   }, []);
@@ -50,14 +50,15 @@ const AiChatRoom = ({ onClose }) => {
   }, [messages]);
 
   const handleSendMessage = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isSending.current) return; // ✅ 빈 메시지 & 중복 실행 방지
+    isSending.current = true; // ✅ 중복 실행 방지 플래그
 
     const messageToSend = input.trim();
-    setInput(""); // ✅ 입력창 초기화 (중복 실행 방지)
+    setInput(""); 
 
     const userMessage = { sender: "user", text: messageToSend, name: nickname };
 
-    // ✅ 로컬 스토리지 및 상태 업데이트
+    // ✅ 로컬 스토리지 및 상태 업데이트 (사용자 메시지 추가)
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages, userMessage];
       localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
@@ -66,17 +67,19 @@ const AiChatRoom = ({ onClose }) => {
 
     try {
       const aiResponse = await sendChatMessage(messageToSend);
-      const aiMessage = { sender: "ai", text: aiResponse, name: "9KcAI" };
+      if (aiResponse) {
+        const aiMessage = { sender: "ai", text: aiResponse, name: "9KcAI" };
 
-      // ✅ AI 응답 메시지도 한 번만 저장
-      setMessages((prevMessages) => {
-        const updatedMessages = [...prevMessages, aiMessage];
-        localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
-        return updatedMessages;
-      });
-
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages, aiMessage];
+          localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+          return updatedMessages;
+        });
+      }
     } catch (error) {
       console.error("❌ AI 응답 오류:", error);
+    } finally {
+      isSending.current = false; // ✅ 중복 실행 방지 플래그 해제
     }
   };
 
@@ -98,7 +101,7 @@ const AiChatRoom = ({ onClose }) => {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              e.preventDefault(); // ✅ Enter 키 중복 실행 방지
+              e.preventDefault();
               handleSendMessage();
             }
           }}
