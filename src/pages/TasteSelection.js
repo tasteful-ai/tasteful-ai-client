@@ -9,7 +9,14 @@ const TasteSelection = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { genres, likeFoods, dislikeFoods, dietaryPreferences, spicyLevel } = useSelector((state) => state.taste);
+  const {
+    genres = [],
+    likeFoods = [],
+    dislikeFoods = [],
+    dietaryPreferences = [],
+    spicyLevel = null,
+  } = useSelector((state) => state.taste);
+
   const [step, setStep] = useState(1);
 
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -24,12 +31,16 @@ const TasteSelection = () => {
     dispatch(fetchTasteCategories()).then((result) => {
       const tasteData = result.payload;
 
+      if (!tasteData) {
+        console.error("취향 데이터가 존재하지 않습니다.");
+        return;
+      }
+
       if (
-        tasteData &&
-        !tasteData.genres.length &&
-        !tasteData.likeFoods.length &&
-        !tasteData.dislikeFoods.length &&
-        !tasteData.dietaryPreferences.length &&
+        (!tasteData.genres?.length || tasteData.genres.length === 0) &&
+        (!tasteData.likeFoods?.length || tasteData.likeFoods.length === 0) &&
+        (!tasteData.dislikeFoods?.length || tasteData.dislikeFoods.length === 0) &&
+        (!tasteData.dietaryPreferences?.length || tasteData.dietaryPreferences.length === 0) &&
         tasteData.spicyLevel === null &&
         location.state?.fromMypage !== true
       ) {
@@ -60,29 +71,29 @@ const TasteSelection = () => {
     let category = "";
     let requestData = {};
 
-    switch (step) {
+     switch (step) {
       case 1:
         category = "genres";
-        requestData = { genres: selectedGenres };
+        requestData = { genres: selectedGenres.length > 0 ? selectedGenres : null };
         break;
       case 2:
         category = "likeFoods";
-        requestData = { likeFoods: selectedLikeFoods };
+        requestData = { likeFoods: selectedLikeFoods.length > 0 ? selectedLikeFoods : null };
         break;
       case 3:
         category = "dislikeFoods";
-        requestData = { dislikeFoods: selectedDislikeFoods };
+        requestData = { dislikeFoods: selectedDislikeFoods.length > 0 ? selectedDislikeFoods : null };
         break;
       case 4:
         category = "dietaryPreferences";
-        requestData = { dietaryPreferences: selectedDietaryPreferences };
+        requestData = { dietaryPreferences: selectedDietaryPreferences.length > 0 ? selectedDietaryPreferences : null };
         break;
       case 5:
         category = "spicyLevel";
-        requestData = { spicyLevel: selectedSpicyLevel || null };
+        requestData = { spicyLevel: selectedSpicyLevel !== null ? selectedSpicyLevel : null };
         break;
       default:
-        break;
+        return;
     }
 
     if (step !== 5 && requestData[category].length === 0) {
