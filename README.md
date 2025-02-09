@@ -39,9 +39,9 @@
 
 <img width="55" alt="image" src="https://github.com/user-attachments/assets/6f3f0c75-3d43-474c-b82d-a8e3993f136f" /> API 통신: Axios
 
-Real-time Chat: SockJS / STOMP (WebSocket)
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/7ce3031b-a8e4-4071-8e6f-772112bd5075" /> Real-time Chat: SockJS / STOMP (WebSocket)
 
-Styling: Styled-Components / CSS Modules
+<img width="60" alt="image" src="https://github.com/user-attachments/assets/f355fc2a-4594-416a-a085-f7b46cc410b5" /> Styling: Styled-Components / CSS Modules
 
 
 ---
