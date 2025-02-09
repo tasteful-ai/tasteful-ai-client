@@ -46,16 +46,17 @@ function Layout() {
 
   return (
     <div className={`layout ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
-      {!isAuthPage && (
-        isMypage ? (
-          <MypageSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        ) : isAdmin ? (
+      {!isAuthPage && !isMypage && (
+        isAdmin ? (
           <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         ) : (
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         )
       )}
 
+      {isMypage && location.pathname !== "/account/delete" && (
+        <MypageSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      )}
       <main className="content">
         <Routes>
           <Route path="/" element={<Main />} />
@@ -69,7 +70,7 @@ function Layout() {
           <Route path="/profile-settings" element={<ProfileSettings />} />
           <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/mypage/change-password" element={<ChangePassword />} />
-          <Route path="/taste-selection" element={<TasteSelection />} /> 
+          <Route path="/taste-selection" element={<TasteSelection />} />
 
           {/* ✅ AI 채팅방 추가 */}
           <Route path="/chatting/room/ai" element={<ChatBot />} />

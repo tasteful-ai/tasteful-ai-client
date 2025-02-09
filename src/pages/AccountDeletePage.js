@@ -35,12 +35,12 @@ const AccountDeletePage = () => {
 
   const handleDelete = async () => {
     if (!isChecked) {
-      setErrorMessage("회원 탈퇴 동의에 체크해야 합니다.");
+      alert("회원 탈퇴 동의에 체크해야 합니다.");
       return;
     }
 
     if (!isVerified) {
-      setErrorMessage("비밀번호를 먼저 확인해야 합니다.");
+      alert("비밀번호를 먼저 확인해야 합니다.");
       return;
     }
 
@@ -118,7 +118,6 @@ const AccountDeletePage = () => {
         <button
           className="account-delete-btn"
           onClick={handleDelete}
-          disabled={!isChecked || !isVerified}
         >
           회원 탈퇴 신청
         </button>
