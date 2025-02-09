@@ -27,7 +27,8 @@
 <details>
 <summary><h3> 예시 화면 </h3></summary>
 
-
+<img width="1710" alt="일반회원_메인화면" src="https://github.com/user-attachments/assets/2d77021b-e706-450b-9fb9-02bdf0ed10a4" />
+<img width="1511" alt="관리자_메인화면" src="https://github.com/user-attachments/assets/ccd49bdf-466c-4e17-bd42-e44da5392927" />
 
 </details>
 
