@@ -22,6 +22,23 @@
 
 ---
 
+
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/29a1d72d-4e94-4775-9e25-5a5c604fac55" /> Node.js
+
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/2824bb89-e653-43e1-9d20-db77fa3a3779" /> React(컴포넌트 기반 UI)
+
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/e5fbd874-f05c-4b5e-b196-304ee99e73c1" /> React Router(페이지 라우팅)
+
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/8e73135e-f10d-40c3-9a9c-cd5ef7d0a822" /> Redux Toolkit(상태 관리)
+
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/6f3f0c75-3d43-474c-b82d-a8e3993f136f" /> Axios(API 통신)
+
+SockJS / STOMP(실시간 WebSocket 채팅)
+
+Styled-Components / CSS Modules(스타일 관리)
+
+
+---
 ## 🍙 HOME
 
 <details>
