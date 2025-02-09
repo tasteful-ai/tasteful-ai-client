@@ -8,8 +8,10 @@ import Modal from "react-bootstrap/Modal";
 const AiChatRoom = ({ onClose }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [nickname, setNickname] = useState("닉네임"); // 기본값 설정
   const navigate = useNavigate();
   const alertShown = useRef(false);
+  const messageListRef = useRef(null);
 
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -23,29 +25,46 @@ const AiChatRoom = ({ onClose }) => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    const storedNickname = localStorage.getItem("nickname");
 
     if (!accessToken && !alertShown.current) {
       alertShown.current = true;
       handleShow("로그인이 필요합니다.");
+    }
+
+    if (storedNickname) {
+      setNickname(storedNickname);
     }
   }, []);
 
   const handleSendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMessage = { sender: "user", text: input, name: "닉네임" }; // ✅ 사용자 닉네임 추가
-    setMessages([...messages, userMessage]);
+    const userMessage = { sender: "user", text: input, name: nickname };
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput("");
 
-    const aiResponse = await sendChatMessage(input);
-    const aiMessage = { sender: "ai", text: aiResponse, name: "빠쓰 AI" }; // ✅ AI 이름 추가
-    setMessages([...messages, userMessage, aiMessage]);
+    try {
+      const aiResponse = await sendChatMessage(input);
+      const aiMessage = { sender: "ai", text: aiResponse, name: "9KcAI" };
+
+      setMessages((prevMessages) => [...prevMessages, aiMessage]);
+
+      // 메시지가 추가될 때 자동 스크롤
+      if (messageListRef.current) {
+        setTimeout(() => {
+          messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+        }, 100);
+      }
+    } catch (error) {
+      console.error("❌ AI 응답 오류:", error);
+    }
   };
 
   return (
     <div className="chatbot-container">
       <div className="chatbot-header">AI Chat</div>
-      <div className="chatbot-messages">
+      <div className="chatbot-messages" ref={messageListRef}>
         {messages.map((msg, index) => (
           <div key={index} className={`message-box ${msg.sender === "user" ? "user-msg" : "ai-msg"}`}>
             <span className="nickname">{msg.name}</span>
