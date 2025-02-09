@@ -12,30 +12,36 @@
 
 ### **“점심, 저녁 무엇을 먹을 지 매번 고민하지마세요!“**
 
-**바쁘신 시간을 살아가는 현대인의 메뉴 결정 시간을 절약해주는 AI 기반 메뉴 추천 어플리케이션 입니다.**
+**현대인의 소중한 시간을 절약해주는 AI 기반 메뉴 추천 애플리케이션입니다.**
 
-**추천 받은 메뉴를 지도에서 검색하여 맛집을 찾을 수 있습니다.**
+**- AI가 사용자 취향을 분석하여 메뉴를 추천합니다.**
 
-**그리고 추천 받은 메뉴와 맛집 정보를 오픈 톡방에서 함께 나누세요!** 
+**- 추천받은 메뉴를 지도에서 검색하여 주변 맛집을 찾을 수 있습니다.** 
+
+**- 오픈 채팅방에서 추천받은 메뉴와 맛집 정보를 공유하세요!** 
+
 
 </aside>
 
 ---
 
+## **⚙️ 기술 스택**
 
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/29a1d72d-4e94-4775-9e25-5a5c604fac55" /> Node.js
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/29a1d72d-4e94-4775-9e25-5a5c604fac55" /> Backend: Node.js
 
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/2824bb89-e653-43e1-9d20-db77fa3a3779" /> React(컴포넌트 기반 UI)
 
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/e5fbd874-f05c-4b5e-b196-304ee99e73c1" /> React Router(페이지 라우팅)
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/2824bb89-e653-43e1-9d20-db77fa3a3779" /> Frontend: React (컴포넌트 기반 UI)
 
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/8e73135e-f10d-40c3-9a9c-cd5ef7d0a822" /> Redux Toolkit(상태 관리)
 
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/6f3f0c75-3d43-474c-b82d-a8e3993f136f" /> Axios(API 통신)
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/e5fbd874-f05c-4b5e-b196-304ee99e73c1" /> Routing: React Router
 
-SockJS / STOMP(실시간 WebSocket 채팅)
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/8e73135e-f10d-40c3-9a9c-cd5ef7d0a822" /> State Management: Redux Toolkit
 
-Styled-Components / CSS Modules(스타일 관리)
+<img width="55" alt="image" src="https://github.com/user-attachments/assets/6f3f0c75-3d43-474c-b82d-a8e3993f136f" /> API 통신: Axios
+
+Real-time Chat: SockJS / STOMP (WebSocket)
+
+Styling: Styled-Components / CSS Modules
 
 
 ---
@@ -45,17 +51,17 @@ Styled-Components / CSS Modules(스타일 관리)
 <summary><h3> 예시 화면 </h3></summary>
 
 #### <일반회원 - 메인화면>
-사용자가 AI 추천 메뉴와 맛집 정보, 커뮤니티를 확인할 수 있는 메인 화면입니다.
+사용자가 AI 추천 메뉴와 맛집 정보를 확인하고 커뮤니티에 참여할 수 있습니다.
 - AI가 추천한 메뉴를 확인하고, 관련 맛집을 검색할 수 있습니다.
-- 추천받은 메뉴와 위치를 기반으로 주변 맛집을 찾아볼 수 있습니다.
-- 로그인한 사용자들과 소통할 수 있는 커뮤니티입니다.
+- 사용자 위치 기반으로 반경 5km이내 주변 맛집 10개를 탐색할 수 있습니다.
+- 로그인한 사용자들과 커뮤니티에서 소통할 수 있습니다.
 
 <img width="1710" alt="일반회원_메인화면" src="https://github.com/user-attachments/assets/2d77021b-e706-450b-9fb9-02bdf0ed10a4" />
 
 #### <관리자 - 메인화면>
 관리자가 사용자 및 채팅방을 관리할 수 있는 대시보드 화면입니다.
-- 현재 운영 중인 채팅방과 사용자 목록을 관리할 수 있습니다.
-- 시스템 운영을 위한 기본적인 기능들을 제공합니다.
+- 운영 중인 채팅방과 사용자 목록을 관리할 수 있습니다.
+- 시스템 운영을 위한 주요 기능을 제공합니다.
 
 <img width="1511" alt="관리자_메인화면" src="https://github.com/user-attachments/assets/ccd49bdf-466c-4e17-bd42-e44da5392927" />
 
@@ -69,19 +75,18 @@ Styled-Components / CSS Modules(스타일 관리)
 <summary><h3> 예시 화면 </h3></summary>
 
 #### <일반회원 - 회원가입>
-사용자가 계정을 생성하여 AI 메뉴 추천과 오픈 채팅 기능을 사용할 수 있도록 합니다.
-- 이메일, 비밀번호, 닉네임을 입력하여 계정을 등록할 수 있습니다.
-- 기본적인 사용자 정보를 입력하고, AI 추천 서비스를 이용할 수 있습니다.
+- 이메일, 비밀번호, 닉네임을 입력하여 계정을 생성합니다.
+- AI 메뉴 추천 및 오픈 채팅 기능을 이용할 수 있습니다.
 
 <img width="1710" alt="(일반회원) 회원가입" src="https://github.com/user-attachments/assets/c25fb668-375e-41ca-b30d-50090b56e9a5" />
 
 #### <관리자 - 회원가입>
-관리자가 회원 계정을 생성하여 시스템을 관리할 수 있습니다.
-- 관리자 계정은 일반 사용자보다 확장된 관리 기능을 사용할 수 있습니다.
+- 일반 사용자보다 확장된 관리 기능을 사용할 수 있습니다.
 
 <img width="1710" alt="(관리자) 회원가입" src="https://github.com/user-attachments/assets/e79d0267-6f7c-428d-9049-dd50788f22ed" />
 
 #### <로그인>
+- 이메일과 비밀번호를 입력하여 로그인할 수 있습니다.
 <img width="1710" alt="로그인 화면" src="https://github.com/user-attachments/assets/f427f44d-aca8-4005-a658-80d419c43d8c" />
 
 </details>
@@ -95,8 +100,8 @@ Styled-Components / CSS Modules(스타일 관리)
 
 #### <채팅방 관리>
 관리자가 운영 중인 모든 채팅방을 확인하고 관리할 수 있는 페이지입니다.
-- 현재 개설된 채팅방 목록을 조회할 수 있습니다.
-- 채팅방의 상태를 확인하고 필요 시 설정을 변경할 수 있습니다.
+- 현재 운영 중인 채팅방을 확인하고 관리할 수 있습니다.
+- 채팅방의 상태를 모니터링하고 설정을 변경할 수 있습니다.
 
 <img width="1511" alt="관리자_채팅방 관리" src="https://github.com/user-attachments/assets/315bb012-2c14-46ab-b25b-8cbf9116ef37" />
 
@@ -130,7 +135,7 @@ Styled-Components / CSS Modules(스타일 관리)
 #### <회원 추방>
 문제를 일으키거나 규칙을 위반한 사용자를 채팅방에서 강제 퇴장시킬 수 있는 기능입니다.
 - 관리자 권한을 통해 특정 사용자를 강퇴할 수 있습니다.
-- 원활한 운영을 위해 필요 시 경고 후 추방할 수 있습니다.
+- 원활한 운영을 위해 필요 시 추방할 수 있습니다.
   
 <img width="1511" alt="관리자_회원 추방" src="https://github.com/user-attachments/assets/38d0ff1e-6a55-41c8-a7ee-4b320060ec7a" />
 
@@ -143,18 +148,16 @@ Styled-Components / CSS Modules(스타일 관리)
 <details>
 <summary><h3> 예시 화면 </h3></summary>
 
-#### <메인화면>
+#### <마이페이지 - 메인화면>
 사용자의 개인 정보를 확인하고 설정을 변경할 수 있는 페이지입니다.
-- 프로필 정보, 비밀번호 변경, 회원 탈퇴 등의 기능을 제공합니다.
-- AI 추천 기록 및 즐겨찾기한 맛집 목록을 확인할 수 있습니다.
+- 프로필 이미지 변경, 비밀번호 변경, 회원 탈퇴 등의 기능을 제공합니다.
   
 <img width="1710" alt="마이페이지" src="https://github.com/user-attachments/assets/94b1e796-8257-4002-8ea8-e16b86e4509d" />
 
 #### <프로필/닉네임 수정>
 사용자 프로필 정보를 변경할 수 있는 기능입니다.
 - 프로필 사진을 변경하고 닉네임을 수정할 수 있습니다.
-- 다른 사용자와의 채팅 및 활동에서 표시될 정보를 관리할 수 있습니다.
-
+  
 <img width="1710" alt="마이페이지_프로필 및 닉네임 수정" src="https://github.com/user-attachments/assets/39dd715f-89cf-4970-b070-d10f45a288de" />
 
 #### <비밀번호 변경>
@@ -183,11 +186,13 @@ Styled-Components / CSS Modules(스타일 관리)
 #### <AI Chat>
 AI와 채팅을 통해 메뉴를 추천받을 수 있습니다.
 - 사용자의 취향을 반영한 메뉴를 실시간으로 추천합니다.
-- 추천된 메뉴는 지도 검색을 통해 주변 맛집을 찾을 수 있습니다.
+- 추천된 메뉴는 주변 맛집 검색을 통해 주변 맛집을 찾을 수 있습니다.
 
 <img width="1710" alt="AI Chat" src="https://github.com/user-attachments/assets/d4cd61ca-1321-47a8-9348-ef41aaf6e788" />
 
 #### <AI Chat - 추천 횟수 10개 초과>
+- 하루 추천 횟수 10번을 초과하면 제한이 걸립니다.
+
 <img width="1710" alt="AI Chat_추천 횟수 10개 초과" src="https://github.com/user-attachments/assets/ba8a110f-4836-41aa-994b-1f5abf6d5cce" />
 
 </details>
@@ -244,8 +249,7 @@ AI와 채팅을 통해 메뉴를 추천받을 수 있습니다.
 
 #### <주변 맛집 검색>
 사용자가 추천받은 메뉴를 기반으로 주변 맛집을 찾을 수 있는 기능입니다.
-- 원하는 지역을 선택하여 맛집을 검색할 수 있습니다.
-- 맛집의 위치, 평점, 메뉴 정보를 확인할 수 있습니다.
+- 사용자 위치 기반으로 반경 5km이내 주변 맛집 10개를 탐색할 수 있습니다.
 
 <img width="1710" alt="주변 맛집 검색" src="https://github.com/user-attachments/assets/4ffb063c-b63a-428f-80e9-a080385a9733" />
 
@@ -258,15 +262,17 @@ AI와 채팅을 통해 메뉴를 추천받을 수 있습니다.
 <details>
 <summary><h3> 예시 화면 </h3></summary>
 
+
+#### <오먹 채팅방 목록>
+- 다양한 주제의 채팅방을 선택하여 대화에 참여할 수 있습니다.
+![오먹 채팅](https://github.com/user-attachments/assets/7366b13a-fa92-44ad-9140-851a8a31f35a)
+
 #### <오먹 채팅방>
 같은 관심사를 가진 사용자들과 맛집 정보를 공유할 수 있는 실시간 채팅방입니다.
 - 추천받은 메뉴나 맛집에 대해 의견을 나눌 수 있습니다.
 - 특정 메뉴나 음식점 관련 대화를 자유롭게 나눌 수 있습니다.
 
 <img width="1710" alt="오먹 채팅방 목록" src="https://github.com/user-attachments/assets/94f27ea9-f666-4b2b-b114-e6baa940460c" />
-
-#### <오먹 채팅방 목록>
-![오먹 채팅](https://github.com/user-attachments/assets/7366b13a-fa92-44ad-9140-851a8a31f35a)
 
 </details>
 
