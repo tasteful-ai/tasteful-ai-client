@@ -2,8 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import profileImage from "./../assets/default_image.png";
-import likethumb from "./../assets/likethumb.png";
-import dislikethumb from "./../assets/dislikethumb.png";
 import "./../styles/Mypage.css";
 import Button from "react-bootstrap/Button";
 
