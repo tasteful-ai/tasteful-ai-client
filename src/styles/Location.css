@@ -1,51 +1,51 @@
-/* 전체 컨테이너 */
+/* 🌟 전체 컨테이너 (페이지 중앙 정렬 & 부드러운 느낌 추가) */
 .location-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   height: 100vh;
   font-family: "Pretendard", sans-serif;
-  background: #ffffff;
-  align-items: center;
-  justify-content: flex-start; /* 상단 정렬 */
-  padding-top: 50px; /* 상단 여백 추가 */
+  background: #ECECEC; /* ✅ 부드러운 배경 */
+  padding: 60px 80px;
 }
 
-/* 검색 바 & 제목 영역 */
+/* 🌟 검색 바 & 제목 영역 */
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 85%;
-  padding: 20px;
-  background: #ffffff;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  width: 120%;
+  max-width: 1000px;
+  padding: 15px 20px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
   margin-bottom: 20px;
-  z-index: 10;
 }
 
 /* 제목 스타일 */
 header h1 {
-  font-size: 20px; /* 크기 줄임 */
+  font-size: 20px;
   font-weight: bold;
   color: #333;
   margin: 0;
-  white-space: nowrap; /* 줄 바꿈 방지 */
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* 검색 바 스타일 */
+/* 🌟 검색 바 스타일 */
 .search-bar {
   display: flex;
   align-items: center;
-  background: #ffffff;
+  background: white;
   border-radius: 50px;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #ddd;
   width: 100%;
-  max-width: 400px;
-  min-width: 250px;
+  max-width: 450px;
+  min-width: 280px;
 }
 
 /* 검색어 입력 필드 */
@@ -56,13 +56,13 @@ header h1 {
   font-size: 16px;
   flex: 1;
   border-radius: 50px;
-  background-color: #f5f5f5;
+  background-color: #f0f0f0;
 }
 
 /* 검색 버튼 */
 .search-bar button {
-  padding: 12px 20px;
-  background: #222;
+  padding: 10px 18px;
+  background: #000;
   border: none;
   color: white;
   font-size: 16px;
@@ -74,127 +74,115 @@ header h1 {
 }
 
 .search-bar button:hover {
-  background: #0056b3;
+  background: #333;
 }
 
-/* 지도 + 리스트 컨테이너 */
+/* 🌟 지도 + 리스트 컨테이너 */
 .content-wrapper {
   display: flex;
   justify-content: space-between;
-  width: 90%;
-  max-width: 1200px;
-  gap: 20px;
-  flex-wrap: wrap; /* 화면이 작아질 때 자동 줄 바꿈 */
-  margin-top: 20px;
+  align-items: flex-start;
+  width: 95%;
+  max-width: 1300px; /* ✅ 전체 너비 확장 */
+  gap: 30px;
+  flex-wrap: nowrap;
+  margin-top: 10px;
 }
 
-/* 지도 스타일 */
+/* 🌟 지도 스타일 */
 .map {
-  flex: 1;
-  min-width: 400px;
-  height: 450px;
-  border-radius: 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  flex: 1.3; /* ✅ 지도 크기 조정 */
+  min-width: 450px;
+  height: 480px;
+  border-radius: 15px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
-/* 맛집 리스트 */
+/* 🌟 맛집 리스트 (카드 스타일 적용) */
 .places-list {
-  flex: 1;
-  min-width: 300px;
-  height: 450px;
+  flex: 1.5; /* ✅ 지도보다 넓게 설정 */
+  min-width: 420px; /* ✅ 최소 너비 증가 */
+  max-width: 520px; /* ✅ 리스트 최대 너비 제한 */
+  height: 480px;
   overflow-y: auto;
-  border-radius: 10px;
-  background: #ffffff;
+  border-radius: 12px;
+  background: white;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
 
 /* 리스트 헤더 */
 .places-list h2 {
-  margin: 0;
-  padding: 15px;
-  background: #222;
-  color: white;
+  width: 100%;
   text-align: center;
-  font-size: 20px;
-  border-radius: 20px;
+  font-size: 18px;
+  background: black;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
   margin-bottom: 10px;
 }
 
-/* 맛집 목록 스타일 */
+/* ✅ 검색된 맛집 목록의 최대 크기 제한 */
 .places-list ul {
-  list-style-type: none;
+  width: 100%;
+  max-width: 480px;
+  list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* ✅ 리스트 내부 아이템 크기 조정 */
 .places-list li {
-  padding: 15px;
+  width: 100%;
+  padding: 12px;
   border-bottom: 1px solid #ddd;
-  cursor: pointer;
-  margin-bottom: 10px;
   background: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
-  border-radius: 10px;
 }
 
-/* 리스트 항목 마우스 오버 효과 */
 .places-list li:hover {
   background: #f1f1f1;
 }
 
-/* 스크롤바 스타일 */
-.places-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.places-list::-webkit-scrollbar-thumb {
-  background: #bbb;
-  border-radius: 10px;
-}
-
-.places-list::-webkit-scrollbar-track {
-  background: #f5f5f5;
-}
-
-/* 현위치 버튼 */
+/* 🌟 현위치 버튼 */
 .current-location-btn {
   padding: 12px 20px;
-  background: rgb(120, 120, 120);
+  background: black;
   border: none;
   color: white;
   font-size: 16px;
   font-weight: bold;
-  border-radius: 18px;
+  border-radius: 12px;
   cursor: pointer;
   transition: 0.3s;
-  margin-top: 20px; /* margin 수정 */
-  width: 200px;
-  align-self: center;
-  position: relative; /* absolute 제거 */
+  margin-top: 20px;
+  width: 240px;
+  align-self: center; /* ✅ 중앙 정렬 */
 }
 
 .current-location-btn:hover {
-  background: #218838;
+  background: #333;
 }
 
-/* 반응형 스타일 */
-@media (max-width: 768px) {
+/* 🌟 반응형 스타일 */
+@media (max-width: 900px) {
   .content-wrapper {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .map,
   .places-list {
-      width: 100%;
-      min-width: auto;
+    width: 100%;
+    min-width: auto;
   }
 
   .search-bar {
-      max-width: 100%;
+    max-width: 100%;
   }
 }

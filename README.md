@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# 🍽 오늘 뭐 먹지? (Tasteful-AI)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+**AI 메뉴 추천 & 맛집 지도 검색 & 오픈 채팅**
 
-In the project directory, you can run:
+![브로셔 이미지 2025-02-05 오전 2 01 51](https://github.com/user-attachments/assets/d66f7b57-b17b-4ccf-963b-ca83c7cf2b2e)
 
-### `npm start`
+<aside>
 
-Runs the app in the development mode.\
-Open [https://cdn.tastefulai.net](https://cdn.tastefulai.net) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## **💡 사용자 취향 기반 AI 메뉴 추천 서비스**
 
-### `npm test`
+### **“점심, 저녁 무엇을 먹을 지 매번 고민하지마세요!“**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**바쁘신 시간을 살아가는 현대인의 메뉴 결정 시간을 절약해주는 AI 기반 메뉴 추천 어플리케이션 입니다. 추천 받은 메뉴를 지도에서 검색하여 맛집을 찾을 수 있습니다.**
 
-### `npm run build`
+**그리고 추천 받은 메뉴와 맛집 정보를 오픈 톡방에서 함께 나누세요!** 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+</aside>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🍙 HOME
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🍙 AUTH
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🍙 MY PAGE
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🍙 AI CHAT
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🍙 TASTE
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🍙 LOCATION
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🍙 OPEN CHATTING

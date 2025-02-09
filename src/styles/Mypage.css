@@ -1,4 +1,4 @@
-/* 🌟 프로필 컨테이너 */
+/* 프로필 컨테이너 */
 .profile-container {
     display: flex;
     align-items: center;
@@ -17,10 +17,15 @@
 .settings-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* 수평 중앙 정렬 */
-    justify-content: center; /* 수직 중앙 정렬 */
-    width: 100%;
-    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    
+    width: 90vw;
+    max-width: 1100px;
+    
+    padding: 30px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* 🟢 호버 & 클릭 효과 */
@@ -33,7 +38,7 @@
     transform: scale(0.98);
 }
 
-/* 🌟 프로필 이미지 */
+/* 프로필 이미지 */
 .profile-image {
     width: 120px;
     height: 120px;
@@ -41,12 +46,12 @@
     transition: transform 0.3s ease-in-out;
 }
 
-/* 🟢 프로필 이미지 클릭 시 애니메이션 */
+/* 프로필 이미지 클릭 시 애니메이션 */
 .profile-image:active {
     transform: rotate(10deg) scale(1.05);
 }
 
-/* 🌟 닉네임 & 가입일 */
+/* 닉네임 & 가입일 */
 .nickname {
     font-size: 1.6rem;
     margin-top: 10px;
@@ -59,7 +64,7 @@
     color: #666;
 }
 
-/* 🌟 버튼 컨테이너 */
+/* 버튼 컨테이너 */
 .profile-buttons {
     white-space: nowrap;
     display: flex;
@@ -68,7 +73,7 @@
     margin-top: 1px; /* 칸 높이 조정*/
 }
 
-/* 🟢 버튼 반응형 효과 */
+/* 버튼 반응형 효과 */
 .save-button {
     transition: transform 0.2s ease, background 0.2s ease;
 }
@@ -80,6 +85,7 @@
 .save-button:active {
     transform: scale(0.95);
 }
+
 
 .taste-container {
     display: flex;
@@ -103,7 +109,7 @@
     min-width: 200px;
 }
 
-/* 🟢 취향 제목 정렬 */
+/* 취향 제목 정렬 */
 .taste-title {
     display: flex;
     align-items: center;
@@ -130,7 +136,7 @@
     color: #333;
 }
 
-/* 🟢 취향 카드 클릭/호버 효과 */
+/* 취향 카드 클릭/호버 효과 */
 .taste-box:hover, .spicyness-box:hover {
     transform: translateY(-3px);
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
@@ -140,7 +146,7 @@
     transform: scale(0.98);
 }
 
-/* 🌟 좋아요/싫어요 아이콘 크기 조정 */
+/* 좋아요/싫어요 아이콘 크기 조정 */
 .likethumb, .dislikethumb {
     width: 24px;
     height: 24px;
@@ -148,12 +154,12 @@
     transition: transform 0.2s ease;
 }
 
-/* 🟢 아이콘 클릭 시 애니메이션 */
+/* 아이콘 클릭 시 애니메이션 */
 .likethumb:active, .dislikethumb:active {
     transform: scale(1.2);
 }
 
-/* 🌟 취향 전체 컨테이너 */
+/* 취향 전체 컨테이너 */
 .taste-container {
     display: flex;
     flex-direction: column;
@@ -163,7 +169,7 @@
     max-width: 800px;
 }
 
-/* ✅ 맵기 취향 박스를 가로로 긴 박스로 설정 */
+/* 맵기 취향 박스를 가로로 긴 박스로 설정 */
 .spicyness-box {
     display: flex;
     align-items: center;
@@ -176,7 +182,7 @@
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.12);
 }
 
-/* ✅ 맵기 취향 내부 요소 가로 정렬 */
+/* 맵기 취향 내부 요소 가로 정렬 */
 .spicy-container {
     display: flex;
     align-items: center;
@@ -186,7 +192,7 @@
     width: 20%;
 }
 
-/* ✅ 맵기 수준 */
+/* 맵기 수준 */
 .spicy-level {
     font-size: 1.2rem;
     font-weight: bold;
@@ -203,7 +209,7 @@
     max-width: 800px;
 }
 
-/* ✅ 선호취향 & 불호취향 박스 크기 고정 */
+/* 선호취향 & 불호취향 박스 크기 고정 */
 .taste-box {
     text-align: center;
     padding: 20px;
@@ -215,7 +221,7 @@
 }
 
 
-/* 🌟 반응형 스타일 추가 */
+/* 반응형 스타일 추가 */
 @media (max-width: 768px) {
     .profile-container {
         flex-direction: column;
