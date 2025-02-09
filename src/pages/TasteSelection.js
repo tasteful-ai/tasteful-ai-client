@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchTasteCategories, updateTasteCategory } from "../store/slices/tasteSlice";
 import "../styles/TasteSelection.css";
 
 const TasteSelection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { genres, likeFoods, dislikeFoods, dietaryPreferences, spicyLevel } = useSelector((state) => state.taste);
   const [step, setStep] = useState(1);
 
@@ -28,12 +30,13 @@ const TasteSelection = () => {
         !tasteData.likeFoods.length &&
         !tasteData.dislikeFoods.length &&
         !tasteData.dietaryPreferences.length &&
-        tasteData.spicyLevel === null
+        tasteData.spicyLevel === null &&
+        location.state?.fromMypage !== true
       ) {
-        navigate("/");
+        navigate("/taste-selection");
       }
     });
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, location]);
 
   useEffect(() => {
     setSelectedGenres(genres);
