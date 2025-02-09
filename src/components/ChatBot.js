@@ -23,7 +23,7 @@ const AiChatRoom = ({ onClose }) => {
     setShowModal(true);
   };
 
-  // ✅ 채팅 히스토리 불러오기
+  // ✅ 채팅 히스토리 불러오기 (한 번만 실행)
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     const storedNickname = localStorage.getItem("nickname");
@@ -37,7 +37,7 @@ const AiChatRoom = ({ onClose }) => {
       setNickname(storedNickname);
     }
 
-    // ✅ 로컬 스토리지에서 저장된 채팅 불러오기
+    // ✅ 로컬 스토리지에서 채팅 내역 불러오기
     const storedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     setMessages(storedMessages);
   }, []);
@@ -52,21 +52,23 @@ const AiChatRoom = ({ onClose }) => {
   const handleSendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMessage = { sender: "user", text: input, name: nickname };
-    
-    // ✅ 로컬 스토리지에 채팅 히스토리 저장
+    const messageToSend = input.trim();
+    setInput(""); // ✅ 입력창 초기화 (중복 실행 방지)
+
+    const userMessage = { sender: "user", text: messageToSend, name: nickname };
+
+    // ✅ 로컬 스토리지 및 상태 업데이트
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages, userMessage];
       localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
       return updatedMessages;
     });
 
-    setInput("");
-
     try {
-      const aiResponse = await sendChatMessage(input);
+      const aiResponse = await sendChatMessage(messageToSend);
       const aiMessage = { sender: "ai", text: aiResponse, name: "9KcAI" };
 
+      // ✅ AI 응답 메시지도 한 번만 저장
       setMessages((prevMessages) => {
         const updatedMessages = [...prevMessages, aiMessage];
         localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
@@ -94,7 +96,12 @@ const AiChatRoom = ({ onClose }) => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault(); // ✅ Enter 키 중복 실행 방지
+              handleSendMessage();
+            }
+          }}
           placeholder="메시지를 입력하세요..."
         />
         <button onClick={handleSendMessage}>전송</button>

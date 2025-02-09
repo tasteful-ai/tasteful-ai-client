@@ -4,10 +4,10 @@ const API_URL = `${process.env.REACT_APP_SERVER_URL}/api/aiChats`;
 
 export const sendChatMessage = async (message) => {
   try {
-    const token = localStorage.getItem("accessToken"); // ✅ JWT 토큰 가져오기
+    const token = localStorage.getItem("accessToken");
 
     const headers = token
-      ? { Authorization: `Bearer ${token}` } // ✅ 토큰이 있으면 Authorization 헤더 추가
+      ? { Authorization: `Bearer ${token}` }
       : {};
 
     console.log("📤 AI 요청:", message);
@@ -15,13 +15,19 @@ export const sendChatMessage = async (message) => {
     const response = await axios.post(
       API_URL,
       { message },
-      { headers } // ✅ 헤더 포함하여 요청
+      { headers }
     );
 
     console.log("📥 AI 응답:", response.data);
     return response.data.data.recommendation;
   } catch (error) {
     console.error("❌ AI 응답 실패:", error);
-    return "추천을 가져올 수 없습니다.";
+
+    if (error.response && error.response.status === 429) {
+
+      return "추천은 하루에 10번까지 받을 수 있어요! 내일 더 맛있는 메뉴 추천해줄게요! 🍽️";
+    }
+
+    return "현재 추천을 제공할 수 없습니다. 나중에 다시 시도해주세요.";
   }
 };
