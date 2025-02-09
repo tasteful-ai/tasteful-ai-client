@@ -54,8 +54,9 @@ function Layout() {
         )
       )}
 
-      {isMypage && <MypageSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}
-
+      {isMypage && location.pathname !== "/account/delete" && (
+        <MypageSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      )}
       <main className="content">
         <Routes>
           <Route path="/" element={<Main />} />
