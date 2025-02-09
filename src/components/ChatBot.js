@@ -8,7 +8,7 @@ import Modal from "react-bootstrap/Modal";
 const AiChatRoom = ({ onClose }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [nickname, setNickname] = useState("닉네임"); // 기본값 설정
+  const [nickname, setNickname] = useState("닉네임");
   const navigate = useNavigate();
   const alertShown = useRef(false);
   const messageListRef = useRef(null);
@@ -23,6 +23,7 @@ const AiChatRoom = ({ onClose }) => {
     setShowModal(true);
   };
 
+  // ✅ 채팅 히스토리 불러오기
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     const storedNickname = localStorage.getItem("nickname");
@@ -35,27 +36,43 @@ const AiChatRoom = ({ onClose }) => {
     if (storedNickname) {
       setNickname(storedNickname);
     }
+
+    // ✅ 로컬 스토리지에서 저장된 채팅 불러오기
+    const storedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+    setMessages(storedMessages);
   }, []);
+
+  // ✅ 메시지 추가 시 자동 스크롤
+  useEffect(() => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (!input.trim()) return;
 
     const userMessage = { sender: "user", text: input, name: nickname };
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    
+    // ✅ 로컬 스토리지에 채팅 히스토리 저장
+    setMessages((prevMessages) => {
+      const updatedMessages = [...prevMessages, userMessage];
+      localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+      return updatedMessages;
+    });
+
     setInput("");
 
     try {
       const aiResponse = await sendChatMessage(input);
       const aiMessage = { sender: "ai", text: aiResponse, name: "9KcAI" };
 
-      setMessages((prevMessages) => [...prevMessages, aiMessage]);
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages, aiMessage];
+        localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+        return updatedMessages;
+      });
 
-      // 메시지가 추가될 때 자동 스크롤
-      if (messageListRef.current) {
-        setTimeout(() => {
-          messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
-        }, 100);
-      }
     } catch (error) {
       console.error("❌ AI 응답 오류:", error);
     }
@@ -80,7 +97,7 @@ const AiChatRoom = ({ onClose }) => {
           onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
           placeholder="메시지를 입력하세요..."
         />
-        <button onClick={() => handleSendMessage(input)}>전송</button>
+        <button onClick={handleSendMessage}>전송</button>
       </div>
 
       {/* ✅ 로그인 안내 모달 */}
