@@ -186,7 +186,7 @@ AI와 채팅을 통해 메뉴를 추천받을 수 있습니다.
 
 <img width="1710" alt="AI Chat" src="https://github.com/user-attachments/assets/d4cd61ca-1321-47a8-9348-ef41aaf6e788" />
 
-#### <AI Chat - 추천 횟수 10개 초과>
+#### <AI Chat - 추천 횟수 초과>
 - 하루 추천 횟수 10번을 초과하면 제한이 걸립니다.
 
 <img width="1710" alt="AI Chat_추천 횟수 10개 초과" src="https://github.com/user-attachments/assets/ba8a110f-4836-41aa-994b-1f5abf6d5cce" />
