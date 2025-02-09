@@ -41,7 +41,7 @@ export const AdminSidebar = ({ isOpen, toggleSidebar }) => {
 
       <aside className={`admin-sidebar ${isOpen ? "open" : "closed"}`}>
         <div className="sidebar-header">
-          <h2 className="admin-mode-title">관리자 모드</h2>
+        <h2 className="admin-mode-title" onClick={() => navigate("/")}>관리자 모드</h2>
         </div>
         <nav className="sidebar-nav">
           <button className="nav-item" onClick={() => navigate("/admins/members")}>사용자 목록</button>
