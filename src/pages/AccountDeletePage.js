@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { verifyPassword, deleteAccount } from "../api/authApi";
 import { clearTokens } from "../store/slices/authSlice";
+import MyPageSidebar from "../components/MypageSidebar";
 import "../styles/AccountDeletePage.css";
 
 const AccountDeletePage = () => {
@@ -13,6 +14,11 @@ const AccountDeletePage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isVerified, setIsVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // ✅ 로딩 상태 추가
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  }
 
   const handleVerifyPassword = async () => {
     if (!password) {
@@ -62,6 +68,8 @@ const AccountDeletePage = () => {
 
   return (
     <div className="account-delete-container">
+
+      <MyPageSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
       <div className="account-delete-box">
         <h2 className="account-delete-title">회원 탈퇴</h2>
 
