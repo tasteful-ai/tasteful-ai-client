@@ -1,34 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"; // Redux 상태 사용
+import { useDispatch, useSelector } from "react-redux";
 import "./../styles/Sidebar.css";
 import { clearTokens } from "../store/slices/authSlice";
+import homeLogo from "../assets/9kcalhome.png";
+import mypageIcon from "../assets/9kcalmypage.png";
 
 export const Sidebar = ({ isOpen, toggleSidebar }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.auth.accessToken); // ✅ Redux에서 accessToken 상태 가져오기
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
 
-  // ✅ Redux 상태 변경 감지하여 로그인 상태 업데이트
   useEffect(() => {
-    setIsLoggedIn(!!accessToken); // Redux 상태 기반으로 업데이트
-  }, [accessToken]); // ✅ accessToken이 변경될 때마다 실행
+    setIsLoggedIn(!!accessToken);
+  }, [accessToken]);
 
   const handleLogout = () => {
-    console.log("✅ 로그아웃 처리 시작");
-
-    // ✅ Redux 상태 초기화
+    console.log("로그아웃 처리 시작");
     dispatch(clearTokens());
-
-    // ✅ LocalStorage 및 SessionStorage 초기화
     localStorage.clear();
     sessionStorage.clear();
-
-    console.log("✅ 로그아웃 완료, 메인 페이지로 이동");
+    console.log("로그아웃 완료, 메인 페이지로 이동");
     window.location.replace("/");
-
-    // ✅ 상태 즉시 업데이트
     setIsLoggedIn(false);
   };
 
@@ -37,9 +31,14 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
       <button className={`menu-icon ${isOpen ? "open" : "closed"}`} onClick={toggleSidebar}>☰</button>
 
       <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        <div className="sidebar-header"></div>
+        <div className="sidebar-header">
+          <img src={homeLogo} alt="Home" className="sidebar-logo"
+                    onClick={() => navigate("/")} /* 클릭 시 메인 페이지 이동 */
+                    style={{ cursor: "pointer" }} /* 마우스 커서 변경 */
+                  />
+                </div>
+
         <nav className="sidebar-nav">
-          {/* ✅ AI 채팅방 이동 버튼 */}
           <button className="nav-item" onClick={() => navigate("/chatting/room/ai")}>
             Begin a New AI Chat <span className="add-icon">+</span>
           </button>
@@ -53,7 +52,9 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
           ) : (
             <a href="/login">회원가입 / 로그인</a>
           )}
-          <button className="settings-icon" onClick={() => navigate("/mypage")}>⚙</button>
+          <button className="settings-icon" onClick={() => navigate("/mypage")}>
+            <img src={mypageIcon} alt="My Page" className="user-icon" />
+          </button>
         </div>
       </aside>
     </>

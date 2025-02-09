@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchTasteCategories, updateTasteCategory } from "../store/slices/tasteSlice";
 import "../styles/TasteSelection.css";
 
 const TasteSelection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { genres, likeFoods, dislikeFoods, dietaryPreferences, spicyLevel } = useSelector((state) => state.taste);
   const [step, setStep] = useState(1);
 
@@ -19,8 +21,22 @@ const TasteSelection = () => {
   const maxSelections = 5;
 
   useEffect(() => {
-    dispatch(fetchTasteCategories());
-  }, [dispatch]);
+    dispatch(fetchTasteCategories()).then((result) => {
+      const tasteData = result.payload;
+
+      if (
+        tasteData &&
+        !tasteData.genres.length &&
+        !tasteData.likeFoods.length &&
+        !tasteData.dislikeFoods.length &&
+        !tasteData.dietaryPreferences.length &&
+        tasteData.spicyLevel === null &&
+        location.state?.fromMypage !== true
+      ) {
+        navigate("/taste-selection");
+      }
+    });
+  }, [dispatch, navigate, location]);
 
   useEffect(() => {
     setSelectedGenres(genres);
@@ -43,7 +59,7 @@ const TasteSelection = () => {
   const handleNext = () => {
     let category = "";
     let requestData = {};
-  
+
     switch (step) {
       case 1:
         category = "genres";
@@ -63,36 +79,53 @@ const TasteSelection = () => {
         break;
       case 5:
         category = "spicyLevel";
-        requestData = { spicyLevel: selectedSpicyLevel };
+        requestData = { spicyLevel: selectedSpicyLevel || null };
         break;
       default:
         break;
     }
-  
-    if (category) {
-      dispatch(updateTasteCategory({ category, data : requestData }))
-        .then((result) => {
-          if (result.error) {
-            alert("저장 중 오류가 발생했습니다: " + result.error.message);
-          } else {
-            if (step < 5) {
-              setStep(step + 1);
-            } else {
-              alert("취향이 저장되었습니다!");
-              navigate("/");
-            }
-          }
-        });
-    } else {
-      if (step < 5) {
-        setStep(step + 1);
-      } else {
-        navigate("/");
-      }
+
+    if (step !== 5 && requestData[category].length === 0) {
+      alert("취향을 1개 이상 선택해주세요.");
+      return;
     }
+
+    dispatch(updateTasteCategory({ category, data: requestData }))
+      .then((result) => {
+        if (result.error) {
+          alert("저장 중 오류가 발생했습니다: " + result.error.message);
+        } else {
+          if (step < 5) {
+            setStep(step + 1);
+          } else {
+            alert("취향이 저장되었습니다!");
+            navigate("/");
+          }
+        }
+      });
   };
 
   const handleSkip = () => {
+    switch (step) {
+      case 1:
+        setSelectedGenres([]);
+        break;
+      case 2:
+        setSelectedLikeFoods([]);
+        break;
+      case 3:
+        setSelectedDislikeFoods([]);
+        break;
+      case 4:
+        setSelectedDietaryPreferences([]);
+        break;
+      case 5:
+        setSelectedSpicyLevel(null);
+        break;
+      default:
+        break;
+    }
+
     if (step < 5) {
       setStep(step + 1);
     } else {
@@ -188,9 +221,11 @@ const TasteSelection = () => {
       )}
 
       <div className="button-group">
-        <button onClick={handleSkip} className="skip-button">
-          건너뛰기
-        </button>
+        {step < 5 && (
+          <button onClick={handleSkip} className="skip-button">
+            건너뛰기
+          </button>
+        )}
         <button onClick={handleNext} className="next-button">
           {step === 5 ? "완료" : "다음"}
         </button>

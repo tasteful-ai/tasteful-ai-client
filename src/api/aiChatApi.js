@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_BACKEND_API_URL || "/api/aiChats";
+const API_URL = `${process.env.REACT_APP_SERVER_URL}/api/aiChats`;
 
 export const sendChatMessage = async (message) => {
   try {
