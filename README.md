@@ -27,21 +27,15 @@
 
 ## **⚙️ 기술 스택**
 
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/29a1d72d-4e94-4775-9e25-5a5c604fac55" /> Backend: Node.js
-
-
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/2824bb89-e653-43e1-9d20-db77fa3a3779" /> Frontend: React (컴포넌트 기반 UI)
-
-
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/e5fbd874-f05c-4b5e-b196-304ee99e73c1" /> Routing: React Router
-
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/8e73135e-f10d-40c3-9a9c-cd5ef7d0a822" /> State Management: Redux Toolkit
-
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/6f3f0c75-3d43-474c-b82d-a8e3993f136f" /> API 통신: Axios
-
-<img width="55" alt="image" src="https://github.com/user-attachments/assets/7ce3031b-a8e4-4071-8e6f-772112bd5075" /> Real-time Chat: SockJS / STOMP (WebSocket)
-
-<img width="60" alt="image" src="https://github.com/user-attachments/assets/f355fc2a-4594-416a-a085-f7b46cc410b5" /> Styling: Styled-Components / CSS Modules
+| Tech | 기술 | 설명 |
+|------------|------|------|
+| <img src="https://github.com/user-attachments/assets/29a1d72d-4e94-4775-9e25-5a5c604fac55" width="60"/> | **Backend: Node.js** | 비동기 이벤트 기반 아키텍처를 활용한 서버 개발 |
+| <img src="https://github.com/user-attachments/assets/2824bb89-e653-43e1-9d20-db77fa3a3779" width="60"/> | **Frontend: React** | 컴포넌트 기반 UI 개발로 재사용성과 유지보수성 향상 |
+| <img src="https://github.com/user-attachments/assets/e5fbd874-f05c-4b5e-b196-304ee99e73c1" width="60"/> | **Routing: React Router** | SPA(Single Page Application) 환경에서 페이지 전환 관리 |
+| <img src="https://github.com/user-attachments/assets/8e73135e-f10d-40c3-9a9c-cd5ef7d0a822" width="60"/> | **State Management: Redux Toolkit** | 효율적인 상태 관리를 위한 최적화된 Redux 툴셋 |
+| <img src="https://github.com/user-attachments/assets/6f3f0c75-3d43-474c-b82d-a8e3993f136f" width="60"/> | **API 통신: Axios** | 비동기 HTTP 요청을 처리하는 라이브러리 |
+| <img src="https://github.com/user-attachments/assets/7ce3031b-a8e4-4071-8e6f-772112bd5075" width="60"/> | **Real-time Chat: SockJS / STOMP (WebSocket)** | 실시간 채팅을 위한 WebSocket 통신 방식 적용 |
+| <img src="https://github.com/user-attachments/assets/f355fc2a-4594-416a-a085-f7b46cc410b5" width="60"/> | **Styling: Styled-Components / CSS Modules** | 스타일링 재사용성과 모듈화를 위한 UI 디자인 |
 
 
 ---
