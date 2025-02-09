@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./../styles/Main.css"; // CSS 경로 확인
 import logo from "./../assets/9kcalTeamlogo.png"; // 올바른 로고 이미지 경로
@@ -13,6 +13,14 @@ const Main = () => {
     localStorage.setItem("isFirst", true);
 
     navigate(`/chatting/room/ai?message=${encodeURIComponent(input)}`); // AI 채팅방으로 이동
+  };
+
+  const buttonRef = useRef(null);
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      buttonRef.current.click();
+    }
   };
 
   return (
@@ -38,9 +46,10 @@ const Main = () => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="type your prompt here"
         />
-        <button onClick={handleNavigateToChat}>➔</button> {/* 클릭 시 채팅방으로 이동 */}
+        <button ref={buttonRef} onClick={handleNavigateToChat}>➔</button> {/* 클릭 시 채팅방으로 이동 */}
       </div>
     </div>
   );
