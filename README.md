@@ -67,4 +67,5 @@
 ## 🍙 OPEN CHATTING
 
 <img width="1710" alt="오먹 채팅방 목록" src="https://github.com/user-attachments/assets/94f27ea9-f666-4b2b-b114-e6baa940460c" />
+
 ![오먹 채팅](https://github.com/user-attachments/assets/7366b13a-fa92-44ad-9140-851a8a31f35a)
