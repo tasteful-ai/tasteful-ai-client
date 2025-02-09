@@ -52,6 +52,12 @@
 <details>
 <summary><h3> 예시 화면 </h3></summary>
 
+<img width="1511" alt="관리자_채팅방 관리" src="https://github.com/user-attachments/assets/315bb012-2c14-46ab-b25b-8cbf9116ef37" />
+<img width="1511" alt="관리자_채팅방 생성" src="https://github.com/user-attachments/assets/5e00143c-27a5-4612-83bb-ca344bbe1398" />
+<img width="1511" alt="관리자_채팅방 이름 수정" src="https://github.com/user-attachments/assets/6b83fa43-0ba5-49df-99d3-631f290f707c" />
+<img width="1511" alt="관리자_채팅방 삭제" src="https://github.com/user-attachments/assets/1fec0e17-4e2b-44bc-b4ba-ba098c029055" />
+<img width="1511" alt="관리자_회원 목록" src="https://github.com/user-attachments/assets/1c30aae7-1c0c-4ed0-8402-27f81f3ed41e" />
+<img width="1511" alt="관리자_회원 추방" src="https://github.com/user-attachments/assets/38d0ff1e-6a55-41c8-a7ee-4b320060ec7a" />
 
 </details>
 
