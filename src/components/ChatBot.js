@@ -67,8 +67,13 @@ const AiChatRoom = () => {
 
     try {
       const aiResponse = await sendChatMessage(messageToSend);
+
       if (aiResponse) {
-        const aiMessage = { sender: "ai", text: aiResponse, name: "9KcAI" };
+        const aiMessage = {
+          sender: "ai",
+          text: `${aiResponse.recommendation}\n\n📌 설명: ${aiResponse.description}`, // ✅ description 추가
+          name: "9KcAI",
+        };
 
         setMessages((prevMessages) => {
           const updatedMessages = [...prevMessages, aiMessage];
