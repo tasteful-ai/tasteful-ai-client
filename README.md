@@ -261,14 +261,17 @@ AI와 채팅을 통해 메뉴를 추천받을 수 있습니다.
 
 #### <오먹 채팅방 목록>
 - 다양한 주제의 채팅방을 선택하여 대화에 참여할 수 있습니다.
-![오먹 채팅](https://github.com/user-attachments/assets/7366b13a-fa92-44ad-9140-851a8a31f35a)
+  
+<img width="1710" alt="오먹 채팅방 목록" src="https://github.com/user-attachments/assets/94f27ea9-f666-4b2b-b114-e6baa940460c" />
+
 
 #### <오먹 채팅방>
 같은 관심사를 가진 사용자들이 자유롭게 소통할 수 있는 실시간 채팅방입니다.
 - 추천받은 메뉴나 맛집에 대해 의견을 나눌 수 있습니다.
 - 특정 메뉴나 음식점 관련 대화를 자유롭게 나눌 수 있습니다.
 
-<img width="1710" alt="오먹 채팅방 목록" src="https://github.com/user-attachments/assets/94f27ea9-f666-4b2b-b114-e6baa940460c" />
+![오먹 채팅](https://github.com/user-attachments/assets/7366b13a-fa92-44ad-9140-851a8a31f35a)
+
 
 </details>
 
