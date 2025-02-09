@@ -3,7 +3,8 @@
     display: flex;
     justify-content: center; /* 중앙 정렬 */
     align-items: center;
-    width: 100%;
+    width: 1700px;
+    margin-top: 1.5%;
     transition: all 0.3s ease-in-out;
 }
 
@@ -13,9 +14,9 @@
     flex-direction: column;
     align-items: center;
     width: 80%;
-    max-width: 900px; /* ✅ 가로 크기 조정 */
+    max-width: 1200px; /* ✅ 가로 크기 조정 */
     margin: 0 auto; /* ✅ 중앙 정렬 */
-    padding: 20px;
+    padding: 12px 18px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -26,7 +27,7 @@
 
 /* ✅ 회원 목록 제목 */
 .admin-title {
-    font-size: 22px;
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 15px;
     text-align: center;
@@ -35,10 +36,12 @@
 
 /* ✅ 카드형 테이블 */
 .admin-table {
+    width: 1700px;
+    margin-top: 3%;
     width: 100%;
     max-width: 850px;
     border-collapse: separate;
-    border-spacing: 0 10px;
+    border-spacing: 0 5px;
     text-align: center;
 }
 
@@ -47,8 +50,8 @@
     background-color: #f8f9fa;
     font-weight: bold;
     padding: 10px;
-    border-radius: 8px;
-    color: #333;
+    background-color: #333;
+    color: white;
     text-transform: uppercase;
     font-size: 14px;
 }
