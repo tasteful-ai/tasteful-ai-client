@@ -10,6 +10,8 @@ const Main = () => {
   const handleNavigateToChat = () => {
     if (!input.trim()) return; // 빈 입력값 방지
 
+    localStorage.setItem("isFirst", true);
+
     navigate(`/chatting/room/ai?message=${encodeURIComponent(input)}`); // AI 채팅방으로 이동
   };
 
