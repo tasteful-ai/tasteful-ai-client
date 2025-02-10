@@ -1,0 +1,156 @@
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .tag {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .tag.selected {
+    background-color: #ff8c42;
+    color: white;
+    border: 1px solid #ff8c42;
+  }
+  
+  .spicy-container {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .spicy-button {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .spicy-button.selected {
+    background-color: #d32f2f;
+    color: white;
+    border: 1px solid #d32f2f;
+  }
+  
+  .save-button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* 전체 컨테이너 중앙 정렬 */
+.taste-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* 제목 스타일 */
+.taste-selection h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* 취향 선택 버튼들 (Flex Grid 적용) */
+.tag-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* 4~6개 유동적 */
+  gap: 15px;
+  max-width: 600px; /* 버튼 영역 최대 너비 */
+  margin-bottom: 20px;
+}
+
+/* 취향 버튼 기본 스타일 */
+.tag {
+  background-color: #e0e0e0; /* 회색 계열 */
+  border: none;
+  padding: 12px 16px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+/* 클릭된 취향 버튼 스타일 (검정색) */
+.tag.selected {
+  background-color: #000;
+  color: white;
+}
+
+/* 매운맛 선택 버튼 */
+.spicy-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* 매운맛 버튼 스타일 */
+.spicy-button {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+/* 매운맛 버튼 선택 시 */
+.spicy-button.selected {
+  background-color: #000;
+  color: white;
+}
+
+/* 건너뛰기 & 다음 버튼 */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* 버튼 공통 스타일 */
+.skip-button, .next-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* 건너뛰기 버튼 */
+.skip-button {
+  background-color: #e0e0e0;
+}
+
+/* 다음 버튼 */
+.next-button {
+  background-color: black;
+  color: white;
+}
+
+/* 버튼 호버 효과 */
+.skip-button:hover {
+  background-color: #d6d6d6;
+}
+
+.next-button:hover {
+  background-color: #333;
+}

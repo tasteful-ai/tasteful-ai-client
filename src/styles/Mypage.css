@@ -1,0 +1,244 @@
+/* 프로필 컨테이너 */
+.profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px; /* 간격 조정 */
+    padding: 30px;
+    border-radius: 16px;
+    background: white;
+    max-width: 900px; /* 너비 확장 */
+    width: 90%;
+    margin: auto;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    width: 90vw;
+    max-width: 1100px;
+    
+    padding: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 🟢 호버 & 클릭 효과 */
+.profile-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.profile-container:active {
+    transform: scale(0.98);
+}
+
+/* 프로필 이미지 */
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 프로필 이미지 클릭 시 애니메이션 */
+.profile-image:active {
+    transform: rotate(10deg) scale(1.05);
+}
+
+/* 닉네임 & 가입일 */
+.nickname {
+    font-size: 1.6rem;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #222;
+}
+
+.created-at {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* 버튼 컨테이너 */
+.profile-buttons {
+    white-space: nowrap;
+    display: flex;
+    justify-content: left;
+    gap: 25px;  /* 너비 조정*/
+    margin-top: 1px; /* 칸 높이 조정*/
+}
+
+/* 버튼 반응형 효과 */
+.save-button {
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.save-button:hover {
+    transform: scale(1.05);
+}
+
+.save-button:active {
+    transform: scale(0.95);
+}
+
+
+.taste-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 80%;
+    max-width: 800px;
+}
+
+/* 🌟 취향 카드 */
+.taste-box, .spicyness-box {
+    text-align: center;
+    padding: 20px;
+    flex: 1 1 calc(33% - 30px);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 10px;
+    min-width: 200px;
+}
+
+/* 취향 제목 정렬 */
+.taste-title {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 아이콘과 글씨 사이 간격 */
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* 🌟 태그 리스트 정렬 */
+.taste-tag-lists {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+/* 🌟 태그 스타일 */
+.taste-tag {
+    font-size: 0.9rem;
+    background: #f1f1f1;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* 취향 카드 클릭/호버 효과 */
+.taste-box:hover, .spicyness-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.taste-box:active, .spicyness-box:active {
+    transform: scale(0.98);
+}
+
+/* 좋아요/싫어요 아이콘 크기 조정 */
+.likethumb, .dislikethumb {
+    width: 24px;
+    height: 24px;
+    margin-left: 5px;
+    transition: transform 0.2s ease;
+}
+
+/* 아이콘 클릭 시 애니메이션 */
+.likethumb:active, .dislikethumb:active {
+    transform: scale(1.2);
+}
+
+/* 취향 전체 컨테이너 */
+.taste-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 80%;
+    max-width: 800px;
+}
+
+/* 맵기 취향 박스를 가로로 긴 박스로 설정 */
+.spicyness-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    width: 100%; /* 전체 너비 사용 */
+    height: 80px;
+    padding: 10px 20px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* 맵기 취향 내부 요소 가로 정렬 */
+.spicy-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 20%;
+}
+
+/* 맵기 수준 */
+.spicy-level {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+    margin-top: 10px;
+}
+
+/* ✅ 선호취향 & 불호취향을 2열로 정렬 */
+.taste-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2열 배치 */
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* 선호취향 & 불호취향 박스 크기 고정 */
+.taste-box {
+    text-align: center;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 400px; /* 고정 높이 */
+}
+
+
+/* 반응형 스타일 추가 */
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .profile-buttons {
+        justify-content: center;
+    }
+
+    .taste-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .taste-box, .spicyness-box {
+        width: 90%;
+    }
+}
