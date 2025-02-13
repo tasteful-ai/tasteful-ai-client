@@ -47,7 +47,7 @@ export default function ProfileSettings() {
             // ✅ 프로필 이미지 변경 요청
             if (profileOption === "default") {
                 // 기본 이미지로 변경 요청 (DELETE)
-                await axios.delete("http://localhost:8080/api/members/profiles/images", {
+                await axios.delete(process.env.REACT_APP_SERVER_URL+"/api/members/profiles/images", {
                     headers: { Authorization: `Bearer ${accessToken}` },
                     withCredentials: true,
                 });
@@ -56,7 +56,7 @@ export default function ProfileSettings() {
                 const formData = new FormData();
                 formData.append("image", selectedFile);
 
-                await axios.put("http://localhost:8080/api/members/profiles/images", formData, {
+                await axios.put(process.env.REACT_APP_SERVER_URL+"/api/members/profiles/images", formData, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                         "Content-Type": "multipart/form-data",
