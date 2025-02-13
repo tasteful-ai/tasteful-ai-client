@@ -86,7 +86,7 @@ export const connectWebSocket = (roomId) => (dispatch) => {
   stompClient = new Client({
     webSocketFactory: () => new SockJs(process.env.REACT_APP_SERVER_URL+"/ws-chat"),
     connectHeaders: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
     onConnect: () => {
       console.log("✅ WebSocket Connected!");
@@ -120,7 +120,7 @@ export const disconnectWebSocket = () => (dispatch) => {
 };
 
 export const sendMessage = (roomId, message) => (dispatch) => {
-  const token = localStorage.getItem("accessToken");
+  let token = localStorage.getItem("accessToken");
   const sender = localStorage.getItem("nickname");
 
   if (!stompClient || !stompClient.connected) {
@@ -128,7 +128,14 @@ export const sendMessage = (roomId, message) => (dispatch) => {
     return;
   }
 
-  console.log("📩 메시지 전송:", { roomId, sender, message });
+  if (!token) {
+    console.error("JWT 토큰이 존재하지 않습니다.");
+    return;
+  }
+
+  token = `Bearer ${token.trim()}`;
+
+  console.log("📩 메시지 전송:", { roomId, sender, message, token });
 
   stompClient.publish({
     destination: `/pub/chat`,
